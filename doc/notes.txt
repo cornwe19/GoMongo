@@ -1,0 +1,7 @@
+Gmail account: gomongodroid
+normal password.
+
+TODO:
+ - Look into signing application
+ - key md5:  72:5C:F1:77:5A:C4:19:FB:74:26:2D:97:34:CD:63:FD
+ - maps API key:  0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA

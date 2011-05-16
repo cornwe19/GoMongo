@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoMongo</string>
+    <string name="button_home">Home</string>
+    <string name="button_find_us">Find Us</string>
+    <string name="button_create">Create</string>
+    <string name="button_fun">Fun</string>
+    <string name="button_about">About</string>
+    <string name="button_loc_search">Location Search</string>
+    <string name="button_create_bowl">Create-A-Bowl</string>
+    <string name="button_mongo_photo">Mongo Photo!</string>
+    <string name="button_now_at">Now at bd\'s...</string>
+</resources>

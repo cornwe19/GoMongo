@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+  <include layout="@layout/navigation_menu" />
+  <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+    <Button android:layout_width="@dimen/home_button_size"
+            android:layout_height="wrap_content"
+            android:text="@string/button_loc_search" />
+    <Button android:layout_width="@dimen/home_button_size"
+            android:layout_height="wrap_content"
+            android:text="@string/button_create_bowl" />
+    <Button android:layout_width="@dimen/home_button_size"
+            android:layout_height="wrap_content"
+            android:text="@string/button_mongo_photo" />
+    <Button android:layout_width="@dimen/home_button_size"
+            android:layout_height="wrap_content"
+            android:text="@string/button_now_at" />
+  </LinearLayout>
+</LinearLayout>
