@@ -1,35 +1,23 @@
 package com.gomongo.app;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-public class Home extends Activity implements OnClickListener {
+public class Home extends Activity {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Button homeButton = (Button)findViewById(R.id.button_home);
-        homeButton.setPressed(true);
+        View navigationMenu = (View)findViewById(R.id.nav_menu);
         
-        Button findUsButton = (Button)findViewById(R.id.button_find_us);
-        findUsButton.setOnClickListener(this);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
+        
+        
     }
-
-	@Override
-	public void onClick(View view) {
-		switch( view.getId() ) {
-		case R.id.button_find_us:
-			Intent findUsIntent = new Intent(this, FindUs.class);
-			startActivity(findUsIntent);
-			break;
-		default:
-			break;
-		}
-	}
 }

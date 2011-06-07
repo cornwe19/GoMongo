@@ -8,5 +8,6 @@
 	                                 android:layout_height="fill_parent"
 	                                 android:clickable="true"
 	                                 android:layout_weight="1"
+	                                 android:id="@+id/find_us_map"
 	                                 android:apiKey="0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA" />
 </LinearLayout>
