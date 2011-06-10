@@ -1,5 +1,5 @@
 
     <resources>
-        <dimen name="home_button_size">160dp</dimen>
+        <dimen name="main_button_size">160dp</dimen>
         <dimen name="nav_button_size">64dp</dimen>
     </resources>

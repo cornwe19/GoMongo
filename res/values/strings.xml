@@ -10,4 +10,9 @@
     <string name="button_create_bowl">Create-A-Bowl</string>
     <string name="button_mongo_photo">Mongo Photo!</string>
     <string name="button_now_at">Now at bd\'s...</string>
+    <string name="button_take_photo">Take a photo!</string>
+    <string name="button_view_gallery">Photo Library</string>
+    
+    <string name="error_couldnt_access_sdcard">There was a problem setting up your image capture. Please make sure your SD card is connected properly.</string>
+    <string name="error_image_for_editing_missing">There was a problem accessing your image from the camera. Please try capturing again.</string>
 </resources>

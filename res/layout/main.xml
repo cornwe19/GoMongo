@@ -9,16 +9,16 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center">
-    <Button android:layout_width="@dimen/home_button_size"
+    <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
             android:text="@string/button_loc_search" />
-    <Button android:layout_width="@dimen/home_button_size"
+    <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
             android:text="@string/button_create_bowl" />
-    <Button android:layout_width="@dimen/home_button_size"
+    <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
             android:text="@string/button_mongo_photo" />
-    <Button android:layout_width="@dimen/home_button_size"
+    <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
             android:text="@string/button_now_at" />
   </LinearLayout>

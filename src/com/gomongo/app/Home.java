@@ -17,7 +17,5 @@ public class Home extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
-        
-        
     }
 }
