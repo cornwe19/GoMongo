@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class AnnotateImage extends Activity {
@@ -21,7 +22,7 @@ public class AnnotateImage extends Activity {
 	public void onCreate( Bundle savedInstanceState ){
 		super.onCreate(savedInstanceState);
 		
-		requestWindowFeature( Window.FEATURE_NO_TITLE );
+		setEditorToFullScreen();
 		setContentView(R.layout.annotate_image);
 		
 		Uri imageUri = getIntent().getParcelableExtra(MediaStore.EXTRA_OUTPUT);
@@ -30,6 +31,11 @@ public class AnnotateImage extends Activity {
 		
 		AnnotationEditorView imageView = (AnnotationEditorView)findViewById(R.id.preview_image_view);
 		imageView.setBackgroundDrawable( drawable );
+	}
+
+	private void setEditorToFullScreen() {
+		getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+		requestWindowFeature( Window.FEATURE_NO_TITLE );
 	}
 
 	private BitmapDrawable decodeDrawableFromUri(Uri imageUri) {
