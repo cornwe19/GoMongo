@@ -39,34 +39,62 @@ public class AnnotationEditorView extends View {
 	}
 	
 	List<MongoImage> mImages = new ArrayList<MongoImage>();
+	MongoImage mSelectedImage;
 	
 	@Override
 	public boolean onTouchEvent( MotionEvent event ) {
-		Log.d(TAG, String.format( "Touch event with %d pointers", event.getPointerCount() ) );
+		//Log.d(TAG, String.format( "Touch event with %d pointers", event.getPointerCount() ) );
+		
+		float x = event.getX();
+		float y = event.getY();
 		
 		switch ( event.getAction() ) {
 		case MotionEvent.ACTION_DOWN:
-			Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.hat);
 			
-			MongoImage image = new MongoImage(bitmap);
-			image.setCurrentPoint( event.getX(), event.getY() );
+			performHitTestToSelectImage(x, y);
 			
-			mImages.add( image );
+			boolean hitTestFoundNoImages = mSelectedImage == null;
+			
+			if( hitTestFoundNoImages ) {
+				createNewImageAtPoint(x, y);
+			}
 			
 			invalidate();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			MongoImage imageToMove = getCurrentImage();
-			imageToMove.setCurrentPoint( event.getX(), event.getY() );
-			
-			invalidate();
+			if( mSelectedImage != null ) {
+				mSelectedImage.setCurrentPoint( event.getX(), event.getY() );
+				
+				invalidate();
+			}
+			break;
+		case MotionEvent.ACTION_UP:
+			mSelectedImage = null;
 			break;
 		}
 		
 		return true;
 	}
-	
-	private MongoImage getCurrentImage() {
-		return mImages.get( mImages.size() - 1 );
+
+	private void createNewImageAtPoint(float x, float y) {
+		Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.hat);
+		
+		MongoImage image = new MongoImage(bitmap);
+		image.setCurrentPoint( x, y );
+		
+		mSelectedImage = image;
+		
+		mImages.add( image );
+	}
+
+	private void performHitTestToSelectImage(float x, float y) {
+		for( MongoImage image : mImages ) {
+			if( image.containsPoint(x, y) ) {
+				Log.d( TAG, String.format( "Selecting image from point (%f,%f)", x, y ) );
+				
+				mSelectedImage = image;
+				break;
+			}
+		}
 	}
 }
