@@ -3,6 +3,8 @@ package com.gomongo.app;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import com.gomongo.app.ui.AnnotationEditorView;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,7 +45,7 @@ public class AnnotateImage extends Activity {
 		try {
 			stream = getContentResolver().openInputStream(imageUri);
 		} catch (FileNotFoundException e) {
-			Log.w(TAG, "Failed to find captured image file");
+			Log.w(TAG, String.format( "Failed to find captured image file %s", imageUri.toString() ) );
 			
 			Toast.makeText(this, R.string.error_image_for_editing_missing, Toast.LENGTH_LONG).show();
 		}
