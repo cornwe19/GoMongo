@@ -3,8 +3,6 @@ package com.gomongo.app.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gomongo.app.R;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,12 +10,16 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import com.gomongo.app.R;
 
 public class AnnotationEditorView extends View {
 	
 	private static final String TAG = "AnnotationEditorView";
 	private Context mContext; 
+	private ScaleGestureDetector mScaleGestureDetector;
 	
 	public AnnotationEditorView(Context context) {
 		super(context);
@@ -45,10 +47,14 @@ public class AnnotationEditorView extends View {
 	public boolean onTouchEvent( MotionEvent event ) {
 		//Log.d(TAG, String.format( "Touch event with %d pointers", event.getPointerCount() ) );
 		
+		if( mScaleGestureDetector != null ) {
+			mScaleGestureDetector.onTouchEvent(event);
+		}
+		
 		float x = event.getX();
 		float y = event.getY();
 		
-		switch ( event.getAction() ) {
+		switch ( event.getAction() & MotionEvent.ACTION_MASK ) {
 		case MotionEvent.ACTION_DOWN:
 			
 			performHitTestToSelectImage(x, y);
@@ -59,17 +65,19 @@ public class AnnotationEditorView extends View {
 				createNewImageAtPoint(x, y);
 			}
 			
+			mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
+			
 			invalidate();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if( mSelectedImage != null ) {
+			if( mSelectedImage != null && !mScaleGestureDetector.isInProgress() ) {
 				mSelectedImage.setCurrentPoint( event.getX(), event.getY() );
-				
-				invalidate();
 			}
+			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:
 			mSelectedImage = null;
+			mScaleGestureDetector = null;
 			break;
 		}
 		
