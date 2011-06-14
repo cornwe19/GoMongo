@@ -22,15 +22,16 @@ public final class R {
         public static final int trash=0x7f020004;
     }
     public static final class id {
-        public static final int button_about=0x7f060009;
-        public static final int button_create=0x7f060007;
-        public static final int button_find_us=0x7f060006;
-        public static final int button_home=0x7f060005;
-        public static final int button_photo=0x7f060008;
-        public static final int button_take_photo=0x7f060002;
-        public static final int button_view_gallery=0x7f060003;
+        public static final int button_about=0x7f060006;
+        public static final int button_create=0x7f060004;
+        public static final int button_find_us=0x7f060003;
+        public static final int button_home=0x7f06000a;
+        public static final int button_photo=0x7f060005;
+        public static final int button_take_photo=0x7f060007;
+        public static final int button_view_gallery=0x7f060008;
         public static final int find_us_map=0x7f060001;
-        public static final int nav_menu=0x7f060004;
+        public static final int home_main_menu=0x7f060002;
+        public static final int nav_menu=0x7f060009;
         public static final int preview_image_view=0x7f060000;
     }
     public static final class layout {
@@ -45,17 +46,26 @@ public final class R {
     public static final class string {
         public static final int app_name=0x7f050000;
         public static final int button_about=0x7f050005;
+        /**  Image Annotations 
+         */
+        public static final int button_add_annotation=0x7f05000d;
+        public static final int button_cancel=0x7f05000c;
         public static final int button_create=0x7f050003;
         public static final int button_create_bowl=0x7f050007;
         public static final int button_find_us=0x7f050002;
         public static final int button_fun=0x7f050004;
+        /**  Navigation 
+         */
         public static final int button_home=0x7f050001;
         public static final int button_loc_search=0x7f050006;
         public static final int button_mongo_photo=0x7f050008;
         public static final int button_now_at=0x7f050009;
+        public static final int button_save_and_share=0x7f05000e;
         public static final int button_take_photo=0x7f05000a;
         public static final int button_view_gallery=0x7f05000b;
-        public static final int error_couldnt_access_sdcard=0x7f05000c;
-        public static final int error_image_for_editing_missing=0x7f05000d;
+        /**  Errors 
+         */
+        public static final int error_couldnt_access_sdcard=0x7f05000f;
+        public static final int error_image_for_editing_missing=0x7f050010;
     }
 }

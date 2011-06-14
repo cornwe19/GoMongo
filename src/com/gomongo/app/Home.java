@@ -1,7 +1,13 @@
 package com.gomongo.app;
 
+import java.io.File;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 
 public class Home extends Activity {
@@ -17,5 +23,12 @@ public class Home extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
+        
+        View homeMainMenu = (View)findViewById( R.id.home_main_menu );
+        
+        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_find_us, FindUs.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_create, CreateBowl.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_photo, MongoPhoto.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_about, About.class);
     }
 }

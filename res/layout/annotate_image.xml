@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
   <com.gomongo.app.ui.AnnotationEditorView android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:id="@+id/preview_image_view" />
-</LinearLayout>
+                                           android:layout_height="match_parent"
+                                           android:id="@+id/preview_image_view" />
+  <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_alignBottom="@id/preview_image_view">
+    <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/button_cancel" />
+    <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/button_add_annotation" />
+    <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_save_and_share" />
+  </LinearLayout>
+</RelativeLayout>

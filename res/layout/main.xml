@@ -8,18 +8,23 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:id="@+id/home_main_menu">
     <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
-            android:text="@string/button_loc_search" />
+            android:text="@string/button_loc_search"
+            android:id="@+id/button_find_us" />
     <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
-            android:text="@string/button_create_bowl" />
+            android:text="@string/button_create_bowl"
+            android:id="@+id/button_create" />
     <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
-            android:text="@string/button_mongo_photo" />
+            android:text="@string/button_mongo_photo"
+            android:id="@+id/button_photo" />
     <Button android:layout_width="@dimen/main_button_size"
             android:layout_height="wrap_content"
-            android:text="@string/button_now_at" />
+            android:text="@string/button_now_at"
+            android:id="@+id/button_about" />
   </LinearLayout>
 </LinearLayout>
