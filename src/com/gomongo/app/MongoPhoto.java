@@ -77,7 +77,7 @@ public class MongoPhoto extends Activity {
 	}
 
 	private static final String TEMP_IMAGE_PREFIX = "goMongoPhotoTmp";
-	private static final String IMAGE_FORMAT = "jpg";
+	private static final String IMAGE_FORMAT = ".jpg";
 	
 	private Uri createTempImage() throws IOException {
 		Uri newImageUri = null;
@@ -108,21 +108,13 @@ public class MongoPhoto extends Activity {
         });
 	}
 	
-	private static final int ANNOTATE_PHOTO_REQUEST = 0x02;
-	
 	@Override
 	public void onActivityResult( int requestCode, int resultCode, Intent data ){
-		switch( requestCode ) {
-		case TAKE_PHOTO_REQUEST:
+		if( requestCode == TAKE_PHOTO_REQUEST ) {
 			Intent annotateImageIntent = new Intent( this, AnnotateImage.class );
 			annotateImageIntent.putExtra( MediaStore.EXTRA_OUTPUT, mImageUri );
 			
-			startActivityForResult( annotateImageIntent, ANNOTATE_PHOTO_REQUEST );
-			break;
-		case ANNOTATE_PHOTO_REQUEST:
-			File tempFile = new File( mImageUri.toString() );
-			tempFile.delete();
-			break;
+			startActivity( annotateImageIntent );
 		}
 	}
 }
