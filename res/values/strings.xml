@@ -21,6 +21,6 @@
     <string name="button_save_and_share">Save &amp; Share</string>
     
     <!-- Errors -->
-    <string name="error_couldnt_access_sdcard">There was a problem setting up your image capture. Please make sure your SD card is connected properly.</string>
+    <string name="error_couldnt_access_sdcard">There was a problem setting up your image. Please make sure your SD card is connected properly and try again.</string>
     <string name="error_image_for_editing_missing">There was a problem accessing your image from the camera. Please try capturing again.</string>
 </resources>

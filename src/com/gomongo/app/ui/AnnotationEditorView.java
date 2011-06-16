@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,6 +39,16 @@ public class AnnotationEditorView extends View {
 		for( MongoImage image : mImages ) {
 			image.drawImage(canvas);
 		}
+	}
+	
+	public Bitmap prepareBitmap() {
+		Bitmap compositeBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888 );
+		
+		Canvas virtualCanvas = new Canvas( compositeBitmap );
+		
+		draw( virtualCanvas );
+		
+		return compositeBitmap;
 	}
 	
 	List<MongoImage> mImages = new ArrayList<MongoImage>();

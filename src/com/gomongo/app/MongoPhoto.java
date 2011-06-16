@@ -77,7 +77,8 @@ public class MongoPhoto extends Activity {
 	}
 
 	private static final String TEMP_IMAGE_PREFIX = "goMongoPhotoTmp";
-	private static final String IMAGE_FORMAT = ".jpg";
+	public static final String IMAGE_PREFIX = "GoMongo";
+	public static final String IMAGE_FORMAT = ".jpg";
 	
 	private Uri createTempImage() throws IOException {
 		Uri newImageUri = null;
