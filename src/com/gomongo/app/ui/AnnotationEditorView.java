@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
@@ -13,8 +12,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-
-import com.gomongo.app.R;
 
 public class AnnotationEditorView extends View {
 	
@@ -54,6 +51,11 @@ public class AnnotationEditorView extends View {
 	List<MongoImage> mImages = new ArrayList<MongoImage>();
 	MongoImage mSelectedImage;
 	
+	public void addAnnotation( MongoImage image ) {
+		mImages.add( image );
+		invalidate();
+	}
+	
 	@Override
 	public boolean onTouchEvent( MotionEvent event ) {
 		//Log.d(TAG, String.format( "Touch event with %d pointers", event.getPointerCount() ) );
@@ -70,15 +72,12 @@ public class AnnotationEditorView extends View {
 			
 			performHitTestToSelectImage(x, y);
 			
-			boolean hitTestFoundNoImages = mSelectedImage == null;
-			
-			if( hitTestFoundNoImages ) {
-				createNewImageAtPoint(x, y);
+			boolean hitTestFoundAnImage = mSelectedImage != null;
+			if( hitTestFoundAnImage ) {
+				mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
+				invalidate();
 			}
 			
-			mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
-			
-			invalidate();
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if( mSelectedImage != null && !mScaleGestureDetector.isInProgress() ) {
@@ -93,17 +92,6 @@ public class AnnotationEditorView extends View {
 		}
 		
 		return true;
-	}
-
-	private void createNewImageAtPoint(float x, float y) {
-		Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.hat);
-		
-		MongoImage image = new MongoImage(bitmap);
-		image.setCurrentPoint( x, y );
-		
-		mSelectedImage = image;
-		
-		mImages.add( image );
 	}
 
 	private void performHitTestToSelectImage(float x, float y) {

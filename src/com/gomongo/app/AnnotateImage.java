@@ -8,8 +8,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,9 +27,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Gallery;
 import android.widget.Toast;
 
 import com.gomongo.app.ui.AnnotationEditorView;
+import com.gomongo.app.ui.MongoImage;
 
 public class AnnotateImage extends Activity implements OnClickListener {
 	private final String TAG = "AnnotateImage";
@@ -43,16 +48,27 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		
 		mTempImageUri = getIntent().getParcelableExtra(MediaStore.EXTRA_OUTPUT);
 		
-		BitmapDrawable drawable = decodeDrawableFromUri(mTempImageUri);
+		setEditorBackgroundToTempImage();
 		
-		mAnnotationEditorView = (AnnotationEditorView)findViewById(R.id.preview_image_view);
-		mAnnotationEditorView.setBackgroundDrawable( drawable );
-		
+		hookUpEditorOptionButtons();
+	}
+
+	private void hookUpEditorOptionButtons() {
 		Button cancelButton = (Button)findViewById(R.id.button_cancel);
 		cancelButton.setOnClickListener(this);
 		
 		Button saveAndShareButton = (Button)findViewById(R.id.button_save_and_share);
 		saveAndShareButton.setOnClickListener(this);
+		
+		Button addStickerButton = (Button)findViewById(R.id.button_add_annotation);
+		addStickerButton.setOnClickListener(this);
+	}
+
+	private void setEditorBackgroundToTempImage() {
+		BitmapDrawable drawable = decodeDrawableFromUri(mTempImageUri);
+		
+		mAnnotationEditorView = (AnnotationEditorView)findViewById(R.id.preview_image_view);
+		mAnnotationEditorView.setBackgroundDrawable( drawable );
 	}
 
 	@Override
@@ -92,7 +108,7 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		} catch (FileNotFoundException e) {
 			Log.w(TAG, String.format( "Failed to find captured image file %s", imageUri.toString() ) );
 			
-			Toast.makeText(this, R.string.error_image_for_editing_missing, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getResources().getText(R.string.error_image_for_editing_missing), Toast.LENGTH_LONG).show();
 		}
 		
 		Bitmap image = decodeBitmapAtHalfResolution(stream);
@@ -111,11 +127,16 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		return image;
 	}
 
+	public final int ANNOTATIONS_DIALOG = 0x01;
+	
 	@Override
 	public void onClick(View view) {
 		switch( view.getId() ) {
 		case R.id.button_cancel:
 			finish();
+			break;
+		case R.id.button_add_annotation:
+			showDialog(ANNOTATIONS_DIALOG);
 			break;
 		case R.id.button_save_and_share:
 			Bitmap compositeBitmap = mAnnotationEditorView.prepareBitmap();
@@ -125,6 +146,18 @@ public class AnnotateImage extends Activity implements OnClickListener {
 			showUserShareDestinationsForFile(imageToShare);
 			
 			finish();
+			break;
+		// Handle any dialog image click the same
+		case R.id.top_left:
+		case R.id.top_right:
+		case R.id.bottom_left:
+		case R.id.bottom_right:
+			MongoImage image = new MongoImage( BitmapFactory.decodeResource(getResources(), (Integer)view.getTag()) );
+			image.setCurrentPoint(100, 100);
+			mAnnotationEditorView.addAnnotation( image );
+			
+			mDialog.dismiss();
+			
 			break;
 		}
 	}
@@ -143,7 +176,7 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		catch (IOException e) {
 			Log.e( TAG, String.format("Could not create image file: %s", imageToShare.getAbsolutePath() ) );
 			
-			Toast.makeText( this, R.string.error_couldnt_access_sdcard, Toast.LENGTH_LONG ).show();
+			Toast.makeText( this, getResources().getText(R.string.error_couldnt_access_sdcard), Toast.LENGTH_LONG ).show();
 		}
 		return imageToShare;
 	}
@@ -152,8 +185,27 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
 		shareIntent.setType("image/jpeg");
 		shareIntent.putExtra( Intent.EXTRA_STREAM, Uri.fromFile(imageToShare) );
-		Intent shareMethodChooser = Intent.createChooser(shareIntent, "Share with...");
+		Intent shareMethodChooser = Intent.createChooser(shareIntent, getResources().getText(R.string.title_share_chooser));
 		
 		startActivity(shareMethodChooser);
+	}
+	
+	Dialog mDialog;
+	
+	@Override
+	public Dialog onCreateDialog( int dialogId ) {
+		mDialog = null;
+		if ( dialogId == ANNOTATIONS_DIALOG ) {
+			mDialog = new Dialog(this);
+			mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			mDialog.setContentView(R.layout.add_annotation_menu);
+			
+			Map<Integer, List<Integer>> imageIdMap = StaticAnnotationsDefinition.getAnnotations();
+			
+			Gallery pages = (Gallery)mDialog.findViewById(R.id.gallery_image_annoation_pages);
+			pages.setAdapter(new PagingListAdapter(this, imageIdMap, this));
+		}
+		
+		return mDialog;
 	}
 }
