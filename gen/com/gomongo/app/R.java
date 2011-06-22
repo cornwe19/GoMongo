@@ -80,6 +80,7 @@ public final class R {
          */
         public static final int error_couldnt_access_sdcard=0x7f050011;
         public static final int error_image_for_editing_missing=0x7f050012;
+        public static final int error_problem_getting_locations=0x7f050013;
         public static final int help_view_more_stickers=0x7f050010;
         public static final int title_share_chooser=0x7f05000f;
     }
