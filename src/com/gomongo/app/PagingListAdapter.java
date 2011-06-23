@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -51,15 +50,11 @@ public class PagingListAdapter extends BaseAdapter {
 			
 			convertView = stickerGalleryItem;
 		}
-		else {
-			((GridView)convertView).setAdapter( new ClickableImageAdapter( mContext, mPagesWithContentIds.get(position) ) );
-		}
 		
 		return convertView;
 	}
 
-	private void fillInGalleryPageWithAnnotations(int position,
-			View stickerGalleryItem) {
+	private void fillInGalleryPageWithAnnotations(int position, View stickerGalleryItem) {
 		int imageResourceId;
 		ImageView imageView;
 		

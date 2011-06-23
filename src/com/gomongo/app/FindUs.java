@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -41,7 +42,8 @@ public class FindUs extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_us);
         
-        mItemizedOverlay = new MongoItemizedOveraly( getResources().getDrawable(R.drawable.maps_marker) );
+        Drawable marker = getResources().getDrawable(R.drawable.maps_marker);
+        mItemizedOverlay = new MongoItemizedOveraly( marker, findViewById(R.id.button_location_more_details) );
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);
         

@@ -21,7 +21,7 @@ public class MongoLocation extends OverlayItem {
 	protected MongoLocation(GeoPoint point, String title, String snippet) {
 		super(point, title, snippet);
 	}
-
+	
 	public static MongoLocation getLocationFromXml( Node xmlRootNode ) throws XPathExpressionException {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		

@@ -18,31 +18,33 @@ public final class R {
     public static final class drawable {
         public static final int create_finish=0x7f020000;
         public static final int detective=0x7f020001;
-        public static final int hat=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int maps_marker=0x7f020004;
-        public static final int trash=0x7f020005;
+        public static final int expander_ic_minimized=0x7f020002;
+        public static final int hat=0x7f020003;
+        public static final int icon=0x7f020004;
+        public static final int maps_marker=0x7f020005;
+        public static final int trash=0x7f020006;
     }
     public static final class id {
-        public static final int bottom_left=0x7f060009;
-        public static final int bottom_right=0x7f06000a;
-        public static final int button_about=0x7f06000f;
+        public static final int bottom_left=0x7f06000a;
+        public static final int bottom_right=0x7f06000b;
+        public static final int button_about=0x7f060010;
         public static final int button_add_annotation=0x7f060004;
         public static final int button_cancel=0x7f060003;
-        public static final int button_create=0x7f06000d;
-        public static final int button_find_us=0x7f06000c;
-        public static final int button_home=0x7f060013;
-        public static final int button_photo=0x7f06000e;
+        public static final int button_create=0x7f06000e;
+        public static final int button_find_us=0x7f06000d;
+        public static final int button_home=0x7f060014;
+        public static final int button_location_more_details=0x7f060007;
+        public static final int button_photo=0x7f06000f;
         public static final int button_save_and_share=0x7f060005;
-        public static final int button_take_photo=0x7f060010;
-        public static final int button_view_gallery=0x7f060011;
+        public static final int button_take_photo=0x7f060011;
+        public static final int button_view_gallery=0x7f060012;
         public static final int find_us_map=0x7f060006;
         public static final int gallery_image_annoation_pages=0x7f060001;
-        public static final int home_main_menu=0x7f06000b;
-        public static final int nav_menu=0x7f060012;
+        public static final int home_main_menu=0x7f06000c;
+        public static final int nav_menu=0x7f060013;
         public static final int preview_image_view=0x7f060002;
-        public static final int top_left=0x7f060007;
-        public static final int top_right=0x7f060008;
+        public static final int top_left=0x7f060008;
+        public static final int top_right=0x7f060009;
         public static final int webview_mongo_promotion=0x7f060000;
     }
     public static final class layout {
