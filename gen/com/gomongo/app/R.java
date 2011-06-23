@@ -16,13 +16,19 @@ public final class R {
         public static final int nav_button_size=0x7f040001;
     }
     public static final class drawable {
-        public static final int create_finish=0x7f020000;
-        public static final int detective=0x7f020001;
+        public static final int cartoon_soldier=0x7f020000;
+        public static final int create_finish=0x7f020001;
         public static final int expander_ic_minimized=0x7f020002;
         public static final int hat=0x7f020003;
-        public static final int icon=0x7f020004;
-        public static final int maps_marker=0x7f020005;
-        public static final int trash=0x7f020006;
+        public static final int head=0x7f020004;
+        public static final int heart=0x7f020005;
+        public static final int icon=0x7f020006;
+        public static final int maps_marker=0x7f020007;
+        public static final int mongo_green=0x7f020008;
+        public static final int mongo_logo=0x7f020009;
+        public static final int mustache=0x7f02000a;
+        public static final int swords=0x7f02000b;
+        public static final int trash=0x7f02000c;
     }
     public static final class id {
         public static final int bottom_left=0x7f06000a;

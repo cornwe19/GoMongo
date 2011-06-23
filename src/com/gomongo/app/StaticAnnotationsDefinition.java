@@ -12,9 +12,8 @@ public class StaticAnnotationsDefinition {
 		if( mAnnotations == null ) {
 			mAnnotations = new HashMap<Integer,List<Integer>>();
 			
-			mAnnotations.put( 0, Arrays.asList( R.drawable.hat, R.drawable.detective, R.drawable.hat, R.drawable.hat ) );
-			mAnnotations.put( 1, Arrays.asList( R.drawable.hat, R.drawable.detective, R.drawable.detective, R.drawable.hat ) );
-			mAnnotations.put( 2, Arrays.asList( R.drawable.detective, R.drawable.detective, R.drawable.hat, R.drawable.detective ) );
+			mAnnotations.put( 0, Arrays.asList( R.drawable.mongo_logo, R.drawable.mongo_green, R.drawable.cartoon_soldier, R.drawable.heart ) );
+			mAnnotations.put( 1, Arrays.asList( R.drawable.swords, R.drawable.head, R.drawable.mustache, R.drawable.hat ) );
 		}
 		
 		return mAnnotations;
