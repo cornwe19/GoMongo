@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -36,7 +37,8 @@ public class FindUs extends MapActivity {
 	
 	private String LOCATION_SEARCH_URL_FORMAT = "http://www.gomongo.com/iphone/locationsXML.php?lat=%f&lon=%f";
 	
-	private MongoItemizedOveraly mItemizedOverlay; 
+	private MongoItemizedOveraly mItemizedOverlay;
+	private ProgressDialog mLoadingMarkersDialog;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,19 +55,42 @@ public class FindUs extends MapActivity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         
-        MapView mapView = (MapView)findViewById(R.id.find_us_map);
+        final MapView mapView = (MapView)findViewById(R.id.find_us_map);
         mapView.setBuiltInZoomControls(true);
         
-        String locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
+        final String locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
 
-        try {
+        Thread loadMarkersThread = new Thread( new Runnable() {
+	        @Override
+	        public void run() {
+	        	loadNearestMarkersFromWeb(locationSearchUrl);
+	        	
+	        	setItemizedOverlayOnMap(mapView);
+	        }
+        });
+        
+        mLoadingMarkersDialog = ProgressDialog.show(this, "Loading map markers", "Please wait while we find locations near you.", true);
+        
+        loadMarkersThread.start();
+	}
+
+	private void loadNearestMarkersFromWeb(String locationSearchUrl) {
+		try {
+			Log.d(TAG, "Calling web service");
+			
 			InputSource source = getResponseFromWebService( locationSearchUrl );
+			
+			Log.d(TAG, "Got response from web...parsing now");
 			
 			XPath xPath = XPathFactory.newInstance().newXPath();
 			
 			NodeList nodes = (NodeList)xPath.evaluate(LOCATIONS_XPATH, source, XPathConstants.NODESET);
 			
+			Log.d(TAG, String.format("xPath parsing done. found %d instances", nodes.getLength()));
+			
 			addNearestLocationsToItemizedOverlay( nodes );
+			
+			Log.d(TAG, "Locations added to overlay");
 		}
         catch (MalformedURLException exception) {
 			Log.e( TAG, "Poorly formatted URL in looking up other BD's locations", exception );
@@ -82,12 +107,13 @@ public class FindUs extends MapActivity {
 			Toast.makeText(this, getResources().getString(R.string.error_problem_getting_locations), 
 					Toast.LENGTH_LONG).show();
 		}
-        
-        setItemizedOverlayOnMap(mapView);
 	}
 
 	private void setItemizedOverlayOnMap(MapView mapView) {
 		mapView.getOverlays().add(mItemizedOverlay);
+		
+		mapView.postInvalidate();
+		mLoadingMarkersDialog.dismiss();
 	}
 
 	private void addNearestLocationsToItemizedOverlay(NodeList nodes) throws XPathExpressionException {
@@ -105,6 +131,7 @@ public class FindUs extends MapActivity {
 	private InputSource getResponseFromWebService(String locationSearchUrl)
 			throws IOException, MalformedURLException {
 		String response = StaticWebService.getResponseString( locationSearchUrl );
+		
 		StringReader reader = new StringReader(response);
 		InputSource source = new InputSource(reader);
 		return source;
