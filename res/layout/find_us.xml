@@ -6,16 +6,16 @@
   <include layout="@layout/navigation_menu" />
   <RelativeLayout android:layout_width="match_parent"
                   android:layout_height="match_parent">
-	  <com.google.android.maps.MapView android:layout_width="match_parent"
-		                                 android:layout_height="match_parent"
-		                                 android:clickable="true"
-		                                 android:layout_weight="1"
-		                                 android:id="@+id/find_us_map"
-		                                 android:apiKey="0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA" />
+	  <com.gomongo.app.ui.MongoMapView android:layout_width="match_parent"
+		                            android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:layout_weight="1"
+                                android:id="@+id/find_us_map"
+                                android:apiKey="0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA" />
 	  <Button android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:id="@+id/button_location_more_details"
-	          android:text="I\'m a button."
+	          android:visibility="gone"
 	          android:drawableRight="@drawable/expander_ic_minimized" />
 	</RelativeLayout>
 </LinearLayout>

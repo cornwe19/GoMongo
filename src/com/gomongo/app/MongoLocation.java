@@ -12,8 +12,8 @@ import com.google.android.maps.OverlayItem;
 
 public class MongoLocation extends OverlayItem {
 	
-	private static String TITLE_XPATH = "title";
-	private static String DESCRIPTION_XPATH = "location";
+	private static String TITLE_XPATH = "location";
+	private static String DESCRIPTION_XPATH = "description";
 	private static String LATITUDE_XPATH = "lat";
 	private static String LONGITUDE_XPATH = "lon";
 	

@@ -20,6 +20,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.gomongo.net.StaticWebService;
@@ -43,7 +44,7 @@ public class FindUs extends MapActivity {
         setContentView(R.layout.find_us);
         
         Drawable marker = getResources().getDrawable(R.drawable.maps_marker);
-        mItemizedOverlay = new MongoItemizedOveraly( marker, findViewById(R.id.button_location_more_details) );
+        mItemizedOverlay = new MongoItemizedOveraly( marker, (Button)findViewById(R.id.button_location_more_details) );
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);
         
