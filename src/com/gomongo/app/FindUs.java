@@ -45,7 +45,7 @@ public class FindUs extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_us);
         
-        Drawable marker = getResources().getDrawable(R.drawable.maps_marker);
+        Drawable marker = getResources().getDrawable(R.drawable.map_marker);
         mItemizedOverlay = new MongoItemizedOveraly( marker, (Button)findViewById(R.id.button_location_more_details) );
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);

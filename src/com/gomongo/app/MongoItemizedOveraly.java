@@ -22,9 +22,13 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	private List<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
 	private MapView mMapView;
 	private Button mMoreDetailsButton;
+	private int mMarkerHeight;
+	
 	
 	public MongoItemizedOveraly( Drawable defaultMarker, Button moreDetailsButton) {
 		super(boundCenterBottom(defaultMarker));
+		
+		mMarkerHeight = defaultMarker.getIntrinsicHeight();
 		
 		mMoreDetailsButton = moreDetailsButton;
 	}
@@ -54,7 +58,7 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		OverlayItem overlayItem = getItem(itemPosition);
 		final GeoPoint itemGeoPoint = overlayItem.getPoint();
 		
-		mMoreDetailsButton.setVisibility( View.GONE );
+		mMoreDetailsButton.setVisibility( View.INVISIBLE );
 		
 		mMoreDetailsButton.setText( overlayItem.getTitle() );
 		
@@ -71,11 +75,22 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 				Point projectedPoint = mMapView.getProjection().toPixels(itemGeoPoint, null);
 				
 				LayoutParams layoutParams = new LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				layoutParams.setMargins(projectedPoint.x,projectedPoint.y,0,0);
+				
+				Point buttonTopLeft = getMoreDetailsButtonCenterTopPlacement(projectedPoint);
+				
+				layoutParams.setMargins(buttonTopLeft.x,buttonTopLeft.y,0,0);
 				
 				mMoreDetailsButton.setLayoutParams(layoutParams);
 				
 				mMoreDetailsButton.setVisibility( View.VISIBLE );
+			}
+
+			private Point getMoreDetailsButtonCenterTopPlacement(Point projectedPoint) {
+				Point buttonTopLeft = new Point();
+				
+				buttonTopLeft.x = projectedPoint.x - mMoreDetailsButton.getMeasuredWidth() / 2;
+				buttonTopLeft.y = projectedPoint.y - mMoreDetailsButton.getMeasuredHeight() - mMarkerHeight;
+				return buttonTopLeft;
 			} 
 		};
 	}
@@ -97,6 +112,6 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 
 	@Override
 	public void onMoved() {
-		mMoreDetailsButton.setVisibility(View.GONE);
+		mMoreDetailsButton.setVisibility(View.INVISIBLE);
 	}
 }

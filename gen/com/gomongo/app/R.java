@@ -23,7 +23,7 @@ public final class R {
         public static final int head=0x7f020004;
         public static final int heart=0x7f020005;
         public static final int icon=0x7f020006;
-        public static final int maps_marker=0x7f020007;
+        public static final int map_marker=0x7f020007;
         public static final int mongo_green=0x7f020008;
         public static final int mongo_logo=0x7f020009;
         public static final int mustache=0x7f02000a;
