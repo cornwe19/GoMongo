@@ -87,6 +87,7 @@
                 android:gravity="center">
     <Button android:layout_width="@dimen/centered_button_width"
             android:layout_height="wrap_content"
+            android:id="@+id/button_get_directions"
             android:text="@string/button_get_directions" />
     <Button android:layout_width="@dimen/centered_button_width"
             android:layout_height="wrap_content"
