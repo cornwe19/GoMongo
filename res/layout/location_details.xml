@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+  <!-- Header -->
+  <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp">
+    <ImageView android:src="@drawable/mongo_logo"
+               android:layout_height="match_parent"
+               android:adjustViewBounds="true"
+               android:maxHeight="96dp"
+               android:paddingRight="10dp"
+               android:layout_width="wrap_content" />
+    <!-- Location info area -->
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_weight="1"
+                  android:layout_height="match_parent">
+      <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_title"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+      <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/location_address" />
+    </LinearLayout>
+    <!-- /Location info area -->
+    
+  </LinearLayout>
+  <!-- Header -->
+  
+  <!-- Hours and Contact -->
+  <LinearLayout style="@style/HoursAndContactWrapper">
+    
+    <!-- Hours -->
+    <LinearLayout style="@style/HoursAndContactInfo">
+      <ImageView android:src="@android:drawable/ic_menu_recent_history"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content" />
+	    <LinearLayout android:layout_width="match_parent"
+	                  android:layout_weight="1"
+	                  android:layout_height="wrap_content"
+	                  android:orientation="vertical">
+	      <TextView style="@style/HoursAndContactHeader" 
+	                android:text="@string/title_hours" />
+	      <TextView android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:textColor="#000"
+	                android:id="@+id/hours_body" />
+	    </LinearLayout>
+    </LinearLayout>
+    <!-- /Hours -->
+    
+    <!-- Contact -->
+    <LinearLayout style="@style/HoursAndContactInfo">
+      <ImageView android:src="@android:drawable/ic_menu_call"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content" />
+	    <LinearLayout android:layout_width="match_parent"
+	                  android:layout_weight="1"
+	                  android:layout_height="wrap_content"
+	                  android:orientation="vertical">
+	      <TextView style="@style/HoursAndContactHeader" 
+	                android:text="@string/title_contact" />
+	      <TextView android:layout_width="match_parent"
+	                android:textColor="#000"
+	                android:layout_height="wrap_content" 
+                  android:id="@+id/phone_number_body" />
+	    </LinearLayout>
+    </LinearLayout>
+    <!-- /Contact -->
+    
+  </LinearLayout>
+  <!-- /Hours and Contact -->
+  
+  <!-- Actions -->
+  <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+    <Button android:layout_width="@dimen/centered_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/button_get_directions" />
+    <Button android:layout_width="@dimen/centered_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/button_share_location" />
+    <Button android:layout_width="@dimen/centered_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/button_check_in" />
+  </LinearLayout>
+  <!-- /Actions -->
+  
+</LinearLayout>

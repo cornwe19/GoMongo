@@ -1,6 +1,6 @@
 
     <resources>
-        <dimen name="main_button_size">160dp</dimen>
+        <dimen name="centered_button_width">160dp</dimen>
         <dimen name="nav_button_size">64dp</dimen>
         <dimen name="annotation_image_height">96dp</dimen>
     </resources>

@@ -19,7 +19,7 @@ import com.google.android.maps.OverlayItem;
 
 public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implements OnMapMovedListener {
 
-	private List<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
+	private List<MongoLocation> mMongoLocations = new ArrayList<MongoLocation>();
 	private MapView mMapView;
 	private Button mMoreDetailsButton;
 	private int mMarkerHeight;
@@ -55,12 +55,14 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	
 	@Override
 	public boolean onTap( int itemPosition ) {
-		OverlayItem overlayItem = getItem(itemPosition);
-		final GeoPoint itemGeoPoint = overlayItem.getPoint();
+		MongoLocation mongoLocation = mMongoLocations.get(itemPosition);
+		final GeoPoint itemGeoPoint = mongoLocation.getPoint();
 		
 		mMoreDetailsButton.setVisibility( View.INVISIBLE );
 		
-		mMoreDetailsButton.setText( overlayItem.getTitle() );
+		mMoreDetailsButton.setText( mongoLocation.getTitle() );
+		
+		mMoreDetailsButton.setTag( mongoLocation );
 		
 		mMapView.getController().animateTo(itemGeoPoint, getPositionButtonRunnable(itemGeoPoint));
 		
@@ -97,17 +99,17 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	
 	@Override
 	protected OverlayItem createItem(int position) {
-		return mOverlayItems.get(position);
+		return mMongoLocations.get(position);
 	}
 
-	public void addOverlay(OverlayItem overlay) {
-        mOverlayItems.add(overlay);
+	public void addOverlay(MongoLocation overlay) {
+        mMongoLocations.add(overlay);
         populate();
     }
 	
 	@Override
 	public int size() {
-		return mOverlayItems.size();
+		return mMongoLocations.size();
 	}
 
 	@Override

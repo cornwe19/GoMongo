@@ -11,7 +11,7 @@ public class Home extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        View navigationMenu = (View)findViewById(R.id.nav_menu);
+        View navigationMenu = findViewById(R.id.nav_menu);
         
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);

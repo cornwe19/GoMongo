@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="HoursAndContactWrapper">
+    <item name="android:background">@drawable/hours_and_contact_shape</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginLeft">20dp</item>
+    <item name="android:layout_marginRight">20dp</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+  
+  <style name="HoursAndContactInfo">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_weight">0.5</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
+  
+  <style name="HoursAndContactHeader">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">#700</item>
+  </style>
+  
+</resources>

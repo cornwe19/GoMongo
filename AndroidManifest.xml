@@ -21,6 +21,10 @@
         <activity android:name=".FindUs"
                   android:label="@string/app_name">
         </activity>
+        <activity android:name=".LocationDetails"
+                  android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+        </activity>
         <activity android:name=".CreateBowl"
                   android:label="@string/app_name">
         </activity>

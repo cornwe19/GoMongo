@@ -16,6 +16,16 @@
     <string name="button_view_gallery">Photo Library</string>
     <string name="button_cancel">Cancel</string>
     
+    <!-- Find Us -->
+    <string name="title_loading_locations">Searching</string>
+    <string name="body_loading_locations">Please wait while we find the BD\'s locations nearest you.</string>
+    
+    <string name="title_hours">Hours</string>
+    <string name="title_contact">Contact</string>
+    <string name="button_get_directions">Get Directions</string>
+    <string name="button_share_location">Share Location</string>
+    <string name="button_check_in">Check-In</string>
+    
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
     <string name="button_save_and_share">Save &amp; Share</string>

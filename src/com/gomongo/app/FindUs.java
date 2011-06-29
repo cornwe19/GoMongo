@@ -15,12 +15,14 @@ import org.xml.sax.InputSource;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ import com.gomongo.net.StaticWebService;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
-public class FindUs extends MapActivity {
+public class FindUs extends MapActivity implements OnClickListener {
 	
 	private String TAG = "FindUs";
 	
@@ -46,7 +48,11 @@ public class FindUs extends MapActivity {
         setContentView(R.layout.find_us);
         
         Drawable marker = getResources().getDrawable(R.drawable.map_marker);
-        mItemizedOverlay = new MongoItemizedOveraly( marker, (Button)findViewById(R.id.button_location_more_details) );
+        
+        Button moreDetailsButton = (Button)findViewById(R.id.button_location_more_details);
+        moreDetailsButton.setOnClickListener(this);
+        
+        mItemizedOverlay = new MongoItemizedOveraly( marker, moreDetailsButton );
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);
         
@@ -69,7 +75,8 @@ public class FindUs extends MapActivity {
 	        }
         });
         
-        mLoadingMarkersDialog = ProgressDialog.show(this, "Loading map markers", "Please wait while we find locations near you.", true);
+        mLoadingMarkersDialog = ProgressDialog.show(this, getResources().getString(R.string.title_loading_locations),
+        											getResources().getString(R.string.body_loading_locations), true);
         
         loadMarkersThread.start();
 	}
@@ -152,5 +159,19 @@ public class FindUs extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		return false;
 	}
-
+	
+	@Override
+	public void onClick(View clickedView) {
+		if( clickedView.getId() == R.id.button_location_more_details) {
+			MongoLocation mongoLocation = (MongoLocation)clickedView.getTag();
+			if( mongoLocation != null ) {
+				Intent locationDetailsIntent = new Intent( this, LocationDetails.class );
+				locationDetailsIntent.putExtra(MongoLocation.FIELD_TITLE, mongoLocation.getTitle());
+				locationDetailsIntent.putExtra(MongoLocation.FIELD_ADDRESS, mongoLocation.getSnippet());
+				locationDetailsIntent.putExtra(MongoLocation.FIELD_HOURS, mongoLocation.getHours());
+				locationDetailsIntent.putExtra(MongoLocation.FIELD_PHONE, mongoLocation.getPhoneNumber());
+				startActivity(locationDetailsIntent);
+			}
+		}
+	}
 }
