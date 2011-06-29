@@ -39,6 +39,7 @@
     <!-- Hours -->
     <LinearLayout style="@style/HoursAndContactInfo">
       <ImageView android:src="@android:drawable/ic_menu_recent_history"
+                 android:layout_marginRight="10dp"
                  android:layout_height="wrap_content"
                  android:layout_width="wrap_content" />
 	    <LinearLayout android:layout_width="match_parent"
@@ -59,6 +60,7 @@
     <LinearLayout style="@style/HoursAndContactInfo">
       <ImageView android:src="@android:drawable/ic_menu_call"
                  android:layout_height="wrap_content"
+                 android:layout_marginRight="10dp"
                  android:layout_width="wrap_content" />
 	    <LinearLayout android:layout_width="match_parent"
 	                  android:layout_weight="1"

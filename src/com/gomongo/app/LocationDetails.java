@@ -2,6 +2,7 @@ package com.gomongo.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.widget.TextView;
 
 public class LocationDetails extends Activity {
@@ -24,5 +25,7 @@ public class LocationDetails extends Activity {
 		
 		TextView phone = (TextView)findViewById(R.id.phone_number_body);
 		phone.setText(intentExtras.getString(MongoLocation.FIELD_PHONE));
+		
+		Linkify.addLinks(phone, Linkify.PHONE_NUMBERS);
 	}
 }
