@@ -1,6 +1,9 @@
 Gmail account: gomongodroid
 normal password.
 
+alias: gomongo
+private key password: g0mongo1
+
 TODO:
  - Look into signing application
  - key md5:  72:5C:F1:77:5A:C4:19:FB:74:26:2D:97:34:CD:63:FD
