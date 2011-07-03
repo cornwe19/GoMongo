@@ -6,6 +6,10 @@ import java.util.List;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout.LayoutParams;
@@ -23,7 +27,10 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	private MapView mMapView;
 	private Button mMoreDetailsButton;
 	private int mMarkerHeight;
+	private String TAG = "MongoItemizedOverlay";
 	
+	private static final String LOCATION_KEY = "location";
+	private Handler mAsyncMapMessageHandler;
 	
 	public MongoItemizedOveraly( Drawable defaultMarker, Button moreDetailsButton) {
 		super(boundCenterBottom(defaultMarker));
@@ -31,8 +38,24 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		mMarkerHeight = defaultMarker.getIntrinsicHeight();
 		
 		mMoreDetailsButton = moreDetailsButton;
+		
+		mAsyncMapMessageHandler = getUIThreadHandlerForUpdates();
 	}
 
+	private Handler getUIThreadHandlerForUpdates() {
+		return new Handler() {
+			@Override
+			public void handleMessage( Message message ) {
+				synchronized( mMongoLocations ) {
+					mMongoLocations.add( (MongoLocation)message.getData().getParcelable(LOCATION_KEY) );
+					populate();
+					
+					mMapView.invalidate();
+				}
+			}
+		};
+	}
+	
 	@Override
 	public void draw( Canvas canvas, MapView mapView, boolean showShadow ) {
 		super.draw(canvas, mapView, showShadow);
@@ -55,6 +78,8 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	
 	@Override
 	public boolean onTap( int itemPosition ) {
+		Log.d( TAG, String.format("Position searched for: %d, list length: %d", itemPosition, mMongoLocations.size() ) );
+		
 		MongoLocation mongoLocation = mMongoLocations.get(itemPosition);
 		final GeoPoint itemGeoPoint = mongoLocation.getPoint();
 		
@@ -102,9 +127,14 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		return mMongoLocations.get(position);
 	}
 
-	public void addOverlay(MongoLocation overlay) {
-        mMongoLocations.add(overlay);
-        populate();
+	public void postAddLocation(MongoLocation location) {
+		Message addLocationMessage = Message.obtain(mAsyncMapMessageHandler);
+		
+		Bundle locationData = new Bundle();
+		locationData.putParcelable( LOCATION_KEY, location );
+		addLocationMessage.setData( locationData );
+		
+		addLocationMessage.sendToTarget();
     }
 	
 	@Override

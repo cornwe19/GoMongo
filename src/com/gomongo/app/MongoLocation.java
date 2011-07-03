@@ -10,10 +10,13 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Node;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;
 
-public class MongoLocation extends OverlayItem {
+public class MongoLocation extends OverlayItem implements Parcelable {
 	
 	public static final String FIELD_TITLE = "location_title";
 	public static final String FIELD_ADDRESS = "location_address";
@@ -27,6 +30,8 @@ public class MongoLocation extends OverlayItem {
 	private static final String STATE_XPATH = "state";
 	private static final String ZIP_XPATH = "zip";
 	
+	private static final String DISTANCE_XPATH = "distance";
+	
 	private static final String HOURS_XPATH = "hours";
 	private static final String PHONE_XPATH = "phone";
 	
@@ -35,10 +40,13 @@ public class MongoLocation extends OverlayItem {
 	
 	private String mHours;
 	private String mPhoneNumber;
+	private String mDistance;
 	
 	// NOTE: Hiding this constructor because loading from XML is the standard way to instansiate this class.
-	protected MongoLocation(GeoPoint point, String title, String address, String hours, String phoneNumber ) {
+	protected MongoLocation(GeoPoint point, String title, String address, String distance, String hours, String phoneNumber ) {
 		super(point, title, address);
+		
+		mDistance = distance;
 		
 		mHours = hours;
 		mPhoneNumber = phoneNumber;
@@ -52,6 +60,10 @@ public class MongoLocation extends OverlayItem {
 		return mPhoneNumber;
 	}
 	
+	public String getDistance() {
+		return mDistance;
+	}
+	
 	public static MongoLocation getLocationFromXml( Node xmlRootNode ) throws XPathExpressionException {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		
@@ -63,6 +75,8 @@ public class MongoLocation extends OverlayItem {
 				(String)xpath.evaluate(STATE_XPATH, xmlRootNode, XPathConstants.STRING),
 				(String)xpath.evaluate(ZIP_XPATH, xmlRootNode, XPathConstants.STRING));
 		
+		String distance = (String)xpath.evaluate(DISTANCE_XPATH, xmlRootNode, XPathConstants.STRING);
+		
 		String hours = (String)xpath.evaluate(HOURS_XPATH, xmlRootNode, XPathConstants.STRING);
 		hours  = transformHoursForDisplay( hours );
 		
@@ -73,7 +87,7 @@ public class MongoLocation extends OverlayItem {
 		
 		GeoPoint location = new GeoPoint( toMicroDegrees(latitude), toMicroDegrees(longitude) );
 		
-		return new MongoLocation(location, title, description, hours, phoneNumber);
+		return new MongoLocation(location, title, description, distance, hours, phoneNumber);
 	}
 	
 	private static String transformHoursForDisplay( String hoursString ) {
@@ -90,5 +104,40 @@ public class MongoLocation extends OverlayItem {
 	
 	private static int toMicroDegrees( double degrees ) {
 		return (int)( degrees * 1e6 );
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(mPoint.getLatitudeE6());
+		dest.writeInt(mPoint.getLongitudeE6());
+		
+		dest.writeString(mTitle);
+		dest.writeString(mSnippet);
+		
+		dest.writeString(mHours);
+		dest.writeString(mPhoneNumber);
+		dest.writeString(mDistance);
+		
+	}
+	
+	public static final Parcelable.Creator<MongoLocation> CREATOR = new Parcelable.Creator<MongoLocation>() {
+	public MongoLocation createFromParcel(Parcel in) {
+	    return new MongoLocation(in);
+	}
+	
+	public MongoLocation[] newArray(int size) {
+	    return new MongoLocation[size];
+	}
+	};
+	
+	private MongoLocation(Parcel in) {
+		this( new GeoPoint(in.readInt(),in.readInt() ), in.readString(), in.readString(), 
+				in.readString(), in.readString(), in.readString() );
 	}
 }
