@@ -46,16 +46,17 @@ public class LocationsArrayAdapter extends ArrayAdapter<MongoLocation> {
 		convertView = inflater.inflate(R.layout.location_list_item, null);
 		
 		final MongoLocation locationToDisplay = getItem(position);
+		final Context context = getContext();
 		
 		setTextOnView(convertView, R.id.location_title, locationToDisplay.getTitle());
 		setTextOnView(convertView, R.id.location_address, locationToDisplay.getSnippet());
-		setTextOnView(convertView, R.id.location_distance, locationToDisplay.getDistance());
+		
+		String distanceFormat = context.getResources().getString( R.string.distance_away_format );
+		setTextOnView(convertView, R.id.location_distance, String.format( distanceFormat, locationToDisplay.getDistance() ) );
 		
 		convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View clickedView) {
-                Context context = getContext();
-                
                 Intent moreDetailsIntent = new Intent( context, LocationDetails.class );
                 moreDetailsIntent.putExtra(MongoLocation.EXTRA_LOCATION, locationToDisplay);
                 context.startActivity(moreDetailsIntent);

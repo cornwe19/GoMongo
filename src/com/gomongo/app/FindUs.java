@@ -22,6 +22,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,6 +48,11 @@ public class FindUs extends MapActivity implements OnClickListener {
 	
 	LocationsArrayAdapter mLocationsArrayAdapter;
 
+	MapView mMapView;
+    View mListView;
+
+    ImageButton mToggleButton;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,16 +72,20 @@ public class FindUs extends MapActivity implements OnClickListener {
 		NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
 		NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
 
-		MapView mapView = (MapView) findViewById(R.id.find_us_map);
-		mapView.setBuiltInZoomControls(true);
+		mMapView = (MapView) findViewById(R.id.find_us_map);
+		mMapView.setBuiltInZoomControls(true);
+		
+		mToggleButton = (ImageButton)findViewById(R.id.button_map_list_toggle);
 
+		mListView = findViewById(R.id.locations_list_pane);
+		
 		final String locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
 
 		ListView locationsList = (ListView) findViewById(R.id.locations_list);
 		mLocationsArrayAdapter = new LocationsArrayAdapter( this, mAllLocations);
 		locationsList.setAdapter( mLocationsArrayAdapter );
 		
-		setItemizedOverlayOnMap(mapView);
+		setItemizedOverlayOnMap(mMapView);
 		
 		EditText filterTextbox = (EditText)findViewById( R.id.locations_filter_text );
 		filterTextbox.addTextChangedListener( new FilterLocationHelper( mLocationsArrayAdapter.getFilter() ) );
@@ -181,6 +191,21 @@ public class FindUs extends MapActivity implements OnClickListener {
 	}
 
 	@Override
+	public boolean onKeyDown( int keyCode, KeyEvent event ) {
+        boolean handled = false;
+	    
+	    if( keyCode == KeyEvent.KEYCODE_BACK && !isShowingMap() ) {
+            switchToMapView();
+            handled = true;
+        }
+	    else {
+	        handled  = super.onKeyDown( keyCode, event );
+	    }
+        
+	    return handled;
+	}
+	
+	@Override
 	public void onClick(View clickedView) {
 		switch (clickedView.getId()) {
 		case R.id.button_location_more_details:
@@ -192,27 +217,34 @@ public class FindUs extends MapActivity implements OnClickListener {
 			}
 			break;
 		case R.id.button_map_list_toggle:
-			View mapView = findViewById(R.id.find_us_map);
-			View listView = findViewById(R.id.locations_list_pane);
-
-			ImageButton toggleButton = (ImageButton) clickedView;
-
-			if (listView.getVisibility() == View.INVISIBLE) {
-				toggleButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_mapmode));
-
-				Button moreDetailsButton = (Button) findViewById(R.id.button_location_more_details);
-				moreDetailsButton.setVisibility(View.INVISIBLE);
-				
-				mapView.setVisibility(View.INVISIBLE);
-				listView.setVisibility(View.VISIBLE);
+			if (isShowingMap()) {
+				switchToListView();
 			} else {
-				toggleButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_btn_search));
-
-				mapView.setVisibility(View.VISIBLE);
-				listView.setVisibility(View.INVISIBLE);
+				switchToMapView();
 			}
 
 			break;
 		}
 	}
+
+    private boolean isShowingMap() {
+        return mListView.getVisibility() == View.INVISIBLE;
+    }
+
+    private void switchToListView() {
+        mToggleButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_mapmode));
+
+        Button moreDetailsButton = (Button) findViewById(R.id.button_location_more_details);
+        moreDetailsButton.setVisibility(View.INVISIBLE);
+        
+        mMapView.setVisibility(View.INVISIBLE);
+        mListView.setVisibility(View.VISIBLE);
+    }
+
+    private void switchToMapView() {
+        mToggleButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_btn_search));
+
+        mMapView.setVisibility(View.VISIBLE);
+        mListView.setVisibility(View.INVISIBLE);
+    }
 }

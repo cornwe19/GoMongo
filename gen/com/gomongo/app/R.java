@@ -86,7 +86,7 @@ public final class R {
         public static final int button_about=0x7f060005;
         /**  Image Annotations 
          */
-        public static final int button_add_annotation=0x7f060015;
+        public static final int button_add_annotation=0x7f060016;
         public static final int button_cancel=0x7f06000c;
         public static final int button_check_in=0x7f060013;
         public static final int button_create=0x7f060003;
@@ -100,23 +100,24 @@ public final class R {
         public static final int button_loc_search=0x7f060006;
         public static final int button_mongo_photo=0x7f060008;
         public static final int button_now_at=0x7f060009;
-        public static final int button_save_and_share=0x7f060016;
+        public static final int button_save_and_share=0x7f060017;
         public static final int button_share_location=0x7f060012;
         public static final int button_take_photo=0x7f06000a;
         public static final int button_view_gallery=0x7f06000b;
+        public static final int distance_away_format=0x7f060015;
         /**  Errors 
          */
-        public static final int error_couldnt_access_sdcard=0x7f060019;
-        public static final int error_image_for_editing_missing=0x7f06001a;
-        public static final int error_problem_getting_locations=0x7f06001b;
-        public static final int help_view_more_stickers=0x7f060018;
+        public static final int error_couldnt_access_sdcard=0x7f06001a;
+        public static final int error_image_for_editing_missing=0x7f06001b;
+        public static final int error_problem_getting_locations=0x7f06001c;
+        public static final int help_view_more_stickers=0x7f060019;
         public static final int location_search_hint=0x7f060014;
         public static final int title_contact=0x7f060010;
         public static final int title_hours=0x7f06000f;
         /**  Find Us 
          */
         public static final int title_loading_locations=0x7f06000d;
-        public static final int title_share_chooser=0x7f060017;
+        public static final int title_share_chooser=0x7f060018;
     }
     public static final class style {
         public static final int HoursAndContactHeader=0x7f040003;

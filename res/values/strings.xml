@@ -27,6 +27,7 @@
     <string name="button_check_in">Check-In</string>
     
     <string name="location_search_hint">Search for a location</string>
+    <string name="distance_away_format">%s mi away</string>
     
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
