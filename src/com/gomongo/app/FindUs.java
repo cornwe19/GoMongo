@@ -187,10 +187,7 @@ public class FindUs extends MapActivity implements OnClickListener {
 			MongoLocation mongoLocation = (MongoLocation) clickedView.getTag();
 			if (mongoLocation != null) {
 				Intent locationDetailsIntent = new Intent(this, LocationDetails.class);
-				locationDetailsIntent.putExtra(MongoLocation.FIELD_TITLE, mongoLocation.getTitle());
-				locationDetailsIntent.putExtra(MongoLocation.FIELD_ADDRESS, mongoLocation.getSnippet());
-				locationDetailsIntent.putExtra(MongoLocation.FIELD_HOURS, mongoLocation.getHours());
-				locationDetailsIntent.putExtra(MongoLocation.FIELD_PHONE, mongoLocation.getPhoneNumber());
+				locationDetailsIntent.putExtra(MongoLocation.EXTRA_LOCATION, mongoLocation);
 				startActivity(locationDetailsIntent);
 			}
 			break;

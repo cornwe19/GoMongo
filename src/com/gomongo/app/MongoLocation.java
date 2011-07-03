@@ -18,10 +18,7 @@ import com.google.android.maps.OverlayItem;
 
 public class MongoLocation extends OverlayItem implements Parcelable {
 	
-	public static final String FIELD_TITLE = "location_title";
-	public static final String FIELD_ADDRESS = "location_address";
-	public static final String FIELD_HOURS = "location_hours";
-	public static final String FIELD_PHONE = "location_phone";
+    public static final String EXTRA_LOCATION = "com.gomongo.app.location";
 	
 	private static final String TITLE_XPATH = "location";
 
@@ -125,10 +122,9 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		dest.writeString(mTitle);
 		dest.writeString(mSnippet);
 		
+		dest.writeString(mDistance);
 		dest.writeString(mHours);
 		dest.writeString(mPhoneNumber);
-		dest.writeString(mDistance);
-		
 	}
 	
 	public static final Parcelable.Creator<MongoLocation> CREATOR = new Parcelable.Creator<MongoLocation>() {

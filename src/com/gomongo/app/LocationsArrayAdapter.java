@@ -4,12 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -43,11 +45,22 @@ public class LocationsArrayAdapter extends ArrayAdapter<MongoLocation> {
 		LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
 		convertView = inflater.inflate(R.layout.location_list_item, null);
 		
-		MongoLocation locationToDisplay = getItem(position);
+		final MongoLocation locationToDisplay = getItem(position);
 		
 		setTextOnView(convertView, R.id.location_title, locationToDisplay.getTitle());
 		setTextOnView(convertView, R.id.location_address, locationToDisplay.getSnippet());
 		setTextOnView(convertView, R.id.location_distance, locationToDisplay.getDistance());
+		
+		convertView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View clickedView) {
+                Context context = getContext();
+                
+                Intent moreDetailsIntent = new Intent( context, LocationDetails.class );
+                moreDetailsIntent.putExtra(MongoLocation.EXTRA_LOCATION, locationToDisplay);
+                context.startActivity(moreDetailsIntent);
+            }
+		});
 		
 		return convertView;
 	}

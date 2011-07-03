@@ -17,19 +17,19 @@ public class LocationDetails extends Activity implements OnClickListener {
 		
 		setContentView(R.layout.location_details);
 		
-		Bundle intentExtras = getIntent().getExtras();
+		MongoLocation location = getIntent().getExtras().getParcelable(MongoLocation.EXTRA_LOCATION);
 		
 		TextView title = (TextView)findViewById(R.id.location_title);
-		title.setText(intentExtras.getString(MongoLocation.FIELD_TITLE));
+		title.setText(location.getTitle());
 		
 		TextView address = (TextView)findViewById(R.id.location_address);
-		address.setText(intentExtras.getString(MongoLocation.FIELD_ADDRESS));
+		address.setText(location.getSnippet());
 		
 		TextView hours = (TextView)findViewById(R.id.hours_body);
-		hours.setText(intentExtras.getString(MongoLocation.FIELD_HOURS));
+		hours.setText(location.getHours());
 		
 		TextView phone = (TextView)findViewById(R.id.phone_number_body);
-		phone.setText(intentExtras.getString(MongoLocation.FIELD_PHONE));
+		phone.setText(location.getPhoneNumber());
 		
 		Linkify.addLinks(phone, Linkify.PHONE_NUMBERS);
 		
@@ -51,7 +51,10 @@ public class LocationDetails extends Activity implements OnClickListener {
 
 	private String prepareMapsQueryForThisLocation() {
 		String directionsUrlFormat = "http://maps.google.com/maps?daddr=%s";
-		String lineBrokenAddress = getIntent().getExtras().getString(MongoLocation.FIELD_ADDRESS);
+		MongoLocation location = getIntent().getExtras().getParcelable(MongoLocation.EXTRA_LOCATION);
+		
+		String lineBrokenAddress = location.getSnippet();
+		
 		String directionsUrl = String.format(directionsUrlFormat, lineBrokenAddress.replace("\n", ""));
 		return directionsUrl;
 	}
