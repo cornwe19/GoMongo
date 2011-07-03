@@ -64,6 +64,11 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		return mDistance;
 	}
 	
+	@Override
+	public String toString() {
+	    return mTitle;
+	}
+	
 	public static MongoLocation getLocationFromXml( Node xmlRootNode ) throws XPathExpressionException {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		

@@ -26,6 +26,8 @@
     <string name="button_share_location">Share Location</string>
     <string name="button_check_in">Check-In</string>
     
+    <string name="location_search_hint">Search for a location</string>
+    
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
     <string name="button_save_and_share">Save &amp; Share</string>

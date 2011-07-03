@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -75,6 +76,9 @@ public class FindUs extends MapActivity implements OnClickListener {
 		locationsList.setAdapter( mLocationsArrayAdapter );
 		
 		setItemizedOverlayOnMap(mapView);
+		
+		EditText filterTextbox = (EditText)findViewById( R.id.locations_filter_text );
+		filterTextbox.addTextChangedListener( new FilterLocationHelper( mLocationsArrayAdapter.getFilter() ) );
 		
 		Thread loadMarkersThread = new Thread(new Runnable() {
 			@Override
@@ -192,7 +196,7 @@ public class FindUs extends MapActivity implements OnClickListener {
 			break;
 		case R.id.button_map_list_toggle:
 			View mapView = findViewById(R.id.find_us_map);
-			View listView = findViewById(R.id.locations_list);
+			View listView = findViewById(R.id.locations_list_pane);
 
 			ImageButton toggleButton = (ImageButton) clickedView;
 
