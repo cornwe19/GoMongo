@@ -29,6 +29,14 @@
     <string name="location_search_hint">Search for a location</string>
     <string name="distance_away_format">%s mi away</string>
     
+    <!-- Create a bowl -->
+    <string name="title_create_bowl_activity">Create-A-Bowl</string>
+    <string name="button_meat_seafood">Meat &amp; Seafood</string>
+    <string name="button_veggies">Veggies</string>
+    <string name="button_sauces">Sauces</string>
+    <string name="button_spices">Spices</string>
+    <string name="hint_name_your_bowl">Tap To Name Your Bowl</string>
+    
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
     <string name="button_save_and_share">Save &amp; Share</string>
@@ -40,4 +48,5 @@
     <string name="error_image_for_editing_missing">There was a problem accessing your image from the camera. Please try capturing again.</string>
     <string name="error_problem_getting_locations">Location search is temporarily unavailable. Please make sure you are connected to the internet.</string>
     <string name="error_problem_getting_your_location">Your location is temporarily unavailable. Searching for BD\'s locations near an arbitrary place.</string>
+    <string name="error_problem_connecting_to_database">There was a problem connecting to the application database. Please make sure your SD card is connected properly.</string>
 </resources>
