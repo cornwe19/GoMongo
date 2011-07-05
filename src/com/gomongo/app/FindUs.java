@@ -79,8 +79,18 @@ public class FindUs extends MapActivity implements OnClickListener {
 
 		mListView = findViewById(R.id.locations_list_pane);
 		
-		final String locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
-
+		String locationSearchUrl;
+		try {
+		    locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
+		}
+		catch ( LocationServiceNotAvailableException exception ) {
+		    Log.w(TAG, "Couldn't access user's location. Picking arbitrary search spot.", exception);
+		    
+		    Toast.makeText(this, getResources().getString(R.string.error_problem_getting_your_location), Toast.LENGTH_LONG).show();
+		    
+		    locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT, 39.1, 94.6 );
+		}
+		
 		ListView locationsList = (ListView) findViewById(R.id.locations_list);
 		mLocationsArrayAdapter = new LocationsArrayAdapter( this, mAllLocations);
 		locationsList.setAdapter( mLocationsArrayAdapter );
@@ -90,10 +100,12 @@ public class FindUs extends MapActivity implements OnClickListener {
 		EditText filterTextbox = (EditText)findViewById( R.id.locations_filter_text );
 		filterTextbox.addTextChangedListener( new FilterLocationHelper( mLocationsArrayAdapter.getFilter() ) );
 		
+		final String locationUrlForThread = locationSearchUrl;
+		
 		Thread loadMarkersThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				loadNearestMarkersFromWeb(locationSearchUrl);
+				loadNearestMarkersFromWeb(locationUrlForThread);
 			}
 		});
 
@@ -172,12 +184,16 @@ public class FindUs extends MapActivity implements OnClickListener {
 		return source;
 	}
 
-	private String prepareStoreLocatorRequestBasedOnCurrentLocation() {
+	private String prepareStoreLocatorRequestBasedOnCurrentLocation() throws LocationServiceNotAvailableException {
 		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Location lastKnownLocation = locationManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
+		if( lastKnownLocation == null ) {
+		    throw new LocationServiceNotAvailableException();
+		}
+		
 		String locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT,
 				lastKnownLocation.getLatitude(), lastKnownLocation
 						.getLongitude());

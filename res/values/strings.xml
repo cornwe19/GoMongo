@@ -39,4 +39,5 @@
     <string name="error_couldnt_access_sdcard">There was a problem setting up your image. Please make sure your SD card is connected properly and try again.</string>
     <string name="error_image_for_editing_missing">There was a problem accessing your image from the camera. Please try capturing again.</string>
     <string name="error_problem_getting_locations">Location search is temporarily unavailable. Please make sure you are connected to the internet.</string>
+    <string name="error_problem_getting_your_location">Your location is temporarily unavailable. Searching for BD\'s locations near an arbitrary place.</string>
 </resources>

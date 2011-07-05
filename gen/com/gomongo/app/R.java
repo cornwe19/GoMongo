@@ -110,6 +110,7 @@ public final class R {
         public static final int error_couldnt_access_sdcard=0x7f06001a;
         public static final int error_image_for_editing_missing=0x7f06001b;
         public static final int error_problem_getting_locations=0x7f06001c;
+        public static final int error_problem_getting_your_location=0x7f06001d;
         public static final int help_view_more_stickers=0x7f060019;
         public static final int location_search_hint=0x7f060014;
         public static final int title_contact=0x7f060010;
