@@ -1,7 +1,6 @@
 package com.gomongo.app;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -17,6 +16,7 @@ import org.xml.sax.InputSource;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -88,7 +88,8 @@ public class FindUs extends MapActivity implements OnClickListener {
 		    
 		    Toast.makeText(this, getResources().getString(R.string.error_problem_getting_your_location), Toast.LENGTH_LONG).show();
 		    
-		    locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT, 39.1, 94.6 );
+		    PointF kansasGPSCoords = new PointF( 39.1f, 94.6f );
+		    locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT, kansasGPSCoords.x, kansasGPSCoords.y );
 		}
 		
 		ListView locationsList = (ListView) findViewById(R.id.locations_list);
@@ -123,7 +124,7 @@ public class FindUs extends MapActivity implements OnClickListener {
 		try {
 			Log.d(TAG, "Calling web service");
 
-			InputSource source = getResponseFromWebService(locationSearchUrl);
+			InputSource source = StaticWebService.getResponse(locationSearchUrl);
 
 			Log.d(TAG, "Got response from web...parsing now");
 
@@ -173,15 +174,6 @@ public class FindUs extends MapActivity implements OnClickListener {
 				mLoadingMarkersDialog.dismiss();
 			}
 		}
-	}
-
-	private InputSource getResponseFromWebService(String locationSearchUrl)
-			throws IOException, MalformedURLException {
-		String response = StaticWebService.getResponseString(locationSearchUrl);
-
-		StringReader reader = new StringReader(response);
-		InputSource source = new InputSource(reader);
-		return source;
 	}
 
 	private String prepareStoreLocatorRequestBasedOnCurrentLocation() throws LocationServiceNotAvailableException {

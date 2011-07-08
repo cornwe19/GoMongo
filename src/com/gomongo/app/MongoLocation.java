@@ -92,9 +92,9 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		return new MongoLocation(location, title, description, distance, hours, phoneNumber);
 	}
 	
+	private static Pattern mHoursPattern = Pattern.compile( "(?i).*?(A|P)M.*?(A|P)M" );
 	private static String transformHoursForDisplay( String hoursString ) {
-		Pattern hoursPattern = Pattern.compile( "(?i).*?(A|P)M.*?(A|P)M" );
-		Matcher hoursMatcher = hoursPattern.matcher(hoursString);
+		Matcher hoursMatcher = mHoursPattern.matcher(hoursString);
 		
 		String modifiedHours = "";
 		while( hoursMatcher.find() ) {
@@ -110,7 +110,6 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 
 	@Override
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

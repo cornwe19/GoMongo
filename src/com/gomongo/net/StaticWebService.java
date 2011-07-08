@@ -1,31 +1,25 @@
 package com.gomongo.net;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.xml.sax.InputSource;
+
 public class StaticWebService {
 	
-	public static String getResponseString(String request) throws IOException, MalformedURLException {
+	public static InputSource getResponse(String request) throws IOException, MalformedURLException {
 		URL url = new URL(request);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("GET");
         
-        String response = "";
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            
-            String responseLine;
-            while( ( responseLine = input.readLine()) != null ) {
-            	response += responseLine;
-            }
-        }
+        InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+        InputSource source = new InputSource(reader);
         
-        return response;
+        return source;
 	}
 	
 }
