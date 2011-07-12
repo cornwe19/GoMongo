@@ -7,11 +7,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8"></uses-sdk>
-    <application android:icon="@drawable/icon" 
+    <application android:icon="@drawable/icon"
                  android:label="@string/app_name">
         <uses-library android:name="com.google.android.maps" />
         
         <activity android:name=".Home"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FindUs"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".LocationDetails"
@@ -26,12 +28,19 @@
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".CreateBowl"
+                  android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+        </activity>
+        <activity android:name=".AddFood"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".MongoPhoto"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".About"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".AnnotateImage"
