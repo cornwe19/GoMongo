@@ -78,7 +78,13 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
                 Node foodNode = foods.item(i);
                 
                 Food food = Food.getFoodFromXml(foodNode);
-                foodDao.create(food);
+                if ( foodDao.queryForId(food.getId() ) == null ) {
+                    foodDao.create(food);
+                }
+                else {
+                    foodDao.update(food);
+                }
+                
                 
                 Log.d( TAG, String.format("Saving id: %s(%s) to database", food.getId(), food.getTitle() ) );
             }
@@ -118,7 +124,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         createButton.setOnClickListener( new OnClickListener() {
 
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View clickedView) {
                 Intent addFoodIntent = new Intent(context, AddFood.class);
                 
                 addFoodIntent.putExtra(EXTRA_CATEGORY, categoryName);
