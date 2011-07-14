@@ -10,8 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
+import com.gomongo.data.IngredientCount;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -32,6 +34,8 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         } );
     }
     
+    Bowl mBowl;
+    
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,9 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         String category = intentExtras.getString(CreateBowl.EXTRA_CATEGORY);
         
         try {
+            Dao<Bowl,Integer> bowlDao = getHelper().getDao(Bowl.class);
+            mBowl = bowlDao.queryForId(intentExtras.getInt(CreateBowl.EXTRA_BOWL_ID));
+            
             Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
             
             QueryBuilder<Food,Integer> builder = foodDao.queryBuilder();
@@ -53,7 +60,8 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             
             List<Food> foodsInCategory = foodDao.query(builder.prepare());
             
-            AddFoodListAdapter listAdapter = new AddFoodListAdapter(this, R.id.food_item_title, foodsInCategory);
+            Dao<IngredientCount,Integer> ingredientDao = getHelper().getDao(IngredientCount.class);
+            AddFoodListAdapter listAdapter = new AddFoodListAdapter(this, mBowl, ingredientDao, foodsInCategory);
             ListView foodsList = (ListView)findViewById(R.id.add_food_list);
             foodsList.setAdapter(listAdapter);
         }
@@ -66,5 +74,4 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             finish();
         }
     }
-    
 }

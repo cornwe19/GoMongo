@@ -19,7 +19,7 @@
                   android:layout_height="wrap_content">
 	    <Button android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:id="@+id/food_item_subtract"
+	            android:id="@+id/button_food_item_subtract"
 	            android:text="-" />
 	    <TextView android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 	              android:text="#" />
 	    <Button android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:id="@+id/food_item_add"
+	            android:id="@+id/button_food_item_add"
 	            android:text="+" />
     </LinearLayout>
   </LinearLayout>

@@ -36,6 +36,7 @@
     <string name="button_sauces">Sauces</string>
     <string name="button_spices">Spices</string>
     <string name="hint_name_your_bowl">Tap To Name Your Bowl</string>
+    <string name="default_bowl_title">Untitled</string>
     
     <string name="category_meats_title">Meat &amp; Seafood</string>
     <string name="category_veggies_title">Vegetables</string>

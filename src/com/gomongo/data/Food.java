@@ -87,6 +87,14 @@ public class Food {
         return mDescription;
     }
     
+    @Override
+    public boolean equals( Object other ) {
+        Food otherFood = (Food)other;
+        boolean areEqual = otherFood != null && otherFood.getId() == mId;
+        
+        return areEqual;
+    }
+    
     private Food() {}
     
     public static Food getFoodFromXml( Node xmlNode ) {

@@ -25,7 +25,8 @@ public class DatabaseOpenHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Food.class);
-            //TableUtils.createTable(connectionSource, Bowl.class);
+            TableUtils.createTable(connectionSource, Bowl.class);
+            TableUtils.createTable(connectionSource, IngredientCount.class);
         }
         catch (SQLException ex) {
             Log.e(TAG, ex.getMessage(), ex);
@@ -34,7 +35,6 @@ public class DatabaseOpenHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         
     }
 

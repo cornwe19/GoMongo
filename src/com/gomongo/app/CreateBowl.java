@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.net.StaticWebService;
@@ -34,8 +35,9 @@ import com.j256.ormlite.dao.Dao;
 
 public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
 
-    public static String EXTRA_CATEGORY = "category";
-    public static String EXTRA_CATEGORY_TITLE = "category.title";
+    public static final String EXTRA_CATEGORY = "category";
+    public static final String EXTRA_CATEGORY_TITLE = "category.title";
+    public static final String EXTRA_BOWL_ID = "bowl.id";
     
     private static String TAG = "CreateBowl";
     
@@ -51,6 +53,8 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         } );
     }
     
+    private Bowl mBowl;
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +69,14 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         
         Resources res = getResources();
         
+        mBowl = new Bowl();
+        mBowl.title = res.getString(R.string.default_bowl_title);
+        
         try {
             Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
+            Dao<Bowl,Integer> bowlDao = getHelper().getDao(Bowl.class);
+            bowlDao.create(mBowl);
+            
             
             InputSource response = StaticWebService.getSanitizedResponse(ALL_INGREDIENTS_REQUEST);
             XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -129,6 +139,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
                 
                 addFoodIntent.putExtra(EXTRA_CATEGORY, categoryName);
                 addFoodIntent.putExtra(EXTRA_CATEGORY_TITLE, title);
+                addFoodIntent.putExtra(EXTRA_BOWL_ID, mBowl.getId());
                 context.startActivity(addFoodIntent);
             }
             
