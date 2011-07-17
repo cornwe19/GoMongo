@@ -3,6 +3,9 @@ package com.gomongo.app;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -26,12 +29,14 @@ import android.widget.Toast;
 import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
+import com.gomongo.data.IngredientCount;
 import com.gomongo.net.StaticWebService;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager.SqliteOpenHelperFactory;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
 
@@ -44,6 +49,11 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     private static String FOOD_XPATH = "root/food";
     private static String ALL_INGREDIENTS_REQUEST = "http://gomongo.com/iphone/iPhoneIngredients.php";
     
+    private static String CATEGORY_MEAT = "Meats";
+    private static String CATEGORY_VEGGIES = "Vegetables";
+    private static String CATEGORY_SAUCES = "Sauces";
+    private static String CATEGORY_SPICES = "Spices";
+    
     // Static initialization of DB open helper factory
     static { 
         OpenHelperManager.setOpenHelperFactory(new SqliteOpenHelperFactory() { 
@@ -54,6 +64,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     }
     
     private Bowl mBowl;
+    private HashMap<String,Integer> mIngredientCategoryCounts = new HashMap<String,Integer>();
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,18 +127,101 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             throw new RuntimeException( ex );
         }
         catch (SQLException ex) {
-            Log.w(TAG, "Couldn't open the database for writing", ex );
-            
-            Toast.makeText(this, res.getString( R.string.error_problem_connecting_to_database), Toast.LENGTH_LONG).show();
+            handleSQLException(ex);
         }
         
-        setupCategoryButton( res.getString(R.string.category_meats_title), "Meats", R.id.button_meat_seafood );
-        setupCategoryButton( res.getString(R.string.category_veggies_title), "Vegetables", R.id.button_veggies );
-        setupCategoryButton( res.getString(R.string.category_sauces_title), "Sauces", R.id.button_sauces );
-        setupCategoryButton( res.getString(R.string.category_spices_title), "Spices", R.id.button_spices );
+        setupAndRegisterCategoryButton( res.getString(R.string.category_meats_title), CATEGORY_MEAT, R.id.button_meat_seafood );
+        setupAndRegisterCategoryButton( res.getString(R.string.category_veggies_title), CATEGORY_VEGGIES, R.id.button_veggies );
+        setupAndRegisterCategoryButton( res.getString(R.string.category_sauces_title), CATEGORY_SAUCES, R.id.button_sauces );
+        setupAndRegisterCategoryButton( res.getString(R.string.category_spices_title), CATEGORY_SPICES, R.id.button_spices );
 	}
 
-    private void setupCategoryButton( final String title, final String categoryName, int buttonId) {
+    private void handleSQLException(SQLException ex) {
+        Log.w(TAG, "Couldn't open the database for writing", ex );
+        
+        Toast.makeText(this, R.string.error_problem_connecting_to_database, Toast.LENGTH_LONG).show();
+    }
+
+	@Override
+	public void onResume() {
+	    super.onResume();
+	    
+	    resetCategoryCounts();
+	    
+	    try {
+            Dao<IngredientCount,Integer> ingredientDao = getHelper().getDao(IngredientCount.class);
+            QueryBuilder<IngredientCount,Integer> builder = ingredientDao.queryBuilder();
+            builder.where().eq(IngredientCount.COL_BOWL_ID, mBowl.getId());
+
+            List<IngredientCount> ingredientCounts = ingredientDao.query(builder.prepare());
+            for( IngredientCount ingredientCount : ingredientCounts ) {                
+                updateAggregateCountForCategory( ingredientCount );
+            }
+            
+            updateBackgroundBasedOnBowlComplete();
+            
+            Resources res = getResources();
+            refreshButtonText( R.id.button_meat_seafood, res.getString(R.string.button_meat_seafood), CATEGORY_MEAT);
+            refreshButtonText( R.id.button_veggies, res.getString(R.string.button_veggies), CATEGORY_VEGGIES);
+            refreshButtonText( R.id.button_sauces, res.getString(R.string.button_sauces), CATEGORY_SAUCES);
+            refreshButtonText( R.id.button_spices, res.getString(R.string.button_spices), CATEGORY_SPICES);
+        }
+	    catch (SQLException ex) {
+            handleSQLException(ex);
+        }
+	}
+
+    private void updateBackgroundBasedOnBowlComplete() {
+        View mainLayout = (View)findViewById(R.id.create_bowl_root);
+        
+        if( sum( mIngredientCategoryCounts.values() ) > 0 ) {
+            mainLayout.setBackgroundResource(R.drawable.create_bowl_background_end);
+        }
+        else {
+            mainLayout.setBackgroundResource(R.drawable.create_bowl_background_begin);
+        }
+    }
+
+    private int sum(Collection<Integer> values) {
+        int sum = 0;
+        for( int value : values ) {
+            sum += value;
+        }
+        return sum;
+    }
+
+    private void resetCategoryCounts() {
+        mIngredientCategoryCounts.put(CATEGORY_MEAT, 0);
+	    mIngredientCategoryCounts.put(CATEGORY_VEGGIES, 0);
+	    mIngredientCategoryCounts.put(CATEGORY_SAUCES, 0);
+	    mIngredientCategoryCounts.put(CATEGORY_SPICES, 0);
+    }
+	
+	private void updateAggregateCountForCategory( IngredientCount ingredientCount ) {
+	    try {
+            Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
+            foodDao.refresh(ingredientCount.getIngredient());
+            
+            String category = ingredientCount.getIngredient().getCategory();
+            Integer count = mIngredientCategoryCounts.get(category);
+            
+            count += ingredientCount.getCount();
+            
+            mIngredientCategoryCounts.put( category, count );
+            
+	    } catch (SQLException ex) {
+            handleSQLException(ex);
+        }
+	}
+	
+	private void refreshButtonText( int buttonId, String title, String categoryName ) {
+	    String titleFormat = "%s (%d)";
+	    
+	    Button button = (Button)findViewById(buttonId);
+	    button.setText(String.format(titleFormat, title, mIngredientCategoryCounts.get(categoryName)));
+	}
+	
+    private void setupAndRegisterCategoryButton( final String title, final String categoryName, int buttonId) {
         final Context context = this;
         
         Button createButton = (Button)findViewById(buttonId);
@@ -144,5 +238,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             }
             
         });
+        
+        refreshButtonText( buttonId, title, categoryName );
     }
 }
