@@ -40,43 +40,43 @@ public class Food {
     
     private static String TOTALCAL_XPATH = "tc";
     @DatabaseField
-    private float mTotalCalories;
-    public float getTotalCalories() {
+    private Float mTotalCalories;
+    public Float getTotalCalories() {
         return mTotalCalories;
     }
     
     private static String TOTALFAT_XPATH = "tf";
     @DatabaseField
-    private float mTotalFat;
-    public float getTotalFat() {
+    private Float mTotalFat;
+    public Float getTotalFat() {
         return mTotalFat;
     }
     
     private static String SATFAT_XPATH = "sf";
     @DatabaseField
-    private float mSaturatedFat;
-    public float getSaturatedFat() {
+    private Float mSaturatedFat;
+    public Float getSaturatedFat() {
         return mSaturatedFat;
     }
     
     private static String CARBS_XPATH = "carb";
     @DatabaseField
-    private float mCarbs;
-    public float getCarbs() {
+    private Float mCarbs;
+    public Float getCarbs() {
         return mCarbs;
     }
     
     private static String DIETFIBER_XPATH = "df";
     @DatabaseField
-    private float mDietaryFiber;
-    public float getDietaryFiber() {
+    private Float mDietaryFiber;
+    public Float getDietaryFiber() {
         return mDietaryFiber;
     }
     
     private static String PROTEIN_XPATH = "prot";
     @DatabaseField
-    private float mProtein;
-    public float getProtein() {
+    private Float mProtein;
+    public Float getProtein() {
         return mProtein;
     }
     

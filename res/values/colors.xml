@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nutrition_odd_row">#333</color>
+    <color name="nutrition_even_row">#666</color>
+</resources>

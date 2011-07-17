@@ -43,6 +43,15 @@
     <string name="category_sauces_title">Sauces</string>
     <string name="category_spices_title">Spices</string>
     
+    <string name="nut_info_title">Nutritional Facts:</string>
+    <string name="serving_nut_info">Serving Size</string>
+    <string name="calories_nut_info">Total Calories</string>
+    <string name="fat_nut_info">Total Fat (g)</string>
+    <string name="satfat_nut_info">Saturated Fat (g)</string>
+    <string name="carbs_nut_info">Carbohydrates (g)</string>
+    <string name="fiber_nut_info">Dietary Fiber (g)</string>
+    <string name="protein_nut_info">Protein (g)</string>
+    
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
     <string name="button_save_and_share">Save &amp; Share</string>

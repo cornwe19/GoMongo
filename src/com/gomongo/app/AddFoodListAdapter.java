@@ -38,14 +38,25 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
     }
         
     @Override
-    public View getView( int position, View convertView, ViewGroup parent ) {
+    public View getView( int position, View listItem, ViewGroup parent ) {
+        
         LayoutInflater inflater = LayoutInflater.from( getContext() );
-        View listItem = inflater.inflate(R.layout.add_food_list_item, null);
+        listItem = inflater.inflate(R.layout.add_food_list_item, null);
         
         Food ingredient = getItem(position);
         
-        TextView title = (TextView)listItem.findViewById(R.id.food_item_title);
-        title.setText(ingredient.getTitle());
+        setTextOnView(listItem, R.id.food_item_title, ingredient.getTitle());
+        setTextOnView(listItem, R.id.serving_nut_info, ingredient.getServingSize());
+        setTextOnView(listItem, R.id.calories_nut_info, ingredient.getTotalCalories());
+        setTextOnView(listItem, R.id.fat_nut_info, ingredient.getTotalFat());
+        setTextOnView(listItem, R.id.satfat_nut_info, ingredient.getSaturatedFat());
+        setTextOnView(listItem, R.id.carbs_nut_info, ingredient.getCarbs());
+        setTextOnView(listItem, R.id.fiber_nut_info, ingredient.getDietaryFiber());
+        setTextOnView(listItem, R.id.protein_nut_info, ingredient.getProtein());
+        
+        Button moreInfoButton = (Button)listItem.findViewById(R.id.food_item_more_info);
+        moreInfoButton.setTag(listItem.findViewById(R.id.more_details_pane));
+        moreInfoButton.setOnClickListener( this );
         
         setupPlusMinusButton(position, listItem, R.id.button_food_item_add);
         setupPlusMinusButton(position, listItem, R.id.button_food_item_subtract);
@@ -68,6 +79,11 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         ingredientCountText.setText( count.toString() );
         
         return listItem;
+    }
+
+    private void setTextOnView(View listItem, int viewId, Object text) {
+        TextView title = (TextView)listItem.findViewById(viewId);
+        title.setText(text.toString());
     }
 
     private void handleSQLException(SQLException ex) {
@@ -102,8 +118,31 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
 
     @Override
     public void onClick(View clickedView) {
-       Food ingredient = getItem((Integer)clickedView.getTag(R.id.tag_food_list_item_id));
+       if( clickedView.getId() == R.id.food_item_more_info ) {
+           showOrHideNutritionInfo(clickedView);
+       }
+       else {
+           incrementOrDecrementFoodCount(clickedView);
+       }
+    }
+
+    private void showOrHideNutritionInfo(View clickedView) {
+        View moreDetailsPane = (View)clickedView.getTag();
+        Button moreInfoButton = (Button)clickedView;
        
+        if( moreDetailsPane.getVisibility() != View.VISIBLE ) {
+            moreDetailsPane.setVisibility(View.VISIBLE);
+            moreInfoButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.expander_ic_maximized, 0);
+        }
+        else {
+            moreDetailsPane.setVisibility(View.GONE);
+            moreInfoButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.expander_ic_minimized, 0);
+        }
+    }
+
+    private void incrementOrDecrementFoodCount(View clickedView) {
+       Food ingredient = getItem((Integer)clickedView.getTag(R.id.tag_food_list_item_id));
+           
        PreparedQuery<IngredientCount> query = prepareIngredientQuery(ingredient);
        IngredientCount ingredientCount = null;
        
