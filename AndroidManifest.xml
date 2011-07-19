@@ -35,6 +35,10 @@
                   android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
+        <activity android:name=".ShareBowl"
+                  android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+        </activity>
         <activity android:name=".MongoPhoto"
                   android:screenOrientation="portrait"
                   android:label="@string/app_name">

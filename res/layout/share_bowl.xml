@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+  <include layout="@layout/navigation_menu" />
+  <LinearLayout android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/create_bowl_root"
+              android:background="@drawable/create_bowl_background_end">
+     <TextView style="@style/ActivityTitle"
+               android:text="@string/share_bowl_title" />
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:gravity="center|bottom">
+      <TextView style="@style/BowlTitleStyle"
+                android:id="@+id/textview_bowl_title"
+                android:text="testtest" />
+      
+      <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/button_nutrition_info"
+              android:id="@+id/button_nutrition_info" />
+      <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/button_send_bowl_email"
+              android:id="@+id/button_send_bowl_email" />
+      <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/button_send_bowl_facebook"
+              android:id="@+id/button_send_bowl_facebook" />
+      <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/button_send_bowl_twitter"
+              android:id="@+id/button_send_bowl_twitter" />
+      <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/button_create_another_bowl"
+              android:id="@+id/button_create_another_bowl" />
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

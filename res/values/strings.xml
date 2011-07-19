@@ -31,10 +31,6 @@
     
     <!-- Create a bowl -->
     <string name="title_create_bowl_activity">Create-A-Bowl</string>
-    <string name="button_meat_seafood">Meat &amp; Seafood</string>
-    <string name="button_veggies">Veggies</string>
-    <string name="button_sauces">Sauces</string>
-    <string name="button_spices">Spices</string>
     <string name="hint_name_your_bowl">Tap To Name Your Bowl</string>
     <string name="default_bowl_title">Untitled</string>
     
@@ -42,8 +38,9 @@
     <string name="category_veggies_title">Vegetables</string>
     <string name="category_sauces_title">Sauces</string>
     <string name="category_spices_title">Spices</string>
+    <string name="category_starches_title">Starches</string>
     
-    <string name="nut_info_title">Nutritional Facts:</string>
+    <string name="nut_info_title">Nutritional Facts</string>
     <string name="serving_nut_info">Serving Size</string>
     <string name="calories_nut_info">Total Calories</string>
     <string name="fat_nut_info">Total Fat (g)</string>
@@ -51,6 +48,14 @@
     <string name="carbs_nut_info">Carbohydrates (g)</string>
     <string name="fiber_nut_info">Dietary Fiber (g)</string>
     <string name="protein_nut_info">Protein (g)</string>
+    
+    <!-- Share Bowl -->
+    <string name="share_bowl_title">Share Your Bowl</string>
+    <string name="button_nutrition_info">Nutritional Info</string>
+    <string name="button_send_bowl_email">Send via Email</string>
+    <string name="button_send_bowl_facebook">Send to Facebook</string>
+    <string name="button_send_bowl_twitter">Tweet it!</string>
+    <string name="button_create_another_bowl">Do it again!</string>
     
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
@@ -65,4 +70,5 @@
     <string name="error_problem_getting_locations">Location search is temporarily unavailable. Please make sure you are connected to the internet.</string>
     <string name="error_problem_getting_your_location">Your location is temporarily unavailable. Searching for BD\'s locations near an arbitrary place.</string>
     <string name="error_problem_connecting_to_database">There was a problem connecting to the application\'s data. Please make sure your SD card is connected properly.</string>
+    <string name="error_bowl_needs_name">Your bowl needs a name before you can share it.</string>
 </resources>

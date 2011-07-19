@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gomongo.data.Bowl;
@@ -53,6 +54,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     private static String CATEGORY_VEGGIES = "Vegetables";
     private static String CATEGORY_SAUCES = "Sauces";
     private static String CATEGORY_SPICES = "Spices";
+    private static String CATEGORY_STARCHES = "Starches";
     
     // Static initialization of DB open helper factory
     static { 
@@ -81,7 +83,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         Resources res = getResources();
         
         mBowl = new Bowl();
-        mBowl.title = res.getString(R.string.default_bowl_title);
+        mBowl.setTitle(res.getString(R.string.default_bowl_title));
         
         try {
             Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
@@ -130,10 +132,51 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             handleSQLException(ex);
         }
         
+        Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );
+        final Context theContext = this;
+        shareBowlButton.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                String title = getTitleFromEditor();
+                
+                if( title.length() > 0 ) {
+                    saveAndStartShareBowl(theContext, title);
+                }
+                else {
+                    Toast.makeText(theContext, R.string.error_bowl_needs_name, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            private void saveAndStartShareBowl(final Context theContext, String title) {
+                try {
+                        
+                    Dao<Bowl,Integer> bowlDao = getHelper().getDao(Bowl.class);
+                    
+                    mBowl.setTitle(title);
+                    bowlDao.update(mBowl);
+                    
+                    Intent shareBowlIntent = new Intent( theContext, ShareBowl.class );
+                    shareBowlIntent.putExtra(EXTRA_BOWL_ID, mBowl.getId());
+                    theContext.startActivity(shareBowlIntent);
+                } catch (SQLException ex) {
+                    handleSQLException(ex);
+                }
+            }
+
+            private String getTitleFromEditor() {
+                EditText bowlTitle = (EditText)findViewById(R.id.edittext_bowl_title);
+                String title = bowlTitle.getText().toString();
+                return title;
+            } 
+            
+        });
+        
         setupAndRegisterCategoryButton( res.getString(R.string.category_meats_title), CATEGORY_MEAT, R.id.button_meat_seafood );
         setupAndRegisterCategoryButton( res.getString(R.string.category_veggies_title), CATEGORY_VEGGIES, R.id.button_veggies );
         setupAndRegisterCategoryButton( res.getString(R.string.category_sauces_title), CATEGORY_SAUCES, R.id.button_sauces );
         setupAndRegisterCategoryButton( res.getString(R.string.category_spices_title), CATEGORY_SPICES, R.id.button_spices );
+        setupAndRegisterCategoryButton( res.getString(R.string.category_spices_title), CATEGORY_STARCHES, R.id.button_starches );
 	}
 
     private void handleSQLException(SQLException ex) {
@@ -161,10 +204,11 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             updateBackgroundBasedOnBowlComplete();
             
             Resources res = getResources();
-            refreshButtonText( R.id.button_meat_seafood, res.getString(R.string.button_meat_seafood), CATEGORY_MEAT);
-            refreshButtonText( R.id.button_veggies, res.getString(R.string.button_veggies), CATEGORY_VEGGIES);
-            refreshButtonText( R.id.button_sauces, res.getString(R.string.button_sauces), CATEGORY_SAUCES);
-            refreshButtonText( R.id.button_spices, res.getString(R.string.button_spices), CATEGORY_SPICES);
+            refreshButtonText( R.id.button_meat_seafood, res.getString(R.string.category_meats_title), CATEGORY_MEAT);
+            refreshButtonText( R.id.button_veggies, res.getString(R.string.category_veggies_title), CATEGORY_VEGGIES);
+            refreshButtonText( R.id.button_sauces, res.getString(R.string.category_sauces_title), CATEGORY_SAUCES);
+            refreshButtonText( R.id.button_spices, res.getString(R.string.category_spices_title), CATEGORY_SPICES);
+            refreshButtonText( R.id.button_starches, res.getString(R.string.category_starches_title), CATEGORY_STARCHES);
         }
 	    catch (SQLException ex) {
             handleSQLException(ex);
@@ -195,6 +239,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
 	    mIngredientCategoryCounts.put(CATEGORY_VEGGIES, 0);
 	    mIngredientCategoryCounts.put(CATEGORY_SAUCES, 0);
 	    mIngredientCategoryCounts.put(CATEGORY_SPICES, 0);
+	    mIngredientCategoryCounts.put(CATEGORY_STARCHES, 0);
     }
 	
 	private void updateAggregateCountForCategory( IngredientCount ingredientCount ) {

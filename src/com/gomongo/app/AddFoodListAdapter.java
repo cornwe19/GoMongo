@@ -46,13 +46,9 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         Food ingredient = getItem(position);
         
         setTextOnView(listItem, R.id.food_item_title, ingredient.getTitle());
+        
         setTextOnView(listItem, R.id.serving_nut_info, ingredient.getServingSize());
-        setTextOnView(listItem, R.id.calories_nut_info, ingredient.getTotalCalories());
-        setTextOnView(listItem, R.id.fat_nut_info, ingredient.getTotalFat());
-        setTextOnView(listItem, R.id.satfat_nut_info, ingredient.getSaturatedFat());
-        setTextOnView(listItem, R.id.carbs_nut_info, ingredient.getCarbs());
-        setTextOnView(listItem, R.id.fiber_nut_info, ingredient.getDietaryFiber());
-        setTextOnView(listItem, R.id.protein_nut_info, ingredient.getProtein());
+        NutritionFactsViewHelper.fillOutCommonFactsLayout(listItem, ingredient);
         
         Button moreInfoButton = (Button)listItem.findViewById(R.id.food_item_more_info);
         moreInfoButton.setTag(listItem.findViewById(R.id.more_details_pane));

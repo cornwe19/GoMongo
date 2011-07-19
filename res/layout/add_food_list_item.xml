@@ -40,93 +40,14 @@
 	          android:layout_height="wrap_content"
 	          android:textColor="#CCC"
 	          android:text="More info"
-	          android:background="#00000000"
+	          android:background="#0000"
 	          android:drawableRight="@drawable/expander_ic_minimized"
 	          android:id="@+id/food_item_more_info" />
 	</LinearLayout>
 	
 	<!-- More details UI -->
-	<TableLayout android:layout_width="match_parent"
-	             android:layout_height="wrap_content"
-	             android:stretchColumns="1"
-	             android:visibility="gone"
-	             android:id="@+id/more_details_pane">
-	   <TableRow android:background="@color/nutrition_odd_row">
-	     <TextView android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:text="@string/nut_info_title" />
-	   </TableRow>
-	   
-	   <TableRow android:background="@color/nutrition_even_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/serving_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/serving_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_odd_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/calories_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/calories_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_even_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/fat_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/fat_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_odd_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/satfat_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/satfat_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_even_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/carbs_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/carbs_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_odd_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/fiber_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/fiber_nut_info" />
-     </TableRow>
-     
-     <TableRow android:background="@color/nutrition_even_row">
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/protein_nut_info" />
-       <TextView android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="right"
-                 android:id="@+id/protein_nut_info" />
-     </TableRow>
-     
-	</TableLayout>
+	<include android:id="@+id/more_details_pane"
+	         android:visibility="gone"
+	         layout="@layout/nutrition_info" />
 	
 </LinearLayout>

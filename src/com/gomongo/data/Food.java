@@ -40,44 +40,62 @@ public class Food {
     
     private static String TOTALCAL_XPATH = "tc";
     @DatabaseField
-    private Float mTotalCalories;
+    private Float mTotalCalories = 0f;
     public Float getTotalCalories() {
         return mTotalCalories;
+    }
+    public void addCalories( Float amount ) {
+        mTotalCalories += amount;
     }
     
     private static String TOTALFAT_XPATH = "tf";
     @DatabaseField
-    private Float mTotalFat;
+    private Float mTotalFat = 0f;
     public Float getTotalFat() {
         return mTotalFat;
+    }
+    public void addTotalFat( Float amount ) {
+        mTotalFat += amount;
     }
     
     private static String SATFAT_XPATH = "sf";
     @DatabaseField
-    private Float mSaturatedFat;
+    private Float mSaturatedFat = 0f;
     public Float getSaturatedFat() {
         return mSaturatedFat;
+    }
+    public void addSaturatedFat( Float amount ) {
+        mSaturatedFat += amount;
     }
     
     private static String CARBS_XPATH = "carb";
     @DatabaseField
-    private Float mCarbs;
+    private Float mCarbs = 0f;
     public Float getCarbs() {
         return mCarbs;
+    }
+    public void addCarbs( Float amount ) {
+        mCarbs += amount;
     }
     
     private static String DIETFIBER_XPATH = "df";
     @DatabaseField
-    private Float mDietaryFiber;
+    private Float mDietaryFiber = 0f;
     public Float getDietaryFiber() {
         return mDietaryFiber;
+    }
+    public void addDietaryFiber( Float amount ) {
+        mDietaryFiber += amount;
     }
     
     private static String PROTEIN_XPATH = "prot";
     @DatabaseField
-    private Float mProtein;
+    private Float mProtein = 0f;
     public Float getProtein() {
         return mProtein;
+    }
+    public void addProtein( Float amount ) {
+        mProtein += amount;
     }
     
     private static String DESCRIPTION_XPATH = "description";
@@ -95,7 +113,7 @@ public class Food {
         return areEqual;
     }
     
-    private Food() {}
+    public Food() {}
     
     public static Food getFoodFromXml( Node xmlNode ) {
         Food loadedFood = new Food();

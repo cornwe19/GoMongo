@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:stretchColumns="1"
+             android:id="@+id/nutrition_info_main">
+     <TableRow android:background="@color/nutrition_odd_row"
+               android:id="@+id/nutrition_in_table_title">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/nut_info_title" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_even_row"
+               android:id="@+id/nutrition_serving_size_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/serving_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/serving_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_odd_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/calories_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/calories_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_even_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/fat_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/fat_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_odd_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/satfat_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/satfat_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_even_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/carbs_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/carbs_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_odd_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/fiber_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/fiber_nut_info" />
+     </TableRow>
+     
+     <TableRow android:background="@color/nutrition_even_row">
+       <TextView style="@style/TableItemLeft"
+                 android:text="@string/protein_nut_info" />
+       <TextView style="@style/TableItemRight"
+                 android:id="@+id/protein_nut_info" />
+     </TableRow>
+     
+  </TableLayout>

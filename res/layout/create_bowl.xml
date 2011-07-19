@@ -9,40 +9,49 @@
               android:layout_height="match_parent"
               android:id="@+id/create_bowl_root"
               android:background="@drawable/create_bowl_background_begin">
-	  <TextView style="@style/ActivityTitle"
-	            android:text="@string/title_create_bowl_activity" />
+	  <LinearLayout android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:orientation="horizontal"
+	                android:gravity="center_vertical">
+		  <TextView style="@style/ActivityTitle"
+		            android:layout_weight="1"
+		            android:text="@string/title_create_bowl_activity" />
+		  <Button android:layout_width="wrap_content"
+		          android:layout_height="@dimen/create_bowl_button_height"
+		          android:id="@+id/button_share_bowl"
+		          android:text="@string/share_bowl_title" />
+	  </LinearLayout>
 	  <LinearLayout android:layout_width="match_parent"
 	                android:layout_height="match_parent"
 	                android:layout_weight="1"
 	                android:orientation="vertical"
 	                android:gravity="center|bottom">
 	    <EditText android:hint="@string/hint_name_your_bowl"
-	              android:background="#00000000"
-	              android:textColor="#FFF"
 	              android:textColorHint="#FFF"
-	              android:gravity="center"
 	              android:cursorVisible="false"
-	              android:layout_height="wrap_content"
-	              android:layout_width="wrap_content"
-	              android:textStyle="bold"
-	              android:layout_marginBottom="66dp" />
+	              android:id="@+id/edittext_bowl_title"
+	              style="@style/BowlTitleStyle" />
 	    
 	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="wrap_content"
-	            android:text="@string/button_meat_seafood"
+	            android:layout_height="@dimen/create_bowl_button_height"
+	            android:text="@string/category_meats_title"
 	            android:id="@+id/button_meat_seafood" />
 	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="wrap_content"
-	            android:text="@string/button_veggies"
+	            android:layout_height="@dimen/create_bowl_button_height"
+	            android:text="@string/category_veggies_title"
 	            android:id="@+id/button_veggies" />
 	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="wrap_content"
-	            android:text="@string/button_sauces"
+	            android:layout_height="@dimen/create_bowl_button_height"
+	            android:text="@string/category_sauces_title"
 	            android:id="@+id/button_sauces" />
 	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="wrap_content"
-	            android:text="@string/button_spices"
+	            android:layout_height="@dimen/create_bowl_button_height"
+	            android:text="@string/category_spices_title"
 	            android:id="@+id/button_spices" />
+	    <Button android:layout_width="@dimen/centered_button_width"
+              android:layout_height="@dimen/create_bowl_button_height"
+              android:text="@string/category_starches_title"
+              android:id="@+id/button_starches" />
 	  </LinearLayout>
   </LinearLayout>
 </LinearLayout>
