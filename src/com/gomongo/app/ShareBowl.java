@@ -1,21 +1,32 @@
 package com.gomongo.app;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.data.IngredientCount;
+import com.gomongo.net.StaticWebService;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -34,7 +45,13 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
         } );
     }
     
+    private static String TAG = "ShareBowl";
+    
+    private static String CREATE_BOWL_URL = "http://www.gomongo.com/iphone/iPhonePrintRecipe.php";
+    
     private static int NUTRITION_INFO_DIALOG_ID = 0x1;
+    private static String ROOT = "root";
+    private static String BOWL_NAME = "bowlname";
     
     private Food mTotalNutritionContainer = new Food();
     
@@ -58,10 +75,16 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             QueryBuilder<IngredientCount,Integer> builder = ingredientDao.queryBuilder();
             builder.where().eq( IngredientCount.COL_BOWL_ID, bowlId);
             List<IngredientCount> allIngredients = ingredientDao.query( builder.prepare() );
+            
+            StringBuilder xmlBuilder = new StringBuilder();
+            xmlBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            xmlBuilder.append(String.format("<%s>", ROOT));
+            xmlBuilder.append(String.format( "<%1$s>%2$s</%1$s>", BOWL_NAME, bowl.getTitle() ) );
             for( IngredientCount ingredientCount : allIngredients ) {
                 Food ingredient = ingredientCount.getIngredient();
                 foodDao.refresh(ingredient);
                 
+                ingredient.writeFoodXml(xmlBuilder, ingredientCount.getCount());
                 
                 mTotalNutritionContainer.addCalories(ingredient.getTotalCalories() * ingredientCount.getCount());
                 mTotalNutritionContainer.addProtein(ingredient.getProtein() * ingredientCount.getCount());
@@ -71,9 +94,33 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
                 mTotalNutritionContainer.addDietaryFiber(ingredient.getDietaryFiber() * ingredientCount.getCount());
             }
             
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            mTotalNutritionContainer.writeSummaryXml(xmlBuilder);
+            
+            xmlBuilder.append( String.format( "</%s>", ROOT ) );
+            
+            //DEBUG
+            Log.d(TAG, String.format( "Posting XML: %s", xmlBuilder.toString() ) );
+            //DEBUG
+            
+            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, xmlBuilder.toString());
+            InputStreamReader reader = new InputStreamReader( response );
+            // GET BYTE STREAM HERE
+            //Bitmap image = BitmapFactory.decodeStream(response);
+            
+            // DEBUG
+            File temp = new File( MongoPhoto.PICTURE_TEMP_DIR, "recipe.jpg" );
+            OutputStream fileStream = new FileOutputStream(temp);
+            //image.compress(CompressFormat.PNG, 100, fileStream);
+            fileStream.close();
+            //DEBUG
+            
+        } catch (SQLException ex ) {
+            Log.w(TAG, "Couldn't open the database for writing", ex );
+            
+            Toast.makeText(this, R.string.error_problem_connecting_to_database, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.w(TAG, "Problem connecting to internet on prepare share bowl call." );
+            // Might want to explain why bowl wont work...
         }
         
         Button startOver = (Button)findViewById(R.id.button_create_another_bowl);

@@ -21,7 +21,7 @@ public class MongoPhoto extends Activity {
 	private static final String TAG = "MongoPhoto";
 	
 	public static final File PICTURE_STORAGE_DIR = new File( Environment.getExternalStorageDirectory(), "GoMongo" );
-	private static final File PICTURE_TEMP_DIR = new File( PICTURE_STORAGE_DIR, "temp" );
+	public static final File PICTURE_TEMP_DIR = new File( PICTURE_STORAGE_DIR, "temp" );
 	
 	static {
 		if ( !PICTURE_STORAGE_DIR.exists() ) {
