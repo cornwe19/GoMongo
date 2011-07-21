@@ -87,7 +87,7 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		double latitude = (Double)xpath.evaluate(LATITUDE_XPATH, xmlRootNode, XPathConstants.NUMBER);
 		double longitude = (Double)xpath.evaluate(LONGITUDE_XPATH, xmlRootNode, XPathConstants.NUMBER);
 		
-		GeoPoint location = new GeoPoint( toMicroDegrees(latitude), toMicroDegrees(longitude) );
+		GeoPoint location = new GeoPoint( convertToMicroDegrees(latitude), convertToMicroDegrees(longitude) );
 		
 		return new MongoLocation(location, title, description, distance, hours, phoneNumber);
 	}
@@ -104,7 +104,7 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		return modifiedHours.replace("\t", " ");
 	}
 	
-	private static int toMicroDegrees( double degrees ) {
+	public static int convertToMicroDegrees( double degrees ) {
 		return (int)( degrees * 1e6 );
 	}
 

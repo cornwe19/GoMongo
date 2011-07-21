@@ -32,7 +32,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gomongo.net.StaticWebService;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
 public class FindUs extends MapActivity implements OnClickListener {
@@ -74,6 +76,10 @@ public class FindUs extends MapActivity implements OnClickListener {
 
 		mMapView = (MapView) findViewById(R.id.find_us_map);
 		mMapView.setBuiltInZoomControls(true);
+		MapController mapController = mMapView.getController();
+		
+		int cityZoomLevel = 10;
+		mapController.setZoom(cityZoomLevel);
 		
 		mToggleButton = (ImageButton)findViewById(R.id.button_map_list_toggle);
 
@@ -81,7 +87,12 @@ public class FindUs extends MapActivity implements OnClickListener {
 		
 		String locationSearchUrl;
 		try {
-		    locationSearchUrl = prepareStoreLocatorRequestBasedOnCurrentLocation();
+		    Location lastKnownLocation = getLastKnownLocation();
+		    
+		    mapController.setCenter( new GeoPoint( MongoLocation.convertToMicroDegrees(lastKnownLocation.getLatitude() ),
+		                                          MongoLocation.convertToMicroDegrees(lastKnownLocation.getLongitude() ) ) );
+		    
+		    locationSearchUrl = prepareStoreLocatorRequestBasedOnLocation( lastKnownLocation );
 		}
 		catch ( LocationServiceNotAvailableException exception ) {
 		    Log.w(TAG, "Couldn't access user's location. Picking arbitrary search spot.", exception);
@@ -89,6 +100,10 @@ public class FindUs extends MapActivity implements OnClickListener {
 		    Toast.makeText(this, getResources().getString(R.string.error_problem_getting_your_location), Toast.LENGTH_LONG).show();
 		    
 		    PointF kansasGPSCoords = new PointF( 39.1f, 94.6f );
+		    
+		    mapController.setCenter( new GeoPoint( MongoLocation.convertToMicroDegrees( kansasGPSCoords.x ), 
+		                                           MongoLocation.convertToMicroDegrees( kansasGPSCoords.y ) ) );
+		    
 		    locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT, kansasGPSCoords.x, kansasGPSCoords.y );
 		}
 		
@@ -176,8 +191,15 @@ public class FindUs extends MapActivity implements OnClickListener {
 		}
 	}
 
-	private String prepareStoreLocatorRequestBasedOnCurrentLocation() throws LocationServiceNotAvailableException {
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	private String prepareStoreLocatorRequestBasedOnLocation( Location location ) {
+		String locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT,
+				location.getLatitude(), location.getLongitude());
+
+		return locationSearchUrl;
+	}
+
+    private Location getLastKnownLocation() throws LocationServiceNotAvailableException {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Location lastKnownLocation = locationManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -185,13 +207,8 @@ public class FindUs extends MapActivity implements OnClickListener {
 		if( lastKnownLocation == null ) {
 		    throw new LocationServiceNotAvailableException();
 		}
-		
-		String locationSearchUrl = String.format(LOCATION_SEARCH_URL_FORMAT,
-				lastKnownLocation.getLatitude(), lastKnownLocation
-						.getLongitude());
-
-		return locationSearchUrl;
-	}
+        return lastKnownLocation;
+    }
 
 	@Override
 	protected boolean isRouteDisplayed() {
