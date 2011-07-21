@@ -95,7 +95,10 @@ public class AnnotationEditorView extends View {
 	}
 
 	private void performHitTestToSelectImage(float x, float y) {
-		for( MongoImage image : mImages ) {
+	    // Read images in reverse so that topmost images will be selected
+	    for( int imageIndex = mImages.size()-1; imageIndex >= 0; imageIndex-- ) {
+			MongoImage image = mImages.get(imageIndex);
+	        
 			if( image.containsPoint(x, y) ) {
 				Log.d( TAG, String.format( "Selecting image from point (%f,%f)", x, y ) );
 				
