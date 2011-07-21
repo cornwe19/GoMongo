@@ -3,6 +3,8 @@ package com.gomongo.app.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gomongo.app.RotateGestureDetector;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,6 +20,7 @@ public class AnnotationEditorView extends View {
 	private static final String TAG = "AnnotationEditorView";
 	private Context mContext; 
 	private ScaleGestureDetector mScaleGestureDetector;
+	private RotateGestureDetector mRotateGestureDetector;
 	
 	public AnnotationEditorView(Context context) {
 		super(context);
@@ -58,10 +61,13 @@ public class AnnotationEditorView extends View {
 	
 	@Override
 	public boolean onTouchEvent( MotionEvent event ) {
-		//Log.d(TAG, String.format( "Touch event with %d pointers", event.getPointerCount() ) );
 		
 		if( mScaleGestureDetector != null ) {
 			mScaleGestureDetector.onTouchEvent(event);
+		}
+		
+		if( mRotateGestureDetector != null ) {
+		    mRotateGestureDetector.onTouchEvent(event);
 		}
 		
 		float x = event.getX();
@@ -75,6 +81,7 @@ public class AnnotationEditorView extends View {
 			boolean hitTestFoundAnImage = mSelectedImage != null;
 			if( hitTestFoundAnImage ) {
 				mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
+				mRotateGestureDetector = new RotateGestureDetector( mSelectedImage );
 				invalidate();
 			}
 			

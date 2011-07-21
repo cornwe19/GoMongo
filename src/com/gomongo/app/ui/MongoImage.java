@@ -1,5 +1,7 @@
 package com.gomongo.app.ui;
 
+import com.gomongo.app.OnRotateGestureListener;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -7,11 +9,12 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.view.ScaleGestureDetector;
 
-public class MongoImage extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+public class MongoImage extends ScaleGestureDetector.SimpleOnScaleGestureListener implements OnRotateGestureListener {
 
 	private RectF mActualSize;
 	private PointF mDistanceToCenter = new PointF();
 	private float mCurrentScale = 1f;
+	private float mCurrentRotation = 0f;
 	private Bitmap mBitmap;
 	
 	public MongoImage( Bitmap image ) {
@@ -51,6 +54,7 @@ public class MongoImage extends ScaleGestureDetector.SimpleOnScaleGestureListene
 		Matrix imageTransform = new Matrix();
 		
 		imageTransform.postScale( mCurrentScale, mCurrentScale );
+		imageTransform.postRotate(mCurrentRotation, mDistanceToCenter.x, mDistanceToCenter.y);
 		imageTransform.postTranslate( mCurrentPoint.x - mDistanceToCenter.x, mCurrentPoint.y - mDistanceToCenter.y );
 		
 		canvas.drawBitmap(mBitmap, imageTransform, null);
@@ -65,4 +69,9 @@ public class MongoImage extends ScaleGestureDetector.SimpleOnScaleGestureListene
 		boolean handledEvent = true;
 		return handledEvent;
 	}
+
+    @Override
+    public void onRotate(double angleDelta) {
+        mCurrentRotation += angleDelta;
+    }
 }
