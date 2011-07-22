@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +11,7 @@ import java.util.List;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
@@ -73,7 +73,7 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             shareTitle.setText(bowl.getTitle());
             
             QueryBuilder<IngredientCount,Integer> builder = ingredientDao.queryBuilder();
-            builder.where().eq( IngredientCount.COL_BOWL_ID, bowlId);
+            builder.where().eq( IngredientCount.COL_BOWL_ID, bowlId).and().gt(IngredientCount.COL_COUNT, 0);
             List<IngredientCount> allIngredients = ingredientDao.query( builder.prepare() );
             
             StringBuilder xmlBuilder = new StringBuilder();
@@ -102,15 +102,16 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             Log.d(TAG, String.format( "Posting XML: %s", xmlBuilder.toString() ) );
             //DEBUG
             
-            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, xmlBuilder.toString());
-            InputStreamReader reader = new InputStreamReader( response );
+            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, "printBowl", xmlBuilder.toString(), "printBowlName", bowl.getTitle());
+            //InputStreamReader reader = new InputStreamReader( response );
+            
             // GET BYTE STREAM HERE
-            //Bitmap image = BitmapFactory.decodeStream(response);
+            Bitmap image = BitmapFactory.decodeStream(response);
             
             // DEBUG
             File temp = new File( MongoPhoto.PICTURE_TEMP_DIR, "recipe.jpg" );
             OutputStream fileStream = new FileOutputStream(temp);
-            //image.compress(CompressFormat.PNG, 100, fileStream);
+            image.compress(CompressFormat.PNG, 100, fileStream);
             fileStream.close();
             //DEBUG
             
