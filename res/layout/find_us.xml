@@ -25,7 +25,7 @@
 	  <com.gomongo.app.ui.MongoMapView android:layout_width="match_parent"
 		                            android:layout_height="match_parent"
                                 android:clickable="true"
-                                android:layout_weight="1"
+                                android:layout_weight="1"                                
                                 android:id="@+id/find_us_map"
                                 android:apiKey="0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA" />
 	  <Button android:layout_width="wrap_content"

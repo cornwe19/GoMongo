@@ -1,10 +1,13 @@
 Gmail account: gomongodroid
 normal password.
 
-alias: gomongo
+Release Key
+alias: go_mongo
 private key password: g0mongo1
 
-TODO:
- - Look into signing application
- - key md5:  72:5C:F1:77:5A:C4:19:FB:74:26:2D:97:34:CD:63:FD
- - maps API key:  0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA
+Release Maps Info
+ - key md5:  32:C7:CE:AB:1C:CF:71:6E:F9:60:43:9B:4A:DC:EC:79
+ - maps API key: 0qfMzmQotFFuOXI5fjOIKA0Rtkdps8msXLKouxQ 
+
+Debug Maps Info
+ - maps API key: 0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA
