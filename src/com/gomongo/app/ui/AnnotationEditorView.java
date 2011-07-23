@@ -3,17 +3,20 @@ package com.gomongo.app.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gomongo.app.RotateGestureDetector;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Paint;
 import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import com.gomongo.app.RotateGestureDetector;
 
 public class AnnotationEditorView extends View {
 	
@@ -36,8 +39,17 @@ public class AnnotationEditorView extends View {
 	
 	@Override
 	public void onDraw( Canvas canvas ) {
-		for( MongoImage image : mImages ) {
-			image.drawImage(canvas);
+		Paint imagePaint = null;
+		if( mIsDeleting ) {
+		    imagePaint = new Paint();
+		    int redTintColor = 0xFF3333;
+            int lowGreyToDarkenRed = 0x333;
+            ColorFilter filter = new LightingColorFilter( redTintColor, lowGreyToDarkenRed );
+		    imagePaint.setColorFilter( filter );
+		}
+	    
+	    for( MongoImage image : mImages ) {
+			image.drawImage(canvas, imagePaint);
 		}
 	}
 	
@@ -59,9 +71,32 @@ public class AnnotationEditorView extends View {
 		invalidate();
 	}
 	
+	boolean mIsDeleting = false;
+	public void startDeleting() {
+	    mIsDeleting = true;
+	    invalidate();
+	}
+
+	public void stopDeleting() {
+	    mIsDeleting = false;
+	    invalidate();
+	}
+	
 	@Override
 	public boolean onTouchEvent( MotionEvent event ) {
 		
+	    float x = event.getX();
+        float y = event.getY();
+	    
+	    if( mIsDeleting ) {
+	        performHitTestToSelectImage(x, y);
+	        
+	        if( mSelectedImage != null ) {
+	            mImages.remove(mSelectedImage);
+	            invalidate();
+	        }
+	    }
+	    
 		if( mScaleGestureDetector != null ) {
 			mScaleGestureDetector.onTouchEvent(event);
 		}
@@ -69,9 +104,6 @@ public class AnnotationEditorView extends View {
 		if( mRotateGestureDetector != null ) {
 		    mRotateGestureDetector.onTouchEvent(event);
 		}
-		
-		float x = event.getX();
-		float y = event.getY();
 		
 		switch ( event.getAction() & MotionEvent.ACTION_MASK ) {
 		case MotionEvent.ACTION_DOWN:

@@ -44,7 +44,7 @@ public class RotateGestureDetector extends SimpleOnGestureListener {
             }
             break;
         case MotionEvent.ACTION_POINTER_UP:
-            if( mGestureInProgress && event.getPointerCount() < 2 ) {
+            if( mGestureInProgress && event.getPointerCount() -1 < 2 ) {
                 mGestureInProgress = false;
             }
             break;

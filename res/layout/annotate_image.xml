@@ -17,6 +17,12 @@
             android:layout_width="wrap_content"
             android:text="@string/button_add_annotation"
             android:id="@+id/button_add_annotation" />
+    <CheckBox android:layout_width="48dip"
+              android:layout_height="48dip"
+              android:scaleType="fitCenter"
+              style="@android:style/Widget.Button"
+              android:button="@android:drawable/ic_menu_delete"
+              android:id="@+id/button_delete_sticker" />
     <Button android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="1"

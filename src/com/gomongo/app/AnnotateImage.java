@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -27,13 +28,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Gallery;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.gomongo.app.ui.AnnotationEditorView;
 import com.gomongo.app.ui.MongoImage;
 
-public class AnnotateImage extends Activity implements OnClickListener {
+public class AnnotateImage extends Activity implements OnClickListener, OnCheckedChangeListener {
 	private final String TAG = "AnnotateImage";
 	
 	private Uri mTempImageUri;
@@ -62,6 +66,9 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		
 		Button addStickerButton = (Button)findViewById(R.id.button_add_annotation);
 		addStickerButton.setOnClickListener(this);
+		
+		CheckBox deleteStickerToggle = (CheckBox)findViewById(R.id.button_delete_sticker);
+		deleteStickerToggle.setOnCheckedChangeListener(this);
 	}
 
 	private void setEditorBackgroundToTempImage() {
@@ -139,13 +146,13 @@ public class AnnotateImage extends Activity implements OnClickListener {
 			showDialog(ANNOTATIONS_DIALOG);
 			break;
 		case R.id.button_save_and_share:
-			Bitmap compositeBitmap = mAnnotationEditorView.prepareBitmap();
+			forceExitDeleteMode();
+		    
+		    Bitmap compositeBitmap = mAnnotationEditorView.prepareBitmap();
 			
 			File imageToShare = compressBitmapToImageFile(compositeBitmap);
 			
 			showUserShareDestinationsForFile(imageToShare);
-			
-			finish();
 			break;
 		// Handle any dialog image click the same
 		case R.id.top_left:
@@ -161,6 +168,11 @@ public class AnnotateImage extends Activity implements OnClickListener {
 			break;
 		}
 	}
+
+    private void forceExitDeleteMode() {
+        CheckBox deletingCheckbox = (CheckBox)findViewById(R.id.button_delete_sticker);
+        deletingCheckbox.setChecked(false);
+    }
 
 	private File compressBitmapToImageFile(Bitmap compositeBitmap) {
 		File imageToShare = null;
@@ -208,4 +220,20 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		
 		return mDialog;
 	}
+
+    @Override
+    public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+        if( button.getId() == R.id.button_delete_sticker ) {
+            if( isChecked ) {
+                int redTintColor = 0xFFFF3333;
+                button.getBackground().setColorFilter(redTintColor, PorterDuff.Mode.MULTIPLY);
+                mAnnotationEditorView.startDeleting();
+            }
+            else {
+                int clearTintColor = 0xFFFFFFFF;
+                button.getBackground().setColorFilter(clearTintColor, PorterDuff.Mode.MULTIPLY);
+                mAnnotationEditorView.stopDeleting();
+            }
+        }
+    }
 }
