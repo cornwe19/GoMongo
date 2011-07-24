@@ -49,7 +49,7 @@ public class ImageGallery extends Activity implements OnItemSelectedListener {
         reshareButton.setOnClickListener( new OnClickListener() {
             @Override
             public void onClick(View clickedView) {
-                AnnotateImage.showUserShareDestinationsForFile(thisContext, mSelectedImageUri );
+                NavigationHelper.shareJpegAtUri(thisContext, mSelectedImageUri );
             }
         });
     }

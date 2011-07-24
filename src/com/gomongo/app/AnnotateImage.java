@@ -13,8 +13,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -153,7 +151,7 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 			
 			File imageToShare = compressBitmapToImageFile(compositeBitmap);
 			
-			showUserShareDestinationsForFile(this, Uri.fromFile(imageToShare));
+			NavigationHelper.shareJpegAtUri(this, Uri.fromFile(imageToShare));
 			
 			break;
 		// Handle any dialog image click the same
@@ -195,15 +193,6 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		return imageToShare;
 	}
 
-	public static void showUserShareDestinationsForFile(Context context, Uri imageUriToShare) {
-		Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-		shareIntent.setType("image/jpeg");
-		shareIntent.putExtra( Intent.EXTRA_STREAM, imageUriToShare );
-		Intent shareMethodChooser = Intent.createChooser(shareIntent, context.getResources().getText(R.string.title_share_chooser));
-		
-		context.startActivity(shareMethodChooser);
-	}
-	
 	Dialog mDialog;
 	
 	@Override

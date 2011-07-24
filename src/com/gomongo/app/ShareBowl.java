@@ -1,6 +1,7 @@
 package com.gomongo.app;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +55,8 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
     private static String ROOT = "root";
     private static String BOWL_NAME = "bowlname";
     
+    private static File TEMP_RECIPE_IMAGE = new File( MongoPhoto.PICTURE_TEMP_DIR, "recipe.jpg" );
+    
     private Food mTotalNutritionContainer = new Food();
     
     @Override
@@ -76,10 +80,8 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             builder.where().eq( IngredientCount.COL_BOWL_ID, bowlId).and().gt(IngredientCount.COL_COUNT, 0);
             List<IngredientCount> allIngredients = ingredientDao.query( builder.prepare() );
             
-            StringBuilder xmlBuilder = new StringBuilder();
-            xmlBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            xmlBuilder.append(String.format("<%s>", ROOT));
-            xmlBuilder.append(String.format( "<%1$s>%2$s</%1$s>", BOWL_NAME, bowl.getTitle() ) );
+            StringBuilder xmlBuilder = prepareShareBowlXmlPayload(bowl);
+            
             for( IngredientCount ingredientCount : allIngredients ) {
                 Food ingredient = ingredientCount.getIngredient();
                 foodDao.refresh(ingredient);
@@ -94,26 +96,11 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
                 mTotalNutritionContainer.addDietaryFiber(ingredient.getDietaryFiber() * ingredientCount.getCount());
             }
             
-            mTotalNutritionContainer.writeSummaryXml(xmlBuilder);
+            finishShareBowlXmlPayload(xmlBuilder);
             
-            xmlBuilder.append( String.format( "</%s>", ROOT ) );
+            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, buildPostDataForBowl(bowl, xmlBuilder) );
             
-            //DEBUG
-            Log.d(TAG, String.format( "Posting XML: %s", xmlBuilder.toString() ) );
-            //DEBUG
-            
-            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, "printBowl", xmlBuilder.toString(), "printBowlName", bowl.getTitle());
-            //InputStreamReader reader = new InputStreamReader( response );
-            
-            // GET BYTE STREAM HERE
-            Bitmap image = BitmapFactory.decodeStream(response);
-            
-            // DEBUG
-            File temp = new File( MongoPhoto.PICTURE_TEMP_DIR, "recipe.jpg" );
-            OutputStream fileStream = new FileOutputStream(temp);
-            image.compress(CompressFormat.PNG, 100, fileStream);
-            fileStream.close();
-            //DEBUG
+            compressResponseToTempImage(response);
             
         } catch (SQLException ex ) {
             Log.w(TAG, "Couldn't open the database for writing", ex );
@@ -124,11 +111,40 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             // Might want to explain why bowl wont work...
         }
         
+        Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );
+        shareBowlButton.setOnClickListener(this);
+        
         Button startOver = (Button)findViewById(R.id.button_create_another_bowl);
         startOver.setOnClickListener(this);
         
         Button nutritionInfo = (Button)findViewById(R.id.button_nutrition_info);
         nutritionInfo.setOnClickListener(this);
+    }
+
+    private void finishShareBowlXmlPayload(StringBuilder xmlBuilder) {
+        mTotalNutritionContainer.writeSummaryXml(xmlBuilder);
+        
+        xmlBuilder.append( String.format( "</%s>", ROOT ) );
+    }
+
+    private StringBuilder prepareShareBowlXmlPayload(Bowl bowl) {
+        StringBuilder xmlBuilder = new StringBuilder();
+        xmlBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        xmlBuilder.append(String.format("<%s>", ROOT));
+        xmlBuilder.append(String.format( "<%1$s>%2$s</%1$s>", BOWL_NAME, bowl.getTitle() ) );
+        return xmlBuilder;
+    }
+
+    private void compressResponseToTempImage(InputStream response) throws FileNotFoundException, IOException {
+        Bitmap image = BitmapFactory.decodeStream(response);
+        
+        OutputStream fileStream = new FileOutputStream(TEMP_RECIPE_IMAGE);
+        image.compress(CompressFormat.JPEG, 85, fileStream);
+        fileStream.close();
+    }
+
+    private String buildPostDataForBowl(Bowl bowl, StringBuilder xmlBuilder) {
+        return String.format("printBowlName=%s&printBowl=%s", bowl.getTitle(), xmlBuilder.toString());
     }
 
     @Override
@@ -162,11 +178,8 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
         case R.id.button_nutrition_info:
             showDialog(NUTRITION_INFO_DIALOG_ID);
             break;
-        case R.id.button_send_bowl_email:
-            break;
-        case R.id.button_send_bowl_facebook:
-            break;
-        case R.id.button_send_bowl_twitter:
+        case R.id.button_share_bowl:
+            NavigationHelper.shareJpegAtUri(this, Uri.fromFile(TEMP_RECIPE_IMAGE));
             break;
         case R.id.button_create_another_bowl:
             Intent createNewBowl = new Intent( this, CreateBowl.class );

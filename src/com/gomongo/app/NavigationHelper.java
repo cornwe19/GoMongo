@@ -2,6 +2,7 @@ package com.gomongo.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,4 +19,13 @@ public class NavigationHelper {
 			}
 		});
 	}
+	
+	public static void shareJpegAtUri(Context context, Uri imageUriToShare) {
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("image/jpeg");
+        shareIntent.putExtra( Intent.EXTRA_STREAM, imageUriToShare );
+        Intent shareMethodChooser = Intent.createChooser(shareIntent, context.getResources().getText(R.string.title_share_chooser));
+        
+        context.startActivity(shareMethodChooser);
+    }
 }

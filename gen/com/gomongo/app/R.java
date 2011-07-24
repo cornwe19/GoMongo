@@ -50,7 +50,7 @@ public final class R {
         public static final int button_add_annotation=0x7f07000f;
         public static final int button_cancel=0x7f07000e;
         public static final int button_create=0x7f07002e;
-        public static final int button_create_another_bowl=0x7f070044;
+        public static final int button_create_another_bowl=0x7f070041;
         public static final int button_delete_sticker=0x7f070010;
         public static final int button_find_us=0x7f07002d;
         public static final int button_food_item_add=0x7f07000a;
@@ -65,9 +65,6 @@ public final class R {
         public static final int button_reshare=0x7f070021;
         public static final int button_sauces=0x7f070017;
         public static final int button_save_and_share=0x7f070011;
-        public static final int button_send_bowl_email=0x7f070041;
-        public static final int button_send_bowl_facebook=0x7f070042;
-        public static final int button_send_bowl_twitter=0x7f070043;
         public static final int button_share_bowl=0x7f070013;
         public static final int button_spices=0x7f070018;
         public static final int button_starches=0x7f070019;
@@ -136,11 +133,11 @@ public final class R {
         public static final int button_about=0x7f080005;
         /**  Image Annotations 
          */
-        public static final int button_add_annotation=0x7f08002c;
+        public static final int button_add_annotation=0x7f08002a;
         public static final int button_cancel=0x7f08000c;
         public static final int button_check_in=0x7f080013;
         public static final int button_create=0x7f080003;
-        public static final int button_create_another_bowl=0x7f08002b;
+        public static final int button_create_another_bowl=0x7f080028;
         public static final int button_create_bowl=0x7f080007;
         public static final int button_find_us=0x7f080002;
         public static final int button_fun=0x7f080004;
@@ -152,10 +149,8 @@ public final class R {
         public static final int button_mongo_photo=0x7f080008;
         public static final int button_now_at=0x7f080009;
         public static final int button_nutrition_info=0x7f080027;
-        public static final int button_save_and_share=0x7f08002d;
-        public static final int button_send_bowl_email=0x7f080028;
-        public static final int button_send_bowl_facebook=0x7f080029;
-        public static final int button_send_bowl_twitter=0x7f08002a;
+        public static final int button_save_and_share=0x7f08002b;
+        public static final int button_share_bowl=0x7f080029;
         public static final int button_share_location=0x7f080012;
         public static final int button_take_photo=0x7f08000a;
         public static final int button_view_gallery=0x7f08000b;
@@ -168,23 +163,23 @@ public final class R {
         public static final int category_veggies_title=0x7f08001a;
         public static final int default_bowl_title=0x7f080018;
         public static final int distance_away_format=0x7f080015;
-        public static final int error_bowl_needs_name=0x7f080037;
+        public static final int error_bowl_needs_name=0x7f080035;
         /**  Errors 
          */
-        public static final int error_couldnt_access_sdcard=0x7f080031;
-        public static final int error_image_for_editing_missing=0x7f080032;
-        public static final int error_problem_connecting_to_database=0x7f080036;
-        public static final int error_problem_getting_ingredients=0x7f080033;
-        public static final int error_problem_getting_locations=0x7f080034;
-        public static final int error_problem_getting_your_location=0x7f080035;
+        public static final int error_couldnt_access_sdcard=0x7f08002f;
+        public static final int error_image_for_editing_missing=0x7f080030;
+        public static final int error_problem_connecting_to_database=0x7f080034;
+        public static final int error_problem_getting_ingredients=0x7f080031;
+        public static final int error_problem_getting_locations=0x7f080032;
+        public static final int error_problem_getting_your_location=0x7f080033;
         public static final int fat_nut_info=0x7f080021;
         public static final int fiber_nut_info=0x7f080024;
-        public static final int help_view_more_stickers=0x7f08002f;
+        public static final int help_view_more_stickers=0x7f08002d;
         public static final int hint_name_your_bowl=0x7f080017;
         public static final int location_search_hint=0x7f080014;
         public static final int nut_info_title=0x7f08001e;
         public static final int protein_nut_info=0x7f080025;
-        public static final int reshare_image=0x7f080030;
+        public static final int reshare_image=0x7f08002e;
         public static final int satfat_nut_info=0x7f080022;
         public static final int serving_nut_info=0x7f08001f;
         /**  Share Bowl 
@@ -198,7 +193,7 @@ public final class R {
         /**  Find Us 
          */
         public static final int title_loading_locations=0x7f08000d;
-        public static final int title_share_chooser=0x7f08002e;
+        public static final int title_share_chooser=0x7f08002c;
     }
     public static final class style {
         public static final int ActivityTitle=0x7f040004;

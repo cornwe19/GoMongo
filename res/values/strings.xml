@@ -52,10 +52,8 @@
     <!-- Share Bowl -->
     <string name="share_bowl_title">Share Your Bowl</string>
     <string name="button_nutrition_info">Nutritional Info</string>
-    <string name="button_send_bowl_email">Send via Email</string>
-    <string name="button_send_bowl_facebook">Send to Facebook</string>
-    <string name="button_send_bowl_twitter">Tweet it!</string>
     <string name="button_create_another_bowl">Do it again!</string>
+    <string name="button_share_bowl">Share Bowl</string>
     
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
