@@ -21,7 +21,7 @@ public class MongoPhoto extends Activity {
 	private static final String TAG = "MongoPhoto";
 	
 	public static final File PICTURE_STORAGE_DIR = new File( Environment.getExternalStorageDirectory(), "GoMongo" );
-	private static final File PICTURE_TEMP_DIR = new File( PICTURE_STORAGE_DIR, "temp" );
+	public static final File PICTURE_TEMP_DIR = new File( PICTURE_STORAGE_DIR, "temp" );
 	
 	static {
 		if ( !PICTURE_STORAGE_DIR.exists() ) {
@@ -100,11 +100,14 @@ public class MongoPhoto extends Activity {
 	
 	private void setupPhotoLibraryButtonToLaunchGallery() {
 		Button photoLibraryButton = (Button)findViewById(R.id.button_view_gallery);
-        photoLibraryButton.setOnClickListener(new OnClickListener(){
+        
+		final Context thisContext = this;
+		
+		photoLibraryButton.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick( View view ) {
-        		// Looks like I'm going to have to roll my own Gallery for this
-        		// Android doesnt let you query the built in gallery
+        		Intent galleryIntent = new Intent( thisContext, ImageGallery.class );
+        		startActivity(galleryIntent);
         	}
         });
 	}

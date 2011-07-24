@@ -10,6 +10,7 @@ public class IngredientCount {
     
     public static final String COL_BOWL_ID = "bowl_id";
     public static final String COL_FOOD_ID = "food_id";
+    public static final String COL_COUNT = "count";
     
     @SuppressWarnings("unused") // This ID is only used by ORMLite
     @DatabaseField( generatedId = true )
@@ -27,7 +28,7 @@ public class IngredientCount {
         return mIngredient;
     }
     
-    @DatabaseField
+    @DatabaseField( columnName = COL_COUNT )
     private Integer mCount = 1;
     public Integer getCount() {
         return mCount;

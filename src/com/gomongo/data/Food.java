@@ -9,6 +9,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Food {
     
+    private static String ROOT = "food";
+    private static String TOTAL_ROOT = "totals";
+    private static String NUM = "num";
+    
     private static String ID_XPATH = "id";
     @DatabaseField( id = true )
     private int mId;
@@ -124,6 +128,37 @@ public class Food {
         return loadedFood;
     }
 
+    public void writeFoodXml( StringBuilder builder, Integer count ) {
+        builder.append( "<" + ROOT );
+        
+        addAttribute( builder, ID_XPATH, mId );
+        addAttribute( builder, TITLE_XPATH, mTitle );
+        addAttribute( builder, SERVSIZE_XPATH, mServingSize );
+        writeCommonXmlAttributes(builder);
+        addAttribute( builder, CATEGORY_XPATH, mCategory );
+        addAttribute( builder, NUM, count );
+        
+        builder.append( " />" );
+    }
+    
+    public void writeSummaryXml(StringBuilder builder) {
+        builder.append("<" + TOTAL_ROOT );
+        writeCommonXmlAttributes(builder);
+        builder.append(" />");
+    }
+    private void writeCommonXmlAttributes(StringBuilder builder) {
+        addAttribute( builder, TOTALCAL_XPATH, mTotalCalories );
+        addAttribute( builder, TOTALFAT_XPATH, mTotalFat );
+        addAttribute( builder, SATFAT_XPATH, mSaturatedFat );
+        addAttribute( builder, CARBS_XPATH, mCarbs );
+        addAttribute( builder, DIETFIBER_XPATH, mDietaryFiber );
+        addAttribute( builder, PROTEIN_XPATH, mProtein );
+    }
+    
+    private void addAttribute( StringBuilder builder, String attribute, Object value ) {
+        builder.append( String.format( " %s=\"%s\"", attribute, value.toString() ) );
+    }
+    
     private static void loadFoodFieldsFromAttributes(Food loadedFood, NamedNodeMap attributes) {
         loadedFood.mId = Integer.parseInt(attributes.getNamedItem(ID_XPATH).getNodeValue());
         

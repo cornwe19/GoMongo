@@ -2,7 +2,9 @@ package com.gomongo.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -20,6 +22,25 @@ public class StaticWebService {
         return source;
 	}
 
+	public static InputStream postGetResponse( String request, String... postData ) throws IOException {
+	    URL url = new URL( request );
+	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("POST");
+        OutputStreamWriter postStreamWriter = new OutputStreamWriter(connection.getOutputStream());
+	    if( postData.length % 2 == 0 ) {
+	        for( int paramIndex = 0; paramIndex < postData.length - 2; paramIndex += 2 ) {
+	            String paramFormat = "%s=%s&";
+	            postStreamWriter.write( String.format( paramFormat, postData[paramIndex], postData[paramIndex+1] ) );
+	        }
+	    }
+	    postStreamWriter.flush();
+        
+        
+        return connection.getInputStream();
+	}
+	
     private static InputStreamReader getResponseReader(String request) throws MalformedURLException, IOException,
             ProtocolException {
         URL url = new URL(request);
