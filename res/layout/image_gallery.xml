@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+  <Gallery android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:fadingEdgeLength="40dip"
+           android:spacing="20dip"
+           android:padding="10dip"
+           android:id="@+id/gallery_mongo_images" />
+  <Button android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/reshare_image"
+          android:id="@+id/button_reshare"
+          android:layout_alignParentBottom="true" />
+</RelativeLayout>

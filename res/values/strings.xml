@@ -62,6 +62,7 @@
     <string name="button_save_and_share">Save &amp; Share</string>
     <string name="title_share_chooser">Share to...</string>
     <string name="help_view_more_stickers">Swipe left or right for more stickers.</string>
+    <string name="reshare_image">Share Image Again</string>
     
     <!-- Errors -->
     <string name="error_couldnt_access_sdcard">There was a problem setting up your image. Please make sure your SD card is connected properly and try again.</string>
