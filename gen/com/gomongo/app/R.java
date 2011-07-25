@@ -86,6 +86,7 @@ public final class R {
         public static final int gallery_mongo_images=0x7f070020;
         public static final int home_main_menu=0x7f07002c;
         public static final int hours_body=0x7f070028;
+        public static final int imageview_mongo_promotion=0x7f070002;
         public static final int location_address=0x7f070027;
         public static final int location_distance=0x7f07002b;
         public static final int location_title=0x7f070026;
@@ -107,7 +108,6 @@ public final class R {
         public static final int textview_bowl_title=0x7f07003f;
         public static final int top_left=0x7f070022;
         public static final int top_right=0x7f070023;
-        public static final int webview_mongo_promotion=0x7f070002;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -164,6 +164,7 @@ public final class R {
         public static final int default_bowl_title=0x7f080018;
         public static final int distance_away_format=0x7f080015;
         public static final int error_bowl_needs_name=0x7f080035;
+        public static final int error_connecting_to_internet=0x7f080036;
         /**  Errors 
          */
         public static final int error_couldnt_access_sdcard=0x7f08002f;

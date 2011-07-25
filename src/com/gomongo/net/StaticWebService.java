@@ -22,10 +22,14 @@ public class StaticWebService {
         return source;
 	}
 
+	public static InputStream getResponseStream( String request ) throws MalformedURLException, IOException {
+	    HttpURLConnection connection = getHttpConnection(request);
+        
+	    return connection.getInputStream();
+	}
+	
 	public static InputStream postGetResponse( String request, String postData ) throws IOException {
-	    URL url = new URL( request );
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
+	    HttpURLConnection connection = getHttpConnection(request);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
         OutputStreamWriter postStreamWriter = new OutputStreamWriter(connection.getOutputStream());
@@ -37,12 +41,17 @@ public class StaticWebService {
         
         return connection.getInputStream();
 	}
+
+    private static HttpURLConnection getHttpConnection(String request) throws MalformedURLException, IOException {
+        URL url = new URL( request );
+	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        return connection;
+    }
 	
     private static InputStreamReader getResponseReader(String request) throws MalformedURLException, IOException,
             ProtocolException {
-        URL url = new URL(request);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
+        HttpURLConnection connection = getHttpConnection(request);
         connection.setRequestMethod("GET");
         
         InputStreamReader reader = new InputStreamReader(connection.getInputStream());
