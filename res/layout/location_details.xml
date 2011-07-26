@@ -34,7 +34,7 @@
   <!-- Header -->
   
   <!-- Hours and Contact -->
-  <LinearLayout style="@style/HoursAndContactWrapper">
+  <LinearLayout style="@style/InsetLightFrame">
     
     <!-- Hours -->
     <LinearLayout style="@style/HoursAndContactInfo">

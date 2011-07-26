@@ -32,6 +32,7 @@
     <!-- Create a bowl -->
     <string name="title_create_bowl_activity">Create-A-Bowl</string>
     <string name="hint_name_your_bowl">Tap To Name Your Bowl</string>
+    <string name="button_more_info">More Info</string>
     <string name="default_bowl_title">Untitled</string>
     
     <string name="category_meats_title">Meat &amp; Seafood</string>

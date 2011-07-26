@@ -7,8 +7,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/add_food_category" />
-  <ListView android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/add_food_list" />
+  <LinearLayout style="@style/InsetLightFrame"
+                android:layout_weight="1"
+                android:padding="4dip">
+	  <ListView android:cacheColorHint="#FFF"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:id="@+id/add_food_list" />
+  </LinearLayout>
 </LinearLayout>

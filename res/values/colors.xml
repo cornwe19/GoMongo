@@ -2,4 +2,6 @@
 <resources>
     <color name="nutrition_odd_row">#333</color>
     <color name="nutrition_even_row">#666</color>
+    
+    <color name="inset_foreground">#000</color>
 </resources>
