@@ -32,21 +32,30 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 	private static final String HOURS_XPATH = "hours";
 	private static final String PHONE_XPATH = "phone";
 	
+	private static final String FACEBOOK_XPATH = "facebook";
+	
 	private static final String LATITUDE_XPATH = "lat";
 	private static final String LONGITUDE_XPATH = "lon";
 	
 	private String mHours;
 	private String mPhoneNumber;
 	private String mDistance;
+	private String mFacebookPage;
 	
 	// NOTE: Hiding this constructor because loading from XML is the standard way to instansiate this class.
-	protected MongoLocation(GeoPoint point, String title, String address, String distance, String hours, String phoneNumber ) {
+	protected MongoLocation(GeoPoint point, String title, String address, String facebook, String distance, String hours, String phoneNumber ) {
 		super(point, title, address);
+		
+		mFacebookPage = facebook;
 		
 		mDistance = distance;
 		
 		mHours = hours;
 		mPhoneNumber = phoneNumber;
+	}
+	
+	public String getFacebookPage() {
+	    return mFacebookPage;
 	}
 	
 	public String getHours() {
@@ -84,12 +93,14 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		
 		String phoneNumber = (String)xpath.evaluate(PHONE_XPATH, xmlRootNode, XPathConstants.STRING);
 		
+		String facebook = (String)xpath.evaluate(FACEBOOK_XPATH, xmlRootNode, XPathConstants.STRING);
+		
 		double latitude = (Double)xpath.evaluate(LATITUDE_XPATH, xmlRootNode, XPathConstants.NUMBER);
 		double longitude = (Double)xpath.evaluate(LONGITUDE_XPATH, xmlRootNode, XPathConstants.NUMBER);
 		
 		GeoPoint location = new GeoPoint( convertToMicroDegrees(latitude), convertToMicroDegrees(longitude) );
 		
-		return new MongoLocation(location, title, description, distance, hours, phoneNumber);
+		return new MongoLocation(location, title, description, facebook, distance, hours, phoneNumber);
 	}
 	
 	private static Pattern mHoursPattern = Pattern.compile( "(?i).*?(A|P)M.*?(A|P)M" );
@@ -121,23 +132,26 @@ public class MongoLocation extends OverlayItem implements Parcelable {
 		dest.writeString(mTitle);
 		dest.writeString(mSnippet);
 		
+		dest.writeString(mFacebookPage);
+		
 		dest.writeString(mDistance);
 		dest.writeString(mHours);
 		dest.writeString(mPhoneNumber);
 	}
 	
 	public static final Parcelable.Creator<MongoLocation> CREATOR = new Parcelable.Creator<MongoLocation>() {
-	public MongoLocation createFromParcel(Parcel in) {
-	    return new MongoLocation(in);
-	}
+    	public MongoLocation createFromParcel(Parcel in) {
+    	    return new MongoLocation(in);
+    	}
 	
-	public MongoLocation[] newArray(int size) {
-	    return new MongoLocation[size];
-	}
+    	public MongoLocation[] newArray(int size) {
+    	    return new MongoLocation[size];
+    	}
+	
 	};
 	
 	private MongoLocation(Parcel in) {
 		this( new GeoPoint(in.readInt(),in.readInt() ), in.readString(), in.readString(), 
-				in.readString(), in.readString(), in.readString() );
+				in.readString(), in.readString(), in.readString(), in.readString() );
 	}
 }

@@ -11,13 +11,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LocationDetails extends Activity implements OnClickListener {
-	@Override
+    
+    private MongoLocation mLocation;
+    
+    @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.location_details);
 		
 		MongoLocation location = getIntent().getExtras().getParcelable(MongoLocation.EXTRA_LOCATION);
+		mLocation = location;
 		
 		TextView title = (TextView)findViewById(R.id.location_title);
 		title.setText(location.getTitle());
@@ -35,25 +39,34 @@ public class LocationDetails extends Activity implements OnClickListener {
 		
 		Button getDirectionsButton = (Button)findViewById(R.id.button_get_directions);
 		getDirectionsButton.setOnClickListener(this);
+		
+		Button shareLocationButton = (Button)findViewById(R.id.button_share_location);
+		shareLocationButton.setOnClickListener(this);
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch( v.getId() ) {
+	public void onClick(View clickedView) {
+		switch( clickedView.getId() ) {
 		case R.id.button_get_directions:
 			String directionsUrl = prepareMapsQueryForThisLocation();
 			Intent directionsIntent = new Intent( Intent.ACTION_VIEW, Uri.parse(directionsUrl) );
 			startActivity(directionsIntent);
 			
 			break;
+		case R.id.button_share_location:
+		    Intent locationLinkIntent = new Intent( Intent.ACTION_SEND );
+		    locationLinkIntent.setType("text/plain");
+		    locationLinkIntent.putExtra(Intent.EXTRA_TEXT, mLocation.getFacebookPage());
+		    startActivity(Intent.createChooser(locationLinkIntent, getResources().getString(R.string.title_share_chooser)));
+		    
+		    break;
 		}
 	}
 
 	private String prepareMapsQueryForThisLocation() {
 		String directionsUrlFormat = "http://maps.google.com/maps?daddr=%s";
-		MongoLocation location = getIntent().getExtras().getParcelable(MongoLocation.EXTRA_LOCATION);
 		
-		String lineBrokenAddress = location.getSnippet();
+		String lineBrokenAddress = mLocation.getSnippet();
 		
 		String directionsUrl = String.format(directionsUrlFormat, lineBrokenAddress.replace("\n", ""));
 		return directionsUrl;

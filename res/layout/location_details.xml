@@ -91,7 +91,8 @@
             android:text="@string/button_get_directions" />
     <Button android:layout_width="@dimen/centered_button_width"
             android:layout_height="wrap_content"
-            android:text="@string/button_share_location" />
+            android:text="@string/button_share_location"
+            android:id="@+id/button_share_location" />
     <Button android:layout_width="@dimen/centered_button_width"
             android:layout_height="wrap_content"
             android:text="@string/button_check_in" />
