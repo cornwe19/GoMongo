@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,6 +24,9 @@ public class About extends Activity {
     private static String TAG = "About";
     
     private static String MONGO_MENU_URL = "http://www.gomongo.com/iphone/promotions.php";
+    private static int LOADING_PROMOTIONS_ID = 0x1;
+    
+    private Dialog mLoadingDialog;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,24 +40,66 @@ public class About extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         
-        try {
-            InputStream response = StaticWebService.getResponseStream(MONGO_MENU_URL);
+        final Context thisContext = this;
+        
+        Thread promotionsThread = new Thread( new Runnable() {
+        
+            @Override
+            public void run() {
+                try {
+                    InputStream response = StaticWebService.getResponseStream(MONGO_MENU_URL);
+                    
+                    Bitmap image = BitmapFactory.decodeStream(response);
+                    
+                    runOnUiThread( getSetPromotionImageRunnable(image) );
+                    
+                } catch (MalformedURLException e) {
+                    Log.e(TAG, String.format("Poorly formatted URL (%s)", MONGO_MENU_URL), e);
+                    
+                    throw new RuntimeException( e );
+                } catch (IOException e) {
+                    Log.w(TAG, "Problem connecting to the internet", e );
+                    runOnUiThread( getIOErrorRunnable(thisContext));
+                }
+                
+                mLoadingDialog.dismiss();
+            }
+        });
+        
+        showDialog(LOADING_PROMOTIONS_ID);
+        
+        promotionsThread.start();
+	}
+	
+	private Runnable getIOErrorRunnable(final Context thisContext) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(thisContext, R.string.error_connecting_to_internet, Toast.LENGTH_LONG).show(); 
+            }
+        };
+    }
+
+    private Runnable getSetPromotionImageRunnable(final Bitmap image) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                ImageView promotionView = (ImageView)findViewById( R.id.imageview_mongo_promotion );
+                promotionView.setImageBitmap(image);
+            }
+        };
+    }
+    
+    @Override
+    protected Dialog onCreateDialog(int dialogId) {
+        if( dialogId == LOADING_PROMOTIONS_ID ) {
+            Resources res = getResources();
             
-            Bitmap image = BitmapFactory.decodeStream(response);
-            
-            ImageView promotionView = (ImageView)findViewById( R.id.imageview_mongo_promotion );
-            promotionView.setImageBitmap(image);
-            
-        } catch (MalformedURLException e) {
-            Log.e(TAG, String.format("Poorly formatted URL (%s)", MONGO_MENU_URL), e);
-            
-            throw new RuntimeException( e );
-        } catch (IOException e) {
-            Log.w(TAG, "Problem connecting to the internet", e );
-            
-            Toast.makeText(this, R.string.error_connecting_to_internet, Toast.LENGTH_LONG).show();
+            mLoadingDialog = ProgressDialog.show(this, 
+                    res.getString(R.string.loading_promotions_title), 
+                    res.getString(R.string.loading_promotions_message));
         }
         
-        
-	}
+        return mLoadingDialog;
+    }
 }

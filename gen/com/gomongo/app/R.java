@@ -168,22 +168,26 @@ public final class R {
         public static final int category_veggies_title=0x7f08001b;
         public static final int default_bowl_title=0x7f080019;
         public static final int distance_away_format=0x7f080015;
-        public static final int error_bowl_needs_name=0x7f080038;
-        public static final int error_connecting_to_internet=0x7f080039;
+        public static final int error_bowl_needs_name=0x7f08003a;
+        public static final int error_connecting_to_internet=0x7f08003b;
         /**  Errors 
          */
-        public static final int error_couldnt_access_sdcard=0x7f080032;
-        public static final int error_image_for_editing_missing=0x7f080033;
-        public static final int error_problem_connecting_to_database=0x7f080037;
-        public static final int error_problem_getting_ingredients=0x7f080034;
-        public static final int error_problem_getting_locations=0x7f080035;
-        public static final int error_problem_getting_your_location=0x7f080036;
+        public static final int error_couldnt_access_sdcard=0x7f080034;
+        public static final int error_image_for_editing_missing=0x7f080035;
+        public static final int error_problem_connecting_to_database=0x7f080039;
+        public static final int error_problem_getting_ingredients=0x7f080036;
+        public static final int error_problem_getting_locations=0x7f080037;
+        public static final int error_problem_getting_your_location=0x7f080038;
         public static final int fat_nut_info=0x7f080022;
         public static final int fiber_nut_info=0x7f080025;
         public static final int help_view_more_stickers=0x7f080030;
         public static final int hint_name_your_bowl=0x7f080017;
         public static final int loading_foods_message=0x7f080028;
         public static final int loading_foods_title=0x7f080027;
+        public static final int loading_promotions_message=0x7f080033;
+        /**  About Page 
+         */
+        public static final int loading_promotions_title=0x7f080032;
         public static final int location_search_hint=0x7f080014;
         public static final int nut_info_title=0x7f08001f;
         public static final int protein_nut_info=0x7f080026;
