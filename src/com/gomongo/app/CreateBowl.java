@@ -1,21 +1,13 @@
 package com.gomongo.app;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -28,18 +20,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gomongo.data.Bowl;
+import com.gomongo.data.DataUpdateCompleteHandler;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.data.IngredientCount;
-import com.gomongo.net.StaticWebService;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.gomongo.data.UpdateIngredientsHelper;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.android.apptools.OpenHelperManager.SqliteOpenHelperFactory;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
+public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implements DataUpdateCompleteHandler {
 
     public static final String EXTRA_CATEGORY = "category";
     public static final String EXTRA_CATEGORY_TITLE = "category.title";
@@ -47,24 +37,15 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     
     private static String TAG = "CreateBowl";
     
-    private static String FOOD_XPATH = "root/food";
-    private static String ALL_INGREDIENTS_REQUEST = "http://gomongo.com/iphone/iPhoneIngredients.php";
-    
     private static String CATEGORY_MEAT = "Meats";
     private static String CATEGORY_VEGGIES = "Vegetables";
     private static String CATEGORY_SAUCES = "Sauces";
     private static String CATEGORY_SPICES = "Spices";
     private static String CATEGORY_STARCHES = "Starches";
     
-    // Static initialization of DB open helper factory
-    static { 
-        OpenHelperManager.setOpenHelperFactory(new SqliteOpenHelperFactory() { 
-            public OrmLiteSqliteOpenHelper getHelper( Context context ) {
-                return new DatabaseOpenHelper(context);
-            }
-        } );
-    }
+    private static int LOADING_FOODS_DIALOG = 0x1;
     
+    private ProgressDialog mUpdatingFoodsDialog;
     private Bowl mBowl;
     private HashMap<String,Integer> mIngredientCategoryCounts = new HashMap<String,Integer>();
     
@@ -86,47 +67,16 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         mBowl.setTitle(res.getString(R.string.default_bowl_title));
         
         try {
-            Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
             Dao<Bowl,Integer> bowlDao = getHelper().getDao(Bowl.class);
             bowlDao.create(mBowl);
             
+            Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
             
-            InputSource response = StaticWebService.getSanitizedResponse(ALL_INGREDIENTS_REQUEST);
-            XPathFactory xpathFactory = XPathFactory.newInstance();
-            XPath xpath = xpathFactory.newXPath();
             
-            NodeList foods = (NodeList)xpath.evaluate(FOOD_XPATH, response, XPathConstants.NODESET);
-            
-            for( int i = 0; i < foods.getLength(); i++ ) {
-                Node foodNode = foods.item(i);
-                
-                Food food = Food.getFoodFromXml(foodNode);
-                if ( foodDao.queryForId(food.getId() ) == null ) {
-                    foodDao.create(food);
-                }
-                else {
-                    foodDao.update(food);
-                }
-                
-                
-                Log.d( TAG, String.format("Saving id: %s(%s) to database", food.getId(), food.getTitle() ) );
+            if( foodDao.countOf() < 1 ) {
+                showDialog(LOADING_FOODS_DIALOG);
+                UpdateIngredientsHelper.AsyncUpdateIngredients(getHelper(), this);
             }
-        
-        } 
-        catch (MalformedURLException ex) {
-            Log.e(TAG, String.format("URL(%s) to reach BD's was malformed.", ALL_INGREDIENTS_REQUEST), ex );
-            
-            throw new RuntimeException( ex );
-        } 
-        catch (IOException e) {
-            Log.w(TAG, "Couldn't connect to BD's website.", e);
-            
-            Toast.makeText(this, res.getString( R.string.error_problem_getting_ingredients), Toast.LENGTH_LONG).show();
-        } 
-        catch (XPathExpressionException ex) {
-            Log.e( TAG, String.format( "'%s' was not a valid xpath expression", FOOD_XPATH), ex );
-            
-            throw new RuntimeException( ex );
         }
         catch (SQLException ex) {
             handleSQLException(ex);
@@ -285,5 +235,56 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         });
         
         refreshButtonText( buttonId, title, categoryName );
+    }
+
+    @Override
+    protected Dialog onCreateDialog( int dialogId ) {
+        Resources res = getResources();
+        mUpdatingFoodsDialog = ProgressDialog.show(this, 
+                res.getString( R.string.loading_foods_title ), 
+                res.getString( R.string.loading_foods_message ), true);
+        return mUpdatingFoodsDialog;
+    }
+    
+    @Override
+    public void dataUpdateComplete(Throwable error) {
+        mUpdatingFoodsDialog.dismiss();
+        if( error != null ) {
+            final int toastTextResId = interpretBackgroundException(error);
+            final Context thisContext = this;
+            
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(thisContext, toastTextResId, Toast.LENGTH_LONG).show();
+                    
+                    disableButton(R.id.button_meat_seafood);
+                    disableButton(R.id.button_veggies);
+                    disableButton(R.id.button_spices);
+                    disableButton(R.id.button_sauces);
+                    disableButton(R.id.button_starches);
+                }
+                
+            });
+        }
+    }
+
+    private int interpretBackgroundException(Throwable error) {
+        int toastTextResId = 0;
+        
+        
+        if( error instanceof IOException ) {
+            toastTextResId = R.string.error_connecting_to_internet;
+        }
+        else if ( error instanceof SQLException ) {
+            toastTextResId = R.string.error_problem_connecting_to_database;
+        }
+        return toastTextResId;
+    }
+
+    private void disableButton(int buttonId) {
+        Button categoryButton = (Button)findViewById(buttonId);
+        categoryButton.setEnabled(false);
     }
 }

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,23 +28,11 @@ import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.data.IngredientCount;
 import com.gomongo.net.StaticWebService;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.android.apptools.OpenHelperManager.SqliteOpenHelperFactory;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implements OnClickListener {
-    
-    // Static initialization of DB open helper factory
-    static { 
-        OpenHelperManager.setOpenHelperFactory(new SqliteOpenHelperFactory() { 
-            public OrmLiteSqliteOpenHelper getHelper( Context context ) {
-                return new DatabaseOpenHelper(context);
-            }
-        } );
-    }
     
     private static String TAG = "ShareBowl";
     

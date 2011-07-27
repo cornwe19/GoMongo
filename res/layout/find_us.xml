@@ -27,7 +27,7 @@
                                 android:clickable="true"
                                 android:layout_weight="1"                                
                                 android:id="@+id/find_us_map"
-                                android:apiKey="0qfMzmQotFFtReIt8ig7HT6nCs4NZ0k2F_WfrWA" />
+                                android:apiKey="0qfMzmQotFFuOXI5fjOIKA0Rtkdps8msXLKouxQ" />
 	  <Button android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          style="@style/MapMarkerButton"

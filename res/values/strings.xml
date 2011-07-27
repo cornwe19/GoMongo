@@ -50,6 +50,9 @@
     <string name="fiber_nut_info">Dietary Fiber (g)</string>
     <string name="protein_nut_info">Protein (g)</string>
     
+    <string name="loading_foods_title">Loading Ingredients</string>
+    <string name="loading_foods_message">Please wait while the latest BD\'s menu is being loaded.</string>
+    
     <!-- Share Bowl -->
     <string name="share_bowl_title">Share Your Bowl</string>
     <string name="button_nutrition_info">Nutritional Info</string>

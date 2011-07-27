@@ -3,7 +3,6 @@ package com.gomongo.app;
 import java.sql.SQLException;
 import java.util.List;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -14,25 +13,13 @@ import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.data.IngredientCount;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.android.apptools.OpenHelperManager.SqliteOpenHelperFactory;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     
     private static String TAG = "AddFood";
-    
-    // Static initialization of DB open helper factory
-    static { 
-        OpenHelperManager.setOpenHelperFactory(new SqliteOpenHelperFactory() { 
-            public OrmLiteSqliteOpenHelper getHelper( Context context ) {
-                return new DatabaseOpenHelper(context);
-            }
-        } );
-    }
     
     Bowl mBowl;
     

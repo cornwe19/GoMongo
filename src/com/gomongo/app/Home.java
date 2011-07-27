@@ -1,10 +1,13 @@
 package com.gomongo.app;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-public class Home extends Activity {
+import com.gomongo.data.DatabaseOpenHelper;
+import com.gomongo.data.UpdateIngredientsHelper;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+
+public class Home extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,5 +27,7 @@ public class Home extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_about, About.class);
+        
+        UpdateIngredientsHelper.AsyncUpdateIngredients(getHelper(), null);
     }
 }
