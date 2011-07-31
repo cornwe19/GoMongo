@@ -27,6 +27,7 @@
 	                android:orientation="vertical"
 	                android:gravity="center|bottom">
 	    <EditText android:hint="@string/hint_name_your_bowl"
+	              android:maxLength="24"
 	              android:textColorHint="#FFF"
 	              android:cursorVisible="false"
 	              android:id="@+id/edittext_bowl_title"
