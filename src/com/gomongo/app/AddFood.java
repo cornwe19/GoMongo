@@ -22,6 +22,8 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     private static String TAG = "AddFood";
     
     Bowl mBowl;
+    AddFoodListAdapter mListAdapter;
+    boolean mSaveOnStop = true;
     
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -30,11 +32,10 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         setContentView(R.layout.add_food);
         
         Bundle intentExtras = getIntent().getExtras();
+        Category categoryInfo = intentExtras.getParcelable(CreateBowl.EXTRA_CATEGORY);
         
         TextView categoryTitle = (TextView)findViewById(R.id.add_food_category);
-        categoryTitle.setText(intentExtras.getString(CreateBowl.EXTRA_CATEGORY_TITLE));
-        
-        String category = intentExtras.getString(CreateBowl.EXTRA_CATEGORY);
+        categoryTitle.setText( categoryInfo.getTitle() );
         
         try {
             Dao<Bowl,Integer> bowlDao = getHelper().getDao(Bowl.class);
@@ -43,22 +44,40 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             Dao<Food,Integer> foodDao = getHelper().getDao(Food.class);
             
             QueryBuilder<Food,Integer> builder = foodDao.queryBuilder();
-            builder.where().eq(Food.CATEGORY, category);
+            builder.where().eq(Food.CATEGORY, categoryInfo.getId());
             
             List<Food> foodsInCategory = foodDao.query(builder.prepare());
             
             Dao<IngredientCount,Integer> ingredientDao = getHelper().getDao(IngredientCount.class);
-            AddFoodListAdapter listAdapter = new AddFoodListAdapter(this, mBowl, ingredientDao, foodsInCategory);
+            mListAdapter = new AddFoodListAdapter(this, mBowl, ingredientDao, foodsInCategory, categoryInfo );
             ListView foodsList = (ListView)findViewById(R.id.add_food_list);
-            foodsList.setAdapter(listAdapter);
+            foodsList.setAdapter(mListAdapter);
         }
         catch ( SQLException sqlException ) {
-            Log.e(TAG, "Couldnt access database", sqlException);
+            handleSqlException(sqlException);
             
-            String dataError = getResources().getString(R.string.error_problem_connecting_to_database);
-            Toast.makeText(this, dataError, Toast.LENGTH_LONG).show();
-            
+            mSaveOnStop = false;
             finish();
+        }
+    }
+
+    private void handleSqlException(SQLException sqlException) {
+        Log.e(TAG, "Couldnt access database", sqlException);
+        
+        String dataError = getResources().getString(R.string.error_problem_connecting_to_database);
+        Toast.makeText(this, dataError, Toast.LENGTH_LONG).show();
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        
+        if( mSaveOnStop ) {
+            try {
+                mListAdapter.save();
+            } catch (SQLException ex ) {
+                handleSqlException( ex );
+            }
         }
     }
 }

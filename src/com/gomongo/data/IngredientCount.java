@@ -6,15 +6,15 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class IngredientCount {
     
-    private static int MAX_INGEDIENT_COUNT = 5;
-    
     public static final String COL_BOWL_ID = "bowl_id";
     public static final String COL_FOOD_ID = "food_id";
     public static final String COL_COUNT = "count";
     
-    @SuppressWarnings("unused") // This ID is only used by ORMLite
     @DatabaseField( generatedId = true )
     private int mId;
+    public int getId() {
+        return mId;
+    }
     
     @DatabaseField( foreign = true, columnName = COL_BOWL_ID )
     private Bowl mBowl;
@@ -29,7 +29,7 @@ public class IngredientCount {
     }
     
     @DatabaseField( columnName = COL_COUNT )
-    private Integer mCount = 1;
+    private Integer mCount;
     public Integer getCount() {
         return mCount;
     }
@@ -42,12 +42,8 @@ public class IngredientCount {
         mIngredient = ingredient;
     }
     
-    public void increment() {
-        mCount = Math.min(mCount + 1, MAX_INGEDIENT_COUNT);
-    }
-    
-    public void decrement() {
-        mCount = Math.max(mCount - 1, 0);
+    public void setCount( int count ) {
+        mCount = count;
     }
 
     @Override

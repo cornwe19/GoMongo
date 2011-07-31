@@ -20,6 +20,12 @@ public class Food {
         return mId;
     }
     
+    public static Food getEmptyWithId( int id ) {
+        Food food = new Food();
+        food.mId = id;
+        return food;
+    }
+    
     private static String TITLE_XPATH = "title";
     @DatabaseField
     private String mTitle;

@@ -31,17 +31,16 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implements DataUpdateCompleteHandler {
 
-    public static final String EXTRA_CATEGORY = "category";
-    public static final String EXTRA_CATEGORY_TITLE = "category.title";
-    public static final String EXTRA_BOWL_ID = "bowl.id";
+    public static final String EXTRA_CATEGORY = "com.gomongo.app.category";
+    public static final String EXTRA_BOWL_ID = "com.gomongo.app.bowl_id";
     
     private static String TAG = "CreateBowl";
     
-    private static String CATEGORY_MEAT = "Meats";
-    private static String CATEGORY_VEGGIES = "Vegetables";
-    private static String CATEGORY_SAUCES = "Sauces";
-    private static String CATEGORY_SPICES = "Spices";
-    private static String CATEGORY_STARCHES = "Starches";
+    private Category mCategoryMeats;
+    private Category mCategoryVeggies;
+    private Category mCategorySauces;
+    private Category mCategorySpices;
+    private Category mCategorySides;
     
     private static int LOADING_FOODS_DIALOG = 0x1;
     
@@ -63,6 +62,17 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         
         Resources res = getResources();
         
+        mCategoryMeats = new Category( "Meats", res.getString(R.string.category_meats_title), 3, 
+                res.getString(R.string.category_meats_limit_title), res.getString(R.string.category_meats_limit_message) );
+        mCategoryVeggies = new Category( "Vegetables", res.getString(R.string.category_veggies_title), 10, 
+                res.getString(R.string.category_veggies_limit_title), res.getString(R.string.category_veggies_limit_message) );
+        mCategorySauces = new Category( "Sauces", res.getString(R.string.category_sauces_title), 3, 
+                res.getString(R.string.category_sauces_limit_title), res.getString(R.string.category_sauces_limit_message) );
+        mCategorySpices = new Category( "Spices", res.getString(R.string.category_spices_title), 50, 
+                res.getString(R.string.category_spices_limit_title), res.getString(R.string.category_spices_limit_message) );
+        mCategorySides = new Category( "Starches", res.getString(R.string.category_starches_title), 10, 
+                res.getString(R.string.category_starches_limit_title), res.getString(R.string.category_starches_limit_message) );
+        
         mBowl = new Bowl();
         mBowl.setTitle(res.getString(R.string.default_bowl_title));
         
@@ -81,6 +91,12 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         catch (SQLException ex) {
             handleSQLException(ex);
         }
+        
+        setupAndRegisterCategoryButton( R.id.button_meat_seafood, mCategoryMeats );
+        setupAndRegisterCategoryButton( R.id.button_veggies, mCategoryVeggies );
+        setupAndRegisterCategoryButton( R.id.button_sauces, mCategorySauces );
+        setupAndRegisterCategoryButton( R.id.button_spices, mCategorySpices );
+        setupAndRegisterCategoryButton( R.id.button_starches, mCategorySides );
         
         Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );
         final Context theContext = this;
@@ -121,12 +137,6 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             } 
             
         });
-        
-        setupAndRegisterCategoryButton( res.getString(R.string.category_meats_title), CATEGORY_MEAT, R.id.button_meat_seafood );
-        setupAndRegisterCategoryButton( res.getString(R.string.category_veggies_title), CATEGORY_VEGGIES, R.id.button_veggies );
-        setupAndRegisterCategoryButton( res.getString(R.string.category_sauces_title), CATEGORY_SAUCES, R.id.button_sauces );
-        setupAndRegisterCategoryButton( res.getString(R.string.category_spices_title), CATEGORY_SPICES, R.id.button_spices );
-        setupAndRegisterCategoryButton( res.getString(R.string.category_spices_title), CATEGORY_STARCHES, R.id.button_starches );
 	}
 
     private void handleSQLException(SQLException ex) {
@@ -153,12 +163,11 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             
             updateBackgroundBasedOnBowlComplete();
             
-            Resources res = getResources();
-            refreshButtonText( R.id.button_meat_seafood, res.getString(R.string.category_meats_title), CATEGORY_MEAT);
-            refreshButtonText( R.id.button_veggies, res.getString(R.string.category_veggies_title), CATEGORY_VEGGIES);
-            refreshButtonText( R.id.button_sauces, res.getString(R.string.category_sauces_title), CATEGORY_SAUCES);
-            refreshButtonText( R.id.button_spices, res.getString(R.string.category_spices_title), CATEGORY_SPICES);
-            refreshButtonText( R.id.button_starches, res.getString(R.string.category_starches_title), CATEGORY_STARCHES);
+            refreshButtonText( R.id.button_meat_seafood, mCategoryMeats);
+            refreshButtonText( R.id.button_veggies, mCategoryVeggies);
+            refreshButtonText( R.id.button_sauces, mCategorySauces);
+            refreshButtonText( R.id.button_spices, mCategorySpices);
+            refreshButtonText( R.id.button_starches, mCategorySides);
         }
 	    catch (SQLException ex) {
             handleSQLException(ex);
@@ -185,11 +194,11 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
     }
 
     private void resetCategoryCounts() {
-        mIngredientCategoryCounts.put(CATEGORY_MEAT, 0);
-	    mIngredientCategoryCounts.put(CATEGORY_VEGGIES, 0);
-	    mIngredientCategoryCounts.put(CATEGORY_SAUCES, 0);
-	    mIngredientCategoryCounts.put(CATEGORY_SPICES, 0);
-	    mIngredientCategoryCounts.put(CATEGORY_STARCHES, 0);
+        mIngredientCategoryCounts.put(mCategoryMeats.getId(), 0);
+	    mIngredientCategoryCounts.put(mCategoryVeggies.getId(), 0);
+	    mIngredientCategoryCounts.put(mCategorySauces.getId(), 0);
+	    mIngredientCategoryCounts.put(mCategorySpices.getId(), 0);
+	    mIngredientCategoryCounts.put(mCategorySides.getId(), 0);
     }
 	
 	private void updateAggregateCountForCategory( IngredientCount ingredientCount ) {
@@ -209,14 +218,14 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         }
 	}
 	
-	private void refreshButtonText( int buttonId, String title, String categoryName ) {
+	private void refreshButtonText( int buttonId, Category category ) {
 	    String titleFormat = "%s (%d)";
 	    
 	    Button button = (Button)findViewById(buttonId);
-	    button.setText(String.format(titleFormat, title, mIngredientCategoryCounts.get(categoryName)));
+	    button.setText(String.format(titleFormat, category.getTitle(), mIngredientCategoryCounts.get(category.getId())));
 	}
 	
-    private void setupAndRegisterCategoryButton( final String title, final String categoryName, int buttonId) {
+    private void setupAndRegisterCategoryButton( int buttonId, final Category category ) {
         final Context context = this;
         
         Button createButton = (Button)findViewById(buttonId);
@@ -226,15 +235,14 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             public void onClick(View clickedView) {
                 Intent addFoodIntent = new Intent(context, AddFood.class);
                 
-                addFoodIntent.putExtra(EXTRA_CATEGORY, categoryName);
-                addFoodIntent.putExtra(EXTRA_CATEGORY_TITLE, title);
-                addFoodIntent.putExtra(EXTRA_BOWL_ID, mBowl.getId());
+                addFoodIntent.putExtra( EXTRA_CATEGORY, category );
+                addFoodIntent.putExtra( EXTRA_BOWL_ID, mBowl.getId() );
                 context.startActivity(addFoodIntent);
             }
             
         });
         
-        refreshButtonText( buttonId, title, categoryName );
+        refreshButtonText( buttonId, category );
     }
 
     @Override

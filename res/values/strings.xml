@@ -36,10 +36,24 @@
     <string name="default_bowl_title">Untitled</string>
     
     <string name="category_meats_title">Meat &amp; Seafood</string>
+    <string name="category_meats_limit_title">That\'s a lot of meat!</string>
+    <string name="category_meats_limit_message">As a general rule, try to limit the meat and seafood in your bowl to about 9 ounces or less (about 3 full tongs).</string>
+    
     <string name="category_veggies_title">Vegetables</string>
+    <string name="category_veggies_limit_title">Veggie overload!</string>
+    <string name="category_veggies_limit_message">We love vegetables too, but you\'ll want to limit your vegetables to around 10 ounces worth (our bowls aren\'t that gigantic).</string>
+    
     <string name="category_sauces_title">Sauces</string>
+    <string name="category_sauces_limit_title">Your sauces cup runneth over!</string>
+    <string name="category_sauces_limit_message">Our sauce cups hold about 3 ounces, so up to 3 ounces of your favorite sauces should do it.</string>
+    
     <string name="category_spices_title">Spices</string>
-    <string name="category_starches_title">Starches</string>
+    <string name="category_spices_limit_title">That\'s a lot of spices!</string>
+    <string name="category_spices_limit_message">You\'ll probably want to consider using less spice than this. You do want to taste the other delicious ingredients in your bowl don\'t you?</string>
+
+    <string name="category_starches_title">Sides</string>
+    <string name="category_starches_limit_title">Too many sides</string>
+    <string name="category_starches_limit_message">That\'s a lot of sides.</string>
     
     <string name="nut_info_title">Nutritional Facts</string>
     <string name="serving_nut_info">Serving Size</string>
@@ -52,6 +66,8 @@
     
     <string name="loading_foods_title">Loading Ingredients</string>
     <string name="loading_foods_message">Please wait while the latest BD\'s menu is being loaded.</string>
+        
+    <string name="button_cant_add_food_dismiss">OK</string>
     
     <!-- Share Bowl -->
     <string name="share_bowl_title">Share Your Bowl</string>

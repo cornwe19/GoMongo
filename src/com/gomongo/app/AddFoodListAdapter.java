@@ -1,8 +1,13 @@
 package com.gomongo.app;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,13 +35,36 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
     private Bowl mBowl;
     private Dao<IngredientCount,Integer> mIngredientDao;
     
-    public AddFoodListAdapter(Context context, Bowl bowl, Dao<IngredientCount,Integer> ingredientDao, List<Food> objects) {
-        super(context, DONT_CARE_TEXT_RES_ID, objects);
+    private Category mCategoryInfo;
+    
+    private List<Food> mItems;
+    
+    private HashMap<Integer,Integer> mCounts = new HashMap<Integer,Integer>();
+    private int mCountTotalIngredients = 0;
+    
+    public AddFoodListAdapter(Context context, Bowl bowl, Dao<IngredientCount,Integer> ingredientDao, List<Food> items, Category categoryInfo ) {
+        super(context, DONT_CARE_TEXT_RES_ID, items);
         
         mBowl = bowl;
         mIngredientDao = ingredientDao;
-    }
+        mCategoryInfo = categoryInfo;
         
+        mItems = items;
+        
+        try {
+            Iterator<IngredientCount> ingredientCountIter = ingredientDao.iterator( prepareIngredientCountQuery() );
+            
+            while( ingredientCountIter.hasNext() ) {
+                IngredientCount ingredientCount = ingredientCountIter.next();
+                
+                mCounts.put(ingredientCount.getIngredient().getId(),ingredientCount.getCount());
+                mCountTotalIngredients += ingredientCount.getCount();
+            }
+        } catch (SQLException ex) {
+            handleSQLException(ex);
+        }
+    }
+
     @Override
     public View getView( int position, View listItem, ViewGroup parent ) {
         
@@ -54,27 +82,23 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         moreInfoButton.setTag(listItem.findViewById(R.id.more_details_pane));
         moreInfoButton.setOnClickListener( this );
         
-        setupPlusMinusButton(position, listItem, R.id.button_food_item_add);
-        setupPlusMinusButton(position, listItem, R.id.button_food_item_subtract);
+        setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_add);
+        setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_subtract);
         
-        PreparedQuery<IngredientCount> query = prepareIngredientQuery(ingredient);
-        
-        Integer count = 0;
-        
-        try {
-            IngredientCount ingredientCount = mIngredientDao.queryForFirst(query);
-            if( ingredientCount != null ) {
-                count = ingredientCount.getCount();
-            }
-            
-        } catch (SQLException ex) {
-            handleSQLException(ex);
-        }
+        Integer count = getCountOrDefault0(ingredient.getId());
         
         TextView ingredientCountText = (TextView)listItem.findViewById(R.id.food_item_count);
         ingredientCountText.setText( count.toString() );
         
         return listItem;
+    }
+
+    private Integer getCountOrDefault0(Integer ingredientId) {
+        Integer count = mCounts.get(ingredientId);
+        if( count == null ) {
+            count = 0;
+        }
+        return count;
     }
 
     private void setTextOnView(View listItem, int viewId, Object text) {
@@ -88,12 +112,15 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         Toast.makeText(getContext(), R.string.error_problem_connecting_to_database, Toast.LENGTH_LONG).show();
     }
 
-    private PreparedQuery<IngredientCount> prepareIngredientQuery(Food ingredient) {
+    private PreparedQuery<IngredientCount> prepareIngredientCountQuery() {
         QueryBuilder<IngredientCount,Integer> builder = mIngredientDao.queryBuilder();
         PreparedQuery<IngredientCount> query;
+        
+        List<Integer> ingredientIds = getIdsForFoodsInThisCategory();
+        
         try {
             builder.where().eq( IngredientCount.COL_BOWL_ID, mBowl.getId())
-                   .and().eq(IngredientCount.COL_FOOD_ID, ingredient.getId());
+                .and().in(IngredientCount.COL_FOOD_ID, ingredientIds);
             
             query = builder.prepare();
         } catch (SQLException ex) {
@@ -105,9 +132,17 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         return query;
     }
 
-    private void setupPlusMinusButton(int position, View viewToSearch, int buttonResource) {
+    private List<Integer> getIdsForFoodsInThisCategory() {
+        List<Integer> ingredientIds = new ArrayList<Integer>();
+        for( Food ingredient : mItems ) {
+            ingredientIds.add(ingredient.getId());
+        }
+        return ingredientIds;
+    }
+
+    private void setupPlusMinusButton(int id, View viewToSearch, int buttonResource) {
         Button incrementButton = (Button)viewToSearch.findViewById(buttonResource);
-        incrementButton.setTag(R.id.tag_food_list_item_id, position);
+        incrementButton.setTag(R.id.tag_food_list_food_id, id);
         incrementButton.setTag(R.id.tag_food_list_item_counter,viewToSearch.findViewById(R.id.food_item_count));
         incrementButton.setOnClickListener(this);
     }
@@ -115,14 +150,14 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
     @Override
     public void onClick(View clickedView) {
        if( clickedView.getId() == R.id.food_item_more_info ) {
-           showOrHideNutritionInfo(clickedView);
+           toggleNutritionInfo(clickedView);
        }
        else {
            incrementOrDecrementFoodCount(clickedView);
        }
     }
 
-    private void showOrHideNutritionInfo(View clickedView) {
+    private void toggleNutritionInfo(View clickedView) {
         View moreDetailsPane = (View)clickedView.getTag();
         Button moreInfoButton = (Button)clickedView;
        
@@ -137,48 +172,58 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
     }
 
     private void incrementOrDecrementFoodCount(View clickedView) {
-       Food ingredient = getItem((Integer)clickedView.getTag(R.id.tag_food_list_item_id));
-           
-       PreparedQuery<IngredientCount> query = prepareIngredientQuery(ingredient);
-       IngredientCount ingredientCount = null;
+       Integer ingredientId = (Integer)clickedView.getTag(R.id.tag_food_list_food_id);
        
-       try {
-           ingredientCount = mIngredientDao.queryForFirst(query);
+       Integer ingredientCount = null;
+       ingredientCount = getCountOrDefault0(ingredientId);
+       
+       switch( clickedView.getId() ) {
+       
+       case R.id.button_food_item_add:
            
-           switch( clickedView.getId() ) {
-           case R.id.button_food_item_add:
-               if( ingredientCount != null ) {
-                   ingredientCount.increment();
-                   mIngredientDao.update(ingredientCount);
-               }
-               else {
-                   ingredientCount = new IngredientCount( mBowl, ingredient);
-                   mIngredientDao.create(ingredientCount);
-               }
-               break;
-           case R.id.button_food_item_subtract:
-               if( ingredientCount != null ) {
-                   ingredientCount.decrement();
-                   mIngredientDao.update(ingredientCount);
-               }
-               break;
-            }
-       }
-       catch (SQLException ex) {
-           handleSQLException(ex);
+           if( mCountTotalIngredients < mCategoryInfo.getMaxIngredients() ) {
+               mCounts.put(ingredientId, ++ingredientCount);
+               mCountTotalIngredients++;
+           }
+           else {
+               final AlertDialog.Builder cantAddFoodAlert = new AlertDialog.Builder(getContext());
+               cantAddFoodAlert.setTitle(mCategoryInfo.getOverIngredientLimitTitle());
+               cantAddFoodAlert.setMessage(mCategoryInfo.getOverIngredientLimitMessage());
+               cantAddFoodAlert.setPositiveButton(R.string.button_cant_add_food_dismiss, null);
+               
+               cantAddFoodAlert.show();
+           }
+           
+           break;
+       case R.id.button_food_item_subtract:
+           if( ingredientCount > 0 ) {
+               mCounts.put(ingredientId, --ingredientCount);
+               mCountTotalIngredients--;
+           }
+           
+           break;
        }
        
        TextView counter = (TextView)clickedView.getTag(R.id.tag_food_list_item_counter);
-       counter.setText(getStringCount(ingredientCount));
+       counter.setText(ingredientCount.toString());
     }
     
-    private String getStringCount(IngredientCount ingredient) {
-        String count = "0";
-        
-        if( ingredient != null ) {
-            count = ingredient.getCount().toString();
+    public void save() throws SQLException {
+        for ( Map.Entry<Integer, Integer> entry : mCounts.entrySet() ) {
+            QueryBuilder<IngredientCount,Integer> builder = mIngredientDao.queryBuilder();
+            builder.where().eq(IngredientCount.COL_BOWL_ID, mBowl.getId())
+                .and().eq(IngredientCount.COL_FOOD_ID, entry.getKey());
+            
+            IngredientCount ingredientCount = mIngredientDao.queryForFirst(builder.prepare());
+            if( ingredientCount != null ) {
+                ingredientCount.setCount(entry.getValue());
+                mIngredientDao.update(ingredientCount);
+            }
+            else {
+                ingredientCount = new IngredientCount( mBowl, Food.getEmptyWithId(entry.getKey()) );
+                ingredientCount.setCount(entry.getValue());
+                mIngredientDao.create(ingredientCount);
+            }
         }
-        
-        return count;
     }
 }
