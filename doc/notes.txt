@@ -21,12 +21,12 @@ DONE
    - total sides = 10
 /DONE
 
-yellow bar on hover state for adding food items
+ - yellow bar on hover state for adding food items
 
-List filter re-searches for locations using google maps?
+ - List filter re-searches for locations using google maps?
 
-lower priority on facebook checkin stuff
+ - lower priority on facebook checkin stuff
 
-clicking promotion image sends to www.gomongo.com/?redirect=android
+ x clicking promotion image sends to www.gomongo.com/?redirect=android
 
-get image size for app icon
+ - get image size for app icon
