@@ -116,7 +116,8 @@ public class MongoPhoto extends Activity {
 	public void onActivityResult( int requestCode, int resultCode, Intent data ){
 		if( requestCode == TAKE_PHOTO_REQUEST && resultCode != RESULT_CANCELED) {
 			Intent annotateImageIntent = new Intent( this, AnnotateImage.class );
-			annotateImageIntent.putExtra( MediaStore.EXTRA_OUTPUT, mImageUri );
+			annotateImageIntent.putExtra( Intent.EXTRA_STREAM, mImageUri );
+			annotateImageIntent.putExtra( AnnotateImage.EXTRA_IS_TEMP, true );
 			
 			startActivity( annotateImageIntent );
 		}

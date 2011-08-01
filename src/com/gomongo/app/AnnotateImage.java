@@ -13,6 +13,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -20,7 +21,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -39,8 +39,11 @@ import com.gomongo.app.ui.MongoImage;
 public class AnnotateImage extends Activity implements OnClickListener, OnCheckedChangeListener {
 	private final String TAG = "AnnotateImage";
 	
+	public static final String EXTRA_IS_TEMP = "com.gomongo.app.annotateimage.istemp";
+	
 	private Uri mTempImageUri;
 	private AnnotationEditorView mAnnotationEditorView;
+	private boolean mIsTempImage;
 	
 	@Override
 	public void onCreate( Bundle savedInstanceState ){
@@ -49,7 +52,8 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		setEditorToFullScreen();
 		setContentView(R.layout.annotate_image);
 		
-		mTempImageUri = getIntent().getParcelableExtra(MediaStore.EXTRA_OUTPUT);
+		mTempImageUri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+	    mIsTempImage = getIntent().getBooleanExtra(EXTRA_IS_TEMP, false);
 		
 		setEditorBackgroundToTempImage();
 		
@@ -81,7 +85,9 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 	public void onStop() {
 		super.onStop();
 		
-		cleanUpTempImage();
+		if( mIsTempImage ) {
+		    cleanUpTempImage();
+		}
 	}
 
 	private void cleanUpTempImage() {
@@ -93,7 +99,12 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		URI javaUri = null;
 		
 		try {
-			javaUri = new URI( uri.toString() );
+			String path = uri.getPath();
+			if( !path.startsWith("file:/") ) {
+			    path = "file://" + path;
+			}
+		    
+		    javaUri = new URI( path );
 		}
 		catch ( URISyntaxException ex ) {
 			Log.e( TAG, String.format( "Caught a poorly formatted URI: %s.", mTempImageUri.toString() ) );
