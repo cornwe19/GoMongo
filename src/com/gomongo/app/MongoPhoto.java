@@ -22,6 +22,10 @@ public class MongoPhoto extends Activity {
 	
 	public static final File PICTURE_STORAGE_DIR = new File( Environment.getExternalStorageDirectory(), "GoMongo" );
 	public static final File PICTURE_TEMP_DIR = new File( PICTURE_STORAGE_DIR, "temp" );
+
+	private Uri mImageUri;
+    private final int TAKE_PHOTO_REQUEST = 0x01;
+    private final int OPEN_FROM_GALLERY_REQUEST = 0x02;
 	
 	static {
 		if ( !PICTURE_STORAGE_DIR.exists() ) {
@@ -50,9 +54,6 @@ public class MongoPhoto extends Activity {
         setupPhotoLibraryButtonToLaunchGallery();
 	}
 
-	private Uri mImageUri;
-	private final int TAKE_PHOTO_REQUEST = 0x01;
-	
 	private void setUpTakePhotoButtonToLaunchCamera() {
 		final Context contextForDisplayingErrors = this;
 		
@@ -101,23 +102,28 @@ public class MongoPhoto extends Activity {
 	private void setupPhotoLibraryButtonToLaunchGallery() {
 		Button photoLibraryButton = (Button)findViewById(R.id.button_view_gallery);
         
-		final Context thisContext = this;
-		
 		photoLibraryButton.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick( View view ) {
-        		Intent galleryIntent = new Intent( thisContext, ImageGallery.class );
-        		startActivity(galleryIntent);
+        		Intent galleryIntent = new Intent( Intent.ACTION_GET_CONTENT );
+        		galleryIntent.setType("image/*");
+        		startActivityForResult(galleryIntent, OPEN_FROM_GALLERY_REQUEST);
         	}
         });
 	}
 	
 	@Override
 	public void onActivityResult( int requestCode, int resultCode, Intent data ){
-		if( requestCode == TAKE_PHOTO_REQUEST && resultCode != RESULT_CANCELED) {
+		if( resultCode != RESULT_CANCELED ) {
 			Intent annotateImageIntent = new Intent( this, AnnotateImage.class );
-			annotateImageIntent.putExtra( Intent.EXTRA_STREAM, mImageUri );
-			annotateImageIntent.putExtra( AnnotateImage.EXTRA_IS_TEMP, true );
+			
+			switch( requestCode ) {
+			case TAKE_PHOTO_REQUEST:
+			    annotateImageIntent.putExtra( Intent.EXTRA_STREAM, mImageUri );
+	            annotateImageIntent.putExtra( AnnotateImage.EXTRA_IS_TEMP, true );
+			case OPEN_FROM_GALLERY_REQUEST:
+			    annotateImageIntent.putExtra(Intent.EXTRA_STREAM, data.getData() );
+			}
 			
 			startActivity( annotateImageIntent );
 		}

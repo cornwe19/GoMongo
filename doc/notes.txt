@@ -21,7 +21,7 @@ DONE
    - total sides = 10
 /DONE
  x send images to editor
- - launch gallery on phone instead of the one i wrote
+ x launch gallery on phone instead of the one i wrote
 
  - yellow bar on hover state for adding food items
 
@@ -31,4 +31,4 @@ DONE
 
  x clicking promotion image sends to www.gomongo.com/?redirect=android
 
- - get image size for app icon
+ x get image size for app icon
