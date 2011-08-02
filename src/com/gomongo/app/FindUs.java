@@ -31,7 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.gomongo.net.StaticWebService;
+import com.gomongo.net.WebHelper;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -139,7 +139,7 @@ public class FindUs extends MapActivity implements OnClickListener {
 		try {
 			Log.d(TAG, "Calling web service");
 
-			InputSource source = StaticWebService.getResponse(locationSearchUrl);
+			InputSource source = WebHelper.getResponse(locationSearchUrl);
 
 			Log.d(TAG, "Got response from web...parsing now");
 

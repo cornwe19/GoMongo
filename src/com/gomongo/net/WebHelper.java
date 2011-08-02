@@ -13,7 +13,7 @@ import java.net.URL;
 
 import org.xml.sax.InputSource;
 
-public class StaticWebService {
+public class WebHelper {
 	
 	public static InputSource getResponse(String request) throws IOException, MalformedURLException {
 		InputStreamReader reader = getResponseReader(request);

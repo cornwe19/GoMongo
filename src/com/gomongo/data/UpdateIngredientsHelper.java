@@ -15,7 +15,7 @@ import org.xml.sax.InputSource;
 
 import android.util.Log;
 
-import com.gomongo.net.StaticWebService;
+import com.gomongo.net.WebHelper;
 import com.j256.ormlite.dao.Dao;
 
 public class UpdateIngredientsHelper {
@@ -54,7 +54,7 @@ public class UpdateIngredientsHelper {
         try {
             Dao<Food,Integer> foodDao = helper.getDao(Food.class);
             
-            InputSource response = StaticWebService.getSanitizedResponse(ALL_INGREDIENTS_REQUEST);
+            InputSource response = WebHelper.getSanitizedResponse(ALL_INGREDIENTS_REQUEST);
             XPathFactory xpathFactory = XPathFactory.newInstance();
             XPath xpath = xpathFactory.newXPath();
             

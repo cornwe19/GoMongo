@@ -27,7 +27,7 @@ import com.gomongo.data.Bowl;
 import com.gomongo.data.DatabaseOpenHelper;
 import com.gomongo.data.Food;
 import com.gomongo.data.IngredientCount;
-import com.gomongo.net.StaticWebService;
+import com.gomongo.net.WebHelper;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -85,7 +85,7 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             
             finishShareBowlXmlPayload(xmlBuilder);
             
-            InputStream response = StaticWebService.postGetResponse(CREATE_BOWL_URL, buildPostDataForBowl(bowl, xmlBuilder) );
+            InputStream response = WebHelper.postGetResponse(CREATE_BOWL_URL, buildPostDataForBowl(bowl, xmlBuilder) );
             
             compressResponseToTempImage(response);
             

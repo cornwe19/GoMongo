@@ -26,6 +26,8 @@ DONE
  - yellow bar on hover state for adding food items
 
  - List filter re-searches for locations using google maps?
+   - http://maps.google.com/maps?daddr=url%20encoded%20address
+
 
  --> lower priority on facebook checkin stuff
 

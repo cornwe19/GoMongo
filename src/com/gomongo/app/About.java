@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gomongo.net.StaticWebService;
+import com.gomongo.net.WebHelper;
 
 public class About extends Activity implements OnClickListener {
 
@@ -55,7 +55,7 @@ public class About extends Activity implements OnClickListener {
             @Override
             public void run() {
                 try {
-                    InputStream response = StaticWebService.getResponseStream(MONGO_MENU_URL);
+                    InputStream response = WebHelper.getResponseStream(MONGO_MENU_URL);
                     
                     Bitmap image = BitmapFactory.decodeStream(response);
                     
