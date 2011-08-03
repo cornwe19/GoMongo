@@ -92,7 +92,6 @@ public final class R {
         public static final int location_address=0x7f070025;
         public static final int location_distance=0x7f07002a;
         public static final int location_title=0x7f070024;
-        public static final int locations_filter_text=0x7f07001b;
         public static final int locations_list=0x7f07001c;
         public static final int locations_list_pane=0x7f07001a;
         public static final int more_details_pane=0x7f07000c;
@@ -104,6 +103,7 @@ public final class R {
         public static final int preview_image_view=0x7f07000d;
         public static final int protein_nut_info=0x7f07003d;
         public static final int satfat_nut_info=0x7f07003a;
+        public static final int search_locations_text=0x7f07001b;
         public static final int serving_nut_info=0x7f070037;
         public static final int tag_food_list_food_id=0x7f070000;
         public static final int tag_food_list_item_counter=0x7f070001;

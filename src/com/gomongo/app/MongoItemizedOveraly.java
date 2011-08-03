@@ -146,4 +146,8 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	public void onMoved() {
 		mMoreDetailsButton.setVisibility(View.INVISIBLE);
 	}
+	
+	public void clearLocations() {
+	    mMongoLocations.clear();
+	}
 }
