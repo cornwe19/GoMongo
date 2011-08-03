@@ -52,6 +52,13 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
         
         setContentView(R.layout.share_bowl);
         
+        View navigationMenu = (View)findViewById(R.id.nav_menu);
+        
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_home, Home.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
+        
         int bowlId = getIntent().getExtras().getInt(CreateBowl.EXTRA_BOWL_ID);
         try {
             Dao<IngredientCount,Integer> ingredientDao = getHelper().getDao(IngredientCount.class);
