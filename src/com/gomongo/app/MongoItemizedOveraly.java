@@ -29,6 +29,9 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	private int mMarkerHeight;
 	private String TAG = "MongoItemizedOverlay";
 	
+	private final int ADD_MESSAGE = 0x01;
+	private final int CLEAR_MESSAGE = 0x02;
+	
 	private static final String LOCATION_KEY = "location";
 	private Handler mAsyncMapMessageHandler;
 	
@@ -46,12 +49,22 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		return new Handler() {
 			@Override
 			public void handleMessage( Message message ) {
-				synchronized( mMongoLocations ) {
-					mMongoLocations.add( (MongoLocation)message.getData().getParcelable(LOCATION_KEY) );
-					populate();
-					
-					mMapView.invalidate();
+				switch ( message.arg1 ) {
+				case ADD_MESSAGE:
+				    synchronized( mMongoLocations ) {
+	                    mMongoLocations.add( (MongoLocation)message.getData().getParcelable(LOCATION_KEY) );
+	                    populate();
+	                    
+	                    mMapView.invalidate();
+	                }
+				    break;
+				case CLEAR_MESSAGE:
+				    synchronized (mMongoLocations) {
+                        mMongoLocations.clear();
+                    }
+				    break;
 				}
+			    
 			}
 		};
 	}
@@ -130,6 +143,8 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	public void postAddLocation(MongoLocation location) {
 		Message addLocationMessage = Message.obtain(mAsyncMapMessageHandler);
 		
+		addLocationMessage.arg1 = ADD_MESSAGE;
+		
 		Bundle locationData = new Bundle();
 		locationData.putParcelable( LOCATION_KEY, location );
 		addLocationMessage.setData( locationData );
@@ -147,7 +162,11 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		mMoreDetailsButton.setVisibility(View.INVISIBLE);
 	}
 	
-	public void clearLocations() {
-	    mMongoLocations.clear();
+	public void postClearLocations() {
+	    Message clearLocationsMessage = Message.obtain(mAsyncMapMessageHandler);
+	    
+	    clearLocationsMessage.arg1 = CLEAR_MESSAGE;
+	    
+	    clearLocationsMessage.sendToTarget();
 	}
 }
