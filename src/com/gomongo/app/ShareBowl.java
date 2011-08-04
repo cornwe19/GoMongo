@@ -102,7 +102,10 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             Toast.makeText(this, R.string.error_problem_connecting_to_database, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             Log.w(TAG, "Problem connecting to internet on prepare share bowl call." );
-            // Might want to explain why bowl wont work...
+            
+            Toast.makeText(this, R.string.error_preparing_bowl, Toast.LENGTH_LONG).show();
+            
+            finish();
         }
         
         Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );

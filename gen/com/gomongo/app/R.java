@@ -177,12 +177,13 @@ public final class R {
         public static final int default_bowl_title=0x7f080018;
         public static final int distance_away_format=0x7f080014;
         public static final int error_bowl_needs_name=0x7f080044;
-        public static final int error_connecting_to_internet=0x7f080045;
+        public static final int error_connecting_to_internet=0x7f080046;
         /**  Errors 
          */
         public static final int error_couldnt_access_sdcard=0x7f08003e;
         public static final int error_image_for_editing_missing=0x7f08003f;
-        public static final int error_location_not_recognized=0x7f080046;
+        public static final int error_location_not_recognized=0x7f080047;
+        public static final int error_preparing_bowl=0x7f080045;
         public static final int error_problem_connecting_to_database=0x7f080043;
         public static final int error_problem_getting_ingredients=0x7f080040;
         public static final int error_problem_getting_locations=0x7f080041;

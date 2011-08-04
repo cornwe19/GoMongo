@@ -93,6 +93,7 @@
     <string name="error_problem_getting_your_location">Your location is temporarily unavailable. Searching for BD\'s locations near an arbitrary place.</string>
     <string name="error_problem_connecting_to_database">There was a problem connecting to the application\'s data. Please make sure your SD card is connected properly.</string>
     <string name="error_bowl_needs_name">Your bowl needs a name before you can share it.</string>
+    <string name="error_preparing_bowl">There was a problem preparing the bowl you\'re sharing. Please make sure you are connected to your network or wi-fi.</string>
     <string name="error_connecting_to_internet">There was a problem connecting to the internet. Please make sure you are connected to your network or wi-fi.</string>
     <string name="error_location_not_recognized">There was a problem finding the location to entered. Make sure you spelled the address correctly.</string>
 </resources>
