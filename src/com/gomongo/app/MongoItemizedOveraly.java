@@ -30,7 +30,6 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	private String TAG = "MongoItemizedOverlay";
 	
 	private final int ADD_MESSAGE = 0x01;
-	private final int CLEAR_MESSAGE = 0x02;
 	
 	private static final String LOCATION_KEY = "location";
 	private Handler mAsyncMapMessageHandler;
@@ -57,11 +56,6 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 	                    
 	                    mMapView.invalidate();
 	                }
-				    break;
-				case CLEAR_MESSAGE:
-				    synchronized (mMongoLocations) {
-                        mMongoLocations.clear();
-                    }
 				    break;
 				}
 			    
@@ -162,11 +156,7 @@ public class MongoItemizedOveraly extends ItemizedOverlay<OverlayItem> implement
 		mMoreDetailsButton.setVisibility(View.INVISIBLE);
 	}
 	
-	public void postClearLocations() {
-	    Message clearLocationsMessage = Message.obtain(mAsyncMapMessageHandler);
-	    
-	    clearLocationsMessage.arg1 = CLEAR_MESSAGE;
-	    
-	    clearLocationsMessage.sendToTarget();
+	public void clearLocations() {
+	    mMongoLocations.clear();
 	}
 }

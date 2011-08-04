@@ -22,7 +22,6 @@ public class LocationsArrayAdapter extends ArrayAdapter<MongoLocation> {
 	private static final String LOCATION_KEY = "location";
 	
 	private final int ADD_MESSAGE = 0x01;
-	private final int CLEAR_MESSAGE = 0x02;
 	
 	public LocationsArrayAdapter(Context context, List<MongoLocation> objects) {
 		super(context, R.id.location_title, objects);
@@ -41,11 +40,6 @@ public class LocationsArrayAdapter extends ArrayAdapter<MongoLocation> {
 				    synchronized( itemToSyncOn ) {
     					add( (MongoLocation)message.getData().getParcelable(LOCATION_KEY) );
     				}
-				    break;
-				case CLEAR_MESSAGE:
-				    synchronized (itemToSyncOn) {
-				        clear();
-                    }
 				    break;
 				}
 			}
@@ -78,14 +72,6 @@ public class LocationsArrayAdapter extends ArrayAdapter<MongoLocation> {
 		return convertView;
 	}
 
-	public void postClear() {
-	    Message clearListMessage = Message.obtain(mAsyncAdapterActions);
-	    
-	    clearListMessage.arg1 = CLEAR_MESSAGE;
-	    
-	    clearListMessage.sendToTarget();
-	}
-	
 	public void postAddItem(MongoLocation location) {
 		Message addLocationMessage = Message.obtain(mAsyncAdapterActions);
 		addLocationMessage.arg1 = ADD_MESSAGE;
