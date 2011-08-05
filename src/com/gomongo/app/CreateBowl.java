@@ -106,12 +106,26 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             public void onClick(View v) {
                 String title = getTitleFromEditor();
                 
-                if( title.length() > 0 ) {
+                boolean bowlHasIngredients = !bowlIsEmpty();
+                
+                if( title.length() > 0 && bowlHasIngredients ) {
                     saveAndStartShareBowl(theContext, title);
                 }
                 else {
                     Toast.makeText(theContext, R.string.error_bowl_needs_name, Toast.LENGTH_LONG).show();
                 }
+            }
+
+            private boolean bowlIsEmpty() {
+                boolean bowlHasIngredients = true;
+                for ( Integer count : mIngredientCategoryCounts.values() ) {
+                    if( count > 0 ) {
+                        bowlHasIngredients = false;
+                        break;
+                    }
+                }
+                
+                return bowlHasIngredients;
             }
 
             private void saveAndStartShareBowl(final Context theContext, String title) {
