@@ -121,8 +121,10 @@ public class MongoPhoto extends Activity {
 			case TAKE_PHOTO_REQUEST:
 			    annotateImageIntent.putExtra( Intent.EXTRA_STREAM, mImageUri );
 	            annotateImageIntent.putExtra( AnnotateImage.EXTRA_IS_TEMP, true );
+	            break;
 			case OPEN_FROM_GALLERY_REQUEST:
 			    annotateImageIntent.putExtra(Intent.EXTRA_STREAM, data.getData() );
+			    break;
 			}
 			
 			startActivity( annotateImageIntent );
