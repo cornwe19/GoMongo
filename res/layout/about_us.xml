@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:gravity="center_horizontal">
+  <include layout="@layout/navigation_menu" />
+  <ImageView android:src="@drawable/mongo_logo"
+             android:maxHeight="96dip"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:scaleType="fitXY" />
+  <LinearLayout style="@style/InsetLightFrame"
+                android:layout_marginTop="20dip"
+                android:layout_marginBottom="-10dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dip">
+    <TextView android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textColor="#000"
+              android:text="@string/about_us_text" />
+    <!-- Put an image view here for the hunt, gather, etc. text -->
+  </LinearLayout>
+</LinearLayout>

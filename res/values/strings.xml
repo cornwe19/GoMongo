@@ -82,6 +82,9 @@
     <string name="reshare_image">Share Image Again</string>
     
     <!-- About Page -->
+    <string name="about_us_text">bd\'s Mongolian Grill is an interactive create your own stir-fry experience. Mongolian refers to an age old cooking process from Mongolia where after a long day of battle warriors would cook meat and veggies on their overturned shields. No battles here just a great Mongolian cooking tradition.</string>
+    
+    <!-- Promotions Page -->
     <string name="loading_promotions_title">Loading Promotions</string>
     <string name="loading_promotions_message">Please wait while the latest BD\'s promotions are loaded.</string>
     

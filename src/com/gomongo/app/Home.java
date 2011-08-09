@@ -26,7 +26,7 @@ public class Home extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_find_us, FindUs.class);
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_photo, MongoPhoto.class);
-        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_about, About.class);
+        NavigationHelper.setupButtonToLaunchActivity(this, homeMainMenu, R.id.button_promotions, Promotions.class);
         
         UpdateIngredientsHelper.AsyncUpdateIngredients(getHelper(), null);
     }

@@ -51,6 +51,10 @@
                   android:screenOrientation="portrait"
                   android:label="@string/app_name">
         </activity>
+        <activity android:name=".Promotions"
+                  android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+        </activity>
         <activity android:name=".AnnotateImage"
                   android:screenOrientation="portrait"
                   android:label="@string/app_name">

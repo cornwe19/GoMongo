@@ -25,6 +25,6 @@
     <Button android:layout_width="@dimen/centered_button_width"
             android:layout_height="wrap_content"
             android:text="@string/button_now_at"
-            android:id="@+id/button_about" />
+            android:id="@+id/button_promotions" />
   </LinearLayout>
 </LinearLayout>
