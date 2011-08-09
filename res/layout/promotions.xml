@@ -5,10 +5,15 @@
               android:layout_height="match_parent">
   <include layout="@layout/navigation_menu" />
   <ScrollView android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="match_parent"
+              android:layout_weight="1">
    <ImageView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:scaleType="fitStart"	               
               android:id="@+id/imageview_mongo_promotion" />
   </ScrollView>
+  <Button android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/button_promotion_find_us"
+          android:id="@+id/button_promotion_find_us" />
 </LinearLayout>

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ public class Promotions extends Activity implements OnClickListener {
         
         ImageView promotionImage = (ImageView)findViewById(R.id.imageview_mongo_promotion);
         promotionImage.setOnClickListener(this);
+        
+        Button findUsButton = (Button)findViewById(R.id.button_promotion_find_us);
+        findUsButton.setOnClickListener(this);
         
         final Context thisContext = this;
         
@@ -114,7 +118,15 @@ public class Promotions extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View clickedView) {
-        Intent promotionsPage = new Intent( Intent.ACTION_VIEW, Uri.parse(MONGO_PROMO_LANDING_PAGE) );
-        startActivity(promotionsPage);
+        switch( clickedView.getId() ) {
+        case R.id.imageview_mongo_promotion:
+            Intent promotionsPage = new Intent( Intent.ACTION_VIEW, Uri.parse(MONGO_PROMO_LANDING_PAGE) );
+            startActivity(promotionsPage);
+            break;
+        case R.id.button_promotion_find_us:
+            Intent findUs = new Intent( this, FindUs.class );
+            startActivity(findUs);
+            break;
+        }
     }
 }
