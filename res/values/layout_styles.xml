@@ -2,7 +2,7 @@
 <resources>
 
   <style name="InsetLightFrame">
-    <item name="android:background">@drawable/hours_and_contact_shape</item>
+    <item name="android:background">@drawable/inset_light_background</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_marginLeft">20dp</item>

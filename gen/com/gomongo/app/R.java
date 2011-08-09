@@ -30,10 +30,10 @@ public final class R {
         public static final int hat=0x7f020005;
         public static final int head=0x7f020006;
         public static final int heart=0x7f020007;
-        public static final int hours_and_contact_shape=0x7f020008;
-        public static final int ic_btn_search=0x7f020009;
-        public static final int ic_menu_mapmode=0x7f02000a;
-        public static final int icon=0x7f02000b;
+        public static final int ic_btn_search=0x7f020008;
+        public static final int ic_menu_mapmode=0x7f020009;
+        public static final int icon=0x7f02000a;
+        public static final int inset_light_background=0x7f02000b;
         public static final int map_marker=0x7f02000c;
         public static final int minus_food_button=0x7f02000d;
         public static final int mongo_green=0x7f02000e;
