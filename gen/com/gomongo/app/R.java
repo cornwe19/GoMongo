@@ -40,9 +40,10 @@ public final class R {
         public static final int mongo_logo=0x7f02000f;
         public static final int more_details_button=0x7f020010;
         public static final int mustache=0x7f020011;
-        public static final int plus_food_button=0x7f020012;
-        public static final int swords=0x7f020013;
-        public static final int trash=0x7f020014;
+        public static final int nutrition_info_expander=0x7f020012;
+        public static final int plus_food_button=0x7f020013;
+        public static final int swords=0x7f020014;
+        public static final int trash=0x7f020015;
     }
     public static final class id {
         public static final int add_food_category=0x7f070003;

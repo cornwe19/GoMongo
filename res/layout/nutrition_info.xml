@@ -7,6 +7,8 @@
      <TableRow android:background="@color/nutrition_odd_row"
                android:id="@+id/nutrition_in_table_title">
        <TextView style="@style/TableItemLeft"
+                 android:textColor="#FF7F27"
+                 android:textStyle="bold"
                  android:text="@string/nut_info_title" />
      </TableRow>
      

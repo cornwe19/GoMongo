@@ -51,9 +51,29 @@
 	          android:id="@+id/food_item_more_info" />
 	</LinearLayout>
 	
+	<!-- Separator -->
+	<View android:background="#000"
+	      android:layout_marginTop="5dip"
+	      android:layout_width="match_parent"
+	      android:layout_height="1dip" />
+	
 	<!-- More details UI -->
-	<include android:id="@+id/more_details_pane"
-	         android:visibility="gone"
-	         layout="@layout/nutrition_info" />
+	<LinearLayout android:layout_height="wrap_content"
+	              android:layout_width="wrap_content"
+	              android:id="@+id/more_details_pane"
+		            android:visibility="gone"
+		            android:layout_marginLeft="5dip"
+		            android:layout_marginRight="5dip"
+		            android:paddingLeft="2dip"
+		            android:paddingRight="2dip"
+		            android:paddingBottom="2dip"
+		            android:background="@drawable/nutrition_info_expander">
+	   <include layout="@layout/nutrition_info" />
+	</LinearLayout>
+	
+	<!-- Constant list item padding -->
+	<View android:layout_width="match_parent"
+	      android:layout_height="5dip"
+	      android:background="#0000" />
 	
 </LinearLayout>
