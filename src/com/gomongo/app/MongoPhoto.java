@@ -86,7 +86,7 @@ public class MongoPhoto extends Activity {
 		
 		try {
 			
-			File tempFile = File.createTempFile( TEMP_IMAGE_PREFIX, IMAGE_FORMAT, PICTURE_TEMP_DIR );
+			File tempFile = File.createTempFile( TEMP_IMAGE_PREFIX, null, PICTURE_TEMP_DIR );
 			
 			Log.d( TAG, String.format( "Created temp file at %s", tempFile.getAbsolutePath() ) );
 			
