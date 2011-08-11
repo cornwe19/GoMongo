@@ -96,40 +96,41 @@ public class AnnotationEditorView extends View {
 	            invalidate();
 	        }
 	    }
+	    else {
+    		if( mScaleGestureDetector != null ) {
+    			mScaleGestureDetector.onTouchEvent(event);
+    		}
+    		
+    		if( mRotateGestureDetector != null ) {
+    		    mRotateGestureDetector.onTouchEvent(event);
+    		}
+    		
+    		switch ( event.getAction() & MotionEvent.ACTION_MASK ) {
+    		case MotionEvent.ACTION_DOWN:
+    			
+    			performHitTestToSelectImage(x, y);
+    			
+    			boolean hitTestFoundAnImage = mSelectedImage != null;
+    			if( hitTestFoundAnImage ) {
+    				mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
+    				mRotateGestureDetector = new RotateGestureDetector( mSelectedImage );
+    				invalidate();
+    			}
+    			
+    			break;
+    		case MotionEvent.ACTION_MOVE:
+    			if( mSelectedImage != null && !mScaleGestureDetector.isInProgress() ) {
+    				mSelectedImage.setCurrentPoint( event.getX(), event.getY() );
+    			}
+    			invalidate();
+    			break;
+    		case MotionEvent.ACTION_UP:
+    			mSelectedImage = null;
+    			mScaleGestureDetector = null;
+    			break;
+    		}
+	    }
 	    
-		if( mScaleGestureDetector != null ) {
-			mScaleGestureDetector.onTouchEvent(event);
-		}
-		
-		if( mRotateGestureDetector != null ) {
-		    mRotateGestureDetector.onTouchEvent(event);
-		}
-		
-		switch ( event.getAction() & MotionEvent.ACTION_MASK ) {
-		case MotionEvent.ACTION_DOWN:
-			
-			performHitTestToSelectImage(x, y);
-			
-			boolean hitTestFoundAnImage = mSelectedImage != null;
-			if( hitTestFoundAnImage ) {
-				mScaleGestureDetector = new ScaleGestureDetector( mContext, mSelectedImage );
-				mRotateGestureDetector = new RotateGestureDetector( mSelectedImage );
-				invalidate();
-			}
-			
-			break;
-		case MotionEvent.ACTION_MOVE:
-			if( mSelectedImage != null && !mScaleGestureDetector.isInProgress() ) {
-				mSelectedImage.setCurrentPoint( event.getX(), event.getY() );
-			}
-			invalidate();
-			break;
-		case MotionEvent.ACTION_UP:
-			mSelectedImage = null;
-			mScaleGestureDetector = null;
-			break;
-		}
-		
 		return true;
 	}
 
