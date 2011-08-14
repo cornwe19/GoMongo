@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="centered_button_width">160dp</dimen>
-    <dimen name="nav_button_size">64dp</dimen>
+    <dimen name="nav_button_size">64dip</dimen>
     <dimen name="create_bowl_button_height">40dp</dimen>
     <dimen name="annotation_image_height">96dp</dimen>
 </resources>

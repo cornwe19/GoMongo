@@ -22,28 +22,47 @@ public final class R {
         public static final int nav_button_size=0x7f060001;
     }
     public static final class drawable {
-        public static final int cartoon_soldier=0x7f020000;
-        public static final int create_bowl_background_begin=0x7f020001;
-        public static final int create_bowl_background_end=0x7f020002;
-        public static final int expander_ic_maximized=0x7f020003;
-        public static final int expander_ic_minimized=0x7f020004;
-        public static final int hat=0x7f020005;
-        public static final int head=0x7f020006;
-        public static final int heart=0x7f020007;
-        public static final int ic_btn_search=0x7f020008;
-        public static final int ic_menu_mapmode=0x7f020009;
-        public static final int icon=0x7f02000a;
-        public static final int inset_light_background=0x7f02000b;
-        public static final int map_marker=0x7f02000c;
-        public static final int minus_food_button=0x7f02000d;
-        public static final int mongo_green=0x7f02000e;
-        public static final int mongo_logo=0x7f02000f;
-        public static final int more_details_button=0x7f020010;
-        public static final int mustache=0x7f020011;
-        public static final int nutrition_info_expander=0x7f020012;
-        public static final int plus_food_button=0x7f020013;
-        public static final int swords=0x7f020014;
-        public static final int trash=0x7f020015;
+        public static final int background=0x7f020000;
+        public static final int background_home_logo=0x7f020001;
+        public static final int cartoon_soldier=0x7f020002;
+        public static final int create_bowl_background_begin=0x7f020003;
+        public static final int create_bowl_background_end=0x7f020004;
+        public static final int expander_ic_maximized=0x7f020005;
+        public static final int expander_ic_minimized=0x7f020006;
+        public static final int hat=0x7f020007;
+        public static final int head=0x7f020008;
+        public static final int heart=0x7f020009;
+        public static final int ic_btn_search=0x7f02000a;
+        public static final int ic_menu_mapmode=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int inset_light_background=0x7f02000d;
+        public static final int map_marker=0x7f02000e;
+        public static final int minus_food_button=0x7f02000f;
+        public static final int mongo_green=0x7f020010;
+        public static final int mongo_logo=0x7f020011;
+        public static final int more_details_button=0x7f020012;
+        public static final int mustache=0x7f020013;
+        public static final int navigation_bar=0x7f020014;
+        public static final int navigation_button_about=0x7f020015;
+        public static final int navigation_button_about_active=0x7f020016;
+        public static final int navigation_button_about_inactive=0x7f020017;
+        public static final int navigation_button_create=0x7f020018;
+        public static final int navigation_button_create_active=0x7f020019;
+        public static final int navigation_button_create_inactive=0x7f02001a;
+        public static final int navigation_button_fun=0x7f02001b;
+        public static final int navigation_button_fun_active=0x7f02001c;
+        public static final int navigation_button_fun_inactive=0x7f02001d;
+        public static final int navigation_button_home=0x7f02001e;
+        public static final int navigation_button_home_active=0x7f02001f;
+        public static final int navigation_button_home_inactive=0x7f020020;
+        public static final int navigation_button_search=0x7f020021;
+        public static final int navigation_button_search_active=0x7f020022;
+        public static final int navigation_button_search_inactive=0x7f020023;
+        public static final int nutrition_info_expander=0x7f020024;
+        public static final int plus_food_button=0x7f020025;
+        public static final int sticker_box=0x7f020026;
+        public static final int swords=0x7f020027;
+        public static final int trash=0x7f020028;
     }
     public static final class id {
         public static final int add_food_category=0x7f070003;
@@ -226,13 +245,14 @@ public final class R {
         public static final int title_share_chooser=0x7f080039;
     }
     public static final class style {
-        public static final int ActivityTitle=0x7f040004;
-        public static final int BowlTitleStyle=0x7f040005;
-        public static final int HoursAndContactHeader=0x7f040003;
-        public static final int HoursAndContactInfo=0x7f040002;
-        public static final int InsetLightFrame=0x7f040001;
-        public static final int MapMarkerButton=0x7f040000;
-        public static final int TableItemLeft=0x7f040006;
-        public static final int TableItemRight=0x7f040007;
+        public static final int ActivityTitle=0x7f040005;
+        public static final int BowlTitleStyle=0x7f040006;
+        public static final int HoursAndContactHeader=0x7f040004;
+        public static final int HoursAndContactInfo=0x7f040003;
+        public static final int InsetLightFrame=0x7f040002;
+        public static final int MapMarkerButton=0x7f040001;
+        public static final int NavButton=0x7f040000;
+        public static final int TableItemLeft=0x7f040007;
+        public static final int TableItemRight=0x7f040008;
     }
 }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MongoPhoto extends Activity {
@@ -47,6 +48,8 @@ public class MongoPhoto extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_home, Home.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
+        ImageButton photoButton = (ImageButton)navigationMenu.findViewById(R.id.button_photo);
+        photoButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         
         setUpTakePhotoButtonToLaunchCamera();

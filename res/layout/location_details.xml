@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:background="@drawable/background">
   <!-- Header -->
   <LinearLayout android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -20,11 +21,13 @@
                   android:layout_height="match_parent">
       <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#FFF"
                 android:id="@+id/location_title"
                 android:textStyle="bold"
                 android:textSize="20dp" />
       <TextView android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="#FFF"
                 android:layout_weight="1"
                 android:id="@+id/location_address" />
     </LinearLayout>

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
     
     private static File TEMP_RECIPE_IMAGE = new File( MongoPhoto.PICTURE_TEMP_DIR, "recipe.jpg" );
     
-    private Food mTotalNutritionContainer = new Food();
+    private Food mTotalNutritionContainer = new Food(); 
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
         
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_home, Home.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
+        ImageButton createButton = (ImageButton)navigationMenu.findViewById(R.id.button_create);
+        createButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         

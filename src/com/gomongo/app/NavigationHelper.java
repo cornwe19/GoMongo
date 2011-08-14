@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 public class NavigationHelper {
 
 	public static void setupButtonToLaunchActivity( final Context callingContext, View parent, int buttonId, final Class<?> clazz ) {
-		Button button  = (Button)parent.findViewById(buttonId);
+		ImageButton button  = (ImageButton)parent.findViewById(buttonId);
 		button.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View clickedView) {

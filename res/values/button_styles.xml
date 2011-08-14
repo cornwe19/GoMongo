@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  
+  <style name="NavButton">
+    <item name="android:scaleType">fitStart</item>
+    <item name="android:padding">0dip</item>
+    <item name="android:background">@null</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/nav_button_size</item>
+    <item name="android:layout_weight">0.2</item>
+  </style>
+  
   <style name="MapMarkerButton">
     <item name="android:paddingLeft">5dp</item>
     <item name="android:paddingRight">5dp</item>
