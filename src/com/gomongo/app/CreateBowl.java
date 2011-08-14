@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.create_bowl);
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);

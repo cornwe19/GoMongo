@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -50,7 +51,7 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.share_bowl);
         
         View navigationMenu = (View)findViewById(R.id.nav_menu);

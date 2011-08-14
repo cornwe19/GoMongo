@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class LocationDetails extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.location_details);
 		
 		MongoLocation location = getIntent().getExtras().getParcelable(MongoLocation.EXTRA_LOCATION);

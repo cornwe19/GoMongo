@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_food);
         
         Bundle intentExtras = getIntent().getExtras();
