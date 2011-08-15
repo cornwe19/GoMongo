@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-  <include layout="@layout/navigation_menu" />
-  <RelativeLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:id="@+id/locations_list_pane"
-                  android:visibility="invisible"
-                  android:orientation="vertical">
-	      <RelativeLayout android:layout_height="wrap_content"
-		                    android:layout_width="match_parent">
-		      <EditText android:layout_width="match_parent"
-		                android:layout_height="wrap_content"
-		                android:maxLines="1"
-		                android:singleLine="true"
-		                android:hint="@string/location_search_hint"
-		                android:id="@+id/search_locations_text" />
-		      <ImageButton android:src="@drawable/ic_btn_search"
-		                   android:layout_height="wrap_content"
-		                   android:layout_width="wrap_content"
-		                   android:background="@null"
-		                   android:scaleType="fitXY"
-		                   android:id="@+id/button_search_locations"
-		                   android:layout_marginRight="5dip"
-		                   android:layout_alignParentRight="true"
-		                   android:layout_centerVertical="true" />
-        </RelativeLayout>
+              android:layout_height="match_parent"
+              android:background="@drawable/background">
+	<!-- Draw map first so that navigation will be drawn on top of it -->
+	<com.gomongo.app.ui.MongoMapView android:layout_width="match_parent"
+	                                 android:layout_height="match_parent"
+	                                 android:clickable="true"
+			                             android:layout_weight="1"                                
+			                             android:id="@+id/find_us_map"
+			                             android:apiKey="0qfMzmQotFFuOXI5fjOIKA0Rtkdps8msXLKouxQ" />
+	<include layout="@layout/navigation_menu"
+           android:id="@+id/nav_menu"/>
+  <LinearLayout android:layout_width="match_parent"
+                android:layout_below="@id/nav_menu"
+                android:layout_height="match_parent"
+                android:id="@+id/locations_list_pane"
+                android:visibility="invisible"
+                android:orientation="vertical">
+	   <RelativeLayout android:layout_height="wrap_content"
+	                   android:layout_width="match_parent">
+	    <EditText android:layout_width="match_parent"
+	              android:layout_height="wrap_content"
+	              android:maxLines="1"
+	              android:singleLine="true"
+	              android:hint="@string/location_search_hint"
+	              android:id="@+id/search_locations_text" />
+	    <ImageButton android:src="@drawable/ic_btn_search"
+	                 android:layout_height="wrap_content"
+	                 android:layout_width="wrap_content"
+	                 android:background="@null"
+	                 android:scaleType="fitXY"
+	                 android:id="@+id/button_search_locations"
+	                 android:layout_marginRight="5dip"
+	                 android:layout_alignParentRight="true"
+	                 android:layout_centerVertical="true" />
+	    </RelativeLayout>
 	    <ListView android:layout_width="match_parent"
 	              style="@style/InsetLightFrame"
 	              android:padding="10dip"
@@ -37,26 +45,19 @@
 	              android:layout_weight="1"
 	              android:layout_height="match_parent"
 	              android:id="@+id/locations_list" />
-    </LinearLayout>
-	  <com.gomongo.app.ui.MongoMapView android:layout_width="match_parent"
-		                            android:layout_height="match_parent"
-                                android:clickable="true"
-                                android:layout_weight="1"                                
-                                android:id="@+id/find_us_map"
-                                android:apiKey="0qfMzmQotFFuOXI5fjOIKA0Rtkdps8msXLKouxQ" />
-	  <Button android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
-	          style="@style/MapMarkerButton"
-	          android:id="@+id/button_location_more_details"
-	          android:visibility="invisible"
-	          android:drawableRight="@drawable/expander_ic_minimized"
-	          android:drawablePadding="4dp" />
-	  <ImageButton android:layout_alignParentRight="true"
-			           android:layout_alignParentBottom="true"
-			           android:layout_height="64dp"
-			           android:layout_width="64dp"
-			           android:scaleType="fitCenter"
-			           android:src="@drawable/ic_btn_search"
-			           android:id="@+id/button_map_list_toggle" />
-	</RelativeLayout>
-</LinearLayout>
+   </LinearLayout>
+	 <Button android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         style="@style/MapMarkerButton"
+	         android:id="@+id/button_location_more_details"
+	         android:visibility="invisible"
+	         android:drawableRight="@drawable/expander_ic_minimized"
+	         android:drawablePadding="4dp" />
+	 <ImageButton android:layout_alignParentRight="true"
+	              android:layout_alignParentBottom="true"
+		            android:layout_height="64dp"
+		            android:layout_width="64dp"
+		            android:scaleType="fitCenter"
+		            android:src="@drawable/ic_btn_search"
+		            android:id="@+id/button_map_list_toggle" />	
+</RelativeLayout>
