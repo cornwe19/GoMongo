@@ -11,6 +11,8 @@
                 android:layout_weight="1"
                 android:padding="4dip">
 	  <ListView android:cacheColorHint="#FFF"
+	            android:descendantFocusability="beforeDescendants"
+	            android:choiceMode="singleChoice"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:divider="@null"

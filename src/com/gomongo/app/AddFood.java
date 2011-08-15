@@ -53,6 +53,7 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             mListAdapter = new AddFoodListAdapter(this, mBowl, ingredientDao, foodsInCategory, categoryInfo );
             ListView foodsList = (ListView)findViewById(R.id.add_food_list);
             foodsList.setAdapter(mListAdapter);
+            foodsList.setOnItemClickListener(mListAdapter);
         }
         catch ( SQLException sqlException ) {
             handleSqlException(sqlException);

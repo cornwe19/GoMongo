@@ -14,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.gomongo.data.Bowl;
 import com.gomongo.data.Food;
@@ -26,7 +29,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickListener {
+public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickListener, OnItemClickListener {
     
     private static String TAG = "AddFoodListAdapter";
     
@@ -38,6 +41,8 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
     private Category mCategoryInfo;
     
     private List<Food> mItems;
+    
+    private int mSelectedPosition = -1;
     
     private HashMap<Integer,Integer> mCounts = new HashMap<Integer,Integer>();
     private int mCountTotalIngredients = 0;
@@ -75,20 +80,31 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         
         setTextOnView(listItem, R.id.food_item_title, ingredient.getTitle());
         
-        setTextOnView(listItem, R.id.serving_nut_info, ingredient.getServingSize());
-        NutritionFactsViewHelper.fillOutCommonFactsLayout(listItem, ingredient);
-        
-        Button moreInfoButton = (Button)listItem.findViewById(R.id.food_item_more_info);
-        moreInfoButton.setTag(listItem.findViewById(R.id.more_details_pane));
-        moreInfoButton.setOnClickListener( this );
-        
-        setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_add);
-        setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_subtract);
-        
-        Integer count = getCountOrDefault0(ingredient.getId());
-        
-        TextView ingredientCountText = (TextView)listItem.findViewById(R.id.food_item_count);
-        ingredientCountText.setText( count.toString() );
+        if( position == mSelectedPosition ) {
+            
+            View mainItemUI = listItem.findViewById(R.id.add_food_minimized_ui);
+            mainItemUI.setBackgroundResource(R.drawable.active_ingredient_background);
+            
+            setTextOnView(listItem, R.id.serving_nut_info, ingredient.getServingSize());
+            NutritionFactsViewHelper.fillOutCommonFactsLayout(listItem, ingredient);
+            
+            Button moreInfoButton = (Button)listItem.findViewById(R.id.button_food_item_more_info);
+            moreInfoButton.setVisibility(View.VISIBLE);
+            
+            moreInfoButton.setTag(listItem.findViewById(R.id.more_details_pane));
+            moreInfoButton.setOnClickListener( this );
+          
+            LinearLayout counterControls = (LinearLayout)listItem.findViewById(R.id.food_item_count_controls);
+            counterControls.setVisibility(View.VISIBLE);
+            
+            setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_add);
+            setupPlusMinusButton(ingredient.getId(), listItem, R.id.button_food_item_subtract);
+            
+            Integer count = getCountOrDefault0(ingredient.getId());
+            
+            TextView ingredientCountText = (TextView)listItem.findViewById(R.id.food_item_count);
+            ingredientCountText.setText( count.toString() );
+        }
         
         return listItem;
     }
@@ -147,9 +163,11 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
         incrementButton.setOnClickListener(this);
     }
 
+    
+    
     @Override
     public void onClick(View clickedView) {
-       if( clickedView.getId() == R.id.food_item_more_info ) {
+       if( clickedView.getId() == R.id.button_food_item_more_info ) {
            toggleNutritionInfo(clickedView);
        }
        else {
@@ -225,5 +243,33 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
                 mIngredientDao.create(ingredientCount);
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View selectedView, int position, long id) {
+//        for( View visibleControl : mLastSelectedItemControls ) {
+//            visibleControl.setVisibility(View.INVISIBLE);
+//        }
+//        mLastSelectedItemControls.clear();
+//        
+//        if( mLastSelectedItem != null ) {
+//            mLastSelectedItem.setSelected(false);
+//        }
+        
+        mSelectedPosition = position;
+        
+//        mLastSelectedItem = selectedView;
+//        mLastSelectedItem.setSelected(true);
+//        
+//        Button moreInfoButton = (Button)mLastSelectedItem.findViewById(R.id.button_food_item_more_info);
+//        moreInfoButton.setVisibility(View.VISIBLE);
+//        
+//        LinearLayout counterControls = (LinearLayout)mLastSelectedItem.findViewById(R.id.food_item_count_controls);
+//        counterControls.setVisibility(View.VISIBLE);
+//        
+//        mLastSelectedItemControls.add( moreInfoButton );
+//        mLastSelectedItemControls.add( counterControls );
+        
+        parent.invalidate();
     }
 }

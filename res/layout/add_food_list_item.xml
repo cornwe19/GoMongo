@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:background="@drawable/gray_pressed_state">
 	
 	<!-- Minimized UI -->
 	<LinearLayout android:layout_width="match_parent"
 	              android:layout_height="wrap_content"
-	              android:gravity="left|bottom">
+	              android:gravity="left|bottom"
+	              android:id="@+id/add_food_minimized_ui">
 	  <ImageView android:layout_width="wrap_content"
 	             android:layout_height="64dp"
 	             android:adjustViewBounds="true"
@@ -22,11 +24,15 @@
 	              android:textColor="@color/inset_foreground"
 	              android:id="@+id/food_item_title" />
 	    <LinearLayout android:layout_width="wrap_content"
-	                  android:layout_height="wrap_content">
+	                  android:layout_height="wrap_content"
+	                  android:id="@+id/food_item_count_controls"
+	                  android:visibility="invisible">
 		    <Button android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:background="@drawable/minus_food_button"
 		            android:textColor="#FFF"
+		            android:focusable="false"
+		            android:focusableInTouchMode="false"
 		            android:layout_marginRight="4dip"
 		            android:id="@+id/button_food_item_subtract"
 		            android:text="-" />
@@ -37,6 +43,8 @@
 		    <Button android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:id="@+id/button_food_item_add"
+		            android:focusable="false"
+                android:focusableInTouchMode="false"
 		            android:layout_marginLeft="4dip"
 		            android:background="@drawable/plus_food_button"
 		            android:textColor="#FFF"
@@ -47,8 +55,11 @@
 	          android:layout_height="wrap_content"
 	          android:text="@string/button_more_info"
 	          android:background="@null"
+	          android:focusable="false"
+            android:focusableInTouchMode="false"
 	          android:drawableRight="@drawable/expander_ic_minimized"
-	          android:id="@+id/food_item_more_info" />
+	          android:id="@+id/button_food_item_more_info"
+	          android:visibility="invisible" />
 	</LinearLayout>
 	
 	<!-- Separator -->
