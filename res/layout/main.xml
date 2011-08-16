@@ -11,20 +11,16 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal|bottom"
                 android:id="@+id/home_main_menu">
-    <Button android:layout_width="@dimen/centered_button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/button_loc_search"
-            android:id="@+id/button_find_us" />
-    <Button android:layout_width="@dimen/centered_button_width"
-            android:layout_height="wrap_content"
+    <Button android:text="@string/button_loc_search"
+            android:id="@+id/button_find_us"
+            style="@style/MongoButton" />
+    <Button style="@style/MongoButton"
             android:text="@string/button_create_bowl"
             android:id="@+id/button_create" />
-    <Button android:layout_width="@dimen/centered_button_width"
-            android:layout_height="wrap_content"
+    <Button style="@style/MongoButton"
             android:text="@string/button_mongo_photo"
             android:id="@+id/button_photo" />
-    <Button android:layout_width="@dimen/centered_button_width"
-            android:layout_height="wrap_content"
+    <Button style="@style/MongoButton"
             android:text="@string/button_now_at"
             android:id="@+id/button_promotions" />
   </LinearLayout>

@@ -2,6 +2,7 @@ package com.gomongo.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,8 @@ import com.gomongo.data.UpdateIngredientsHelper;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 public class Home extends OrmLiteBaseActivity<DatabaseOpenHelper> {
+    
+    Typeface mBurweedFont;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,19 +34,23 @@ public class Home extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         
+        mBurweedFont = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf" );
+        
         View homeMainMenu = (View)findViewById( R.id.home_main_menu );
         
-        setupButtonToLaunchActivity(homeMainMenu, R.id.button_find_us, FindUs.class);
-        setupButtonToLaunchActivity(homeMainMenu, R.id.button_create, CreateBowl.class);
-        setupButtonToLaunchActivity(homeMainMenu, R.id.button_photo, MongoPhoto.class);
-        setupButtonToLaunchActivity(homeMainMenu, R.id.button_promotions, Promotions.class);
+        setupHomeMenuButton(homeMainMenu, R.id.button_find_us, FindUs.class);
+        setupHomeMenuButton(homeMainMenu, R.id.button_create, CreateBowl.class);
+        setupHomeMenuButton(homeMainMenu, R.id.button_photo, MongoPhoto.class);
+        setupHomeMenuButton(homeMainMenu, R.id.button_promotions, Promotions.class);
         
         UpdateIngredientsHelper.AsyncUpdateIngredients(getHelper(), null);
     }
     
-    private void setupButtonToLaunchActivity( View parent, int buttonId, final Class<?> clazz ) {
+    private void setupHomeMenuButton( View parent, int buttonId, final Class<?> clazz ) {
         Button button  = (Button)parent.findViewById(buttonId);
         final Context callingContext = this;
+        
+        button.setTypeface(mBurweedFont);
         
         button.setOnClickListener(new OnClickListener(){
             @Override
