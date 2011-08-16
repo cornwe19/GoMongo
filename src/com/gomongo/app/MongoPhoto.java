@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +30,8 @@ public class MongoPhoto extends Activity {
     private final int TAKE_PHOTO_REQUEST = 0x01;
     private final int OPEN_FROM_GALLERY_REQUEST = 0x02;
 	
+    private Typeface mBurweedFont;
+    
 	static {
 		if ( !PICTURE_STORAGE_DIR.exists() ) {
 			PICTURE_STORAGE_DIR.mkdir();
@@ -54,6 +57,8 @@ public class MongoPhoto extends Activity {
         photoButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         
+        mBurweedFont = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+        
         setUpTakePhotoButtonToLaunchCamera();
         
         setupPhotoLibraryButtonToLaunchGallery();
@@ -63,6 +68,7 @@ public class MongoPhoto extends Activity {
 		final Context contextForDisplayingErrors = this;
 		
 		Button takePhotoButton = (Button)findViewById(R.id.button_take_photo);
+		takePhotoButton.setTypeface(mBurweedFont);
         takePhotoButton.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick(View view) {
@@ -106,7 +112,8 @@ public class MongoPhoto extends Activity {
 	
 	private void setupPhotoLibraryButtonToLaunchGallery() {
 		Button photoLibraryButton = (Button)findViewById(R.id.button_view_gallery);
-        
+        photoLibraryButton.setTypeface(mBurweedFont);
+		
 		photoLibraryButton.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick( View view ) {
