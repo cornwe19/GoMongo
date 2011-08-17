@@ -4,4 +4,6 @@
     <color name="nutrition_even_row">#666</color>
     
     <color name="inset_foreground">#000</color>
+    
+    <color name="mongo_text_color">#ffcd54</color>
 </resources>

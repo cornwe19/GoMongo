@@ -1,10 +1,12 @@
 package com.gomongo.app;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class About extends Activity {
 
@@ -23,6 +25,10 @@ public class About extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         ImageButton aboutButton = (ImageButton) navigationMenu.findViewById(R.id.button_about);
         aboutButton.setSelected(true);
+        
+        Typeface burweedTypeface = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+        TextView huntGatherFeastText = (TextView)findViewById(R.id.hunt_gather_feast_text);
+        huntGatherFeastText.setTypeface(burweedTypeface);
     }
 
 }
