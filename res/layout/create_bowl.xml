@@ -32,27 +32,66 @@
 	              android:cursorVisible="false"
 	              android:id="@+id/edittext_bowl_title"
 	              style="@style/BowlTitleStyle" />
+	    <!-- Meats -->
+	    <RelativeLayout android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content">
+        <Button style="@style/MongoButton"
+	              android:text="@string/category_meats_title"
+	              android:id="@+id/button_meat_seafood" />
+	      <TextView style="@style/FoodCounter"
+	                android:id="@+id/count_meat_seafood"
+	                android:layout_alignRight="@id/button_meat_seafood"
+	                android:background="@drawable/blue_circle" />
+	    </RelativeLayout>
 	    
-	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="@dimen/create_bowl_button_height"
-	            android:text="@string/category_meats_title"
-	            android:id="@+id/button_meat_seafood" />
-	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="@dimen/create_bowl_button_height"
-	            android:text="@string/category_veggies_title"
-	            android:id="@+id/button_veggies" />
-	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="@dimen/create_bowl_button_height"
-	            android:text="@string/category_sauces_title"
-	            android:id="@+id/button_sauces" />
-	    <Button android:layout_width="@dimen/centered_button_width"
-	            android:layout_height="@dimen/create_bowl_button_height"
-	            android:text="@string/category_spices_title"
-	            android:id="@+id/button_spices" />
-	    <Button android:layout_width="@dimen/centered_button_width"
-              android:layout_height="@dimen/create_bowl_button_height"
-              android:text="@string/category_starches_title"
-              android:id="@+id/button_starches" />
+	    <!-- Veggies -->
+	    <RelativeLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+        <Button style="@style/MongoButton"
+                android:text="@string/category_veggies_title"
+	              android:id="@+id/button_veggies" />
+        <TextView style="@style/FoodCounter"
+                  android:id="@+id/count_veggies"
+                  android:layout_alignRight="@id/button_veggies"
+                  android:background="@drawable/green_circle" />
+      </RelativeLayout>
+      
+      <!-- Sauces -->
+      <RelativeLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+        <Button style="@style/MongoButton"
+                android:text="@string/category_sauces_title"
+                android:id="@+id/button_sauces" />
+        <TextView style="@style/FoodCounter"
+                  android:id="@+id/count_sauces"
+                  android:layout_alignRight="@id/button_sauces"
+                  android:background="@drawable/orange_circle" />
+      </RelativeLayout>
+      
+      <!-- Spices -->
+      <RelativeLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+        <Button style="@style/MongoButton"
+                android:text="@string/category_spices_title"
+                android:id="@+id/button_spices" />
+        <TextView style="@style/FoodCounter"
+                  android:id="@+id/count_spices"
+                  android:layout_alignRight="@id/button_spices"
+                  android:background="@drawable/red_circle" />
+      </RelativeLayout>
+      
+      <!-- Sides -->
+      <RelativeLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+        <Button style="@style/MongoButton"
+                android:text="@string/category_starches_title"
+                android:id="@+id/button_starches" />
+        <TextView style="@style/FoodCounter"
+                  android:id="@+id/count_starches"
+                  android:layout_alignRight="@id/button_starches"
+                  android:background="@drawable/gray_circle" />
+      </RelativeLayout>
+	    
 	  </LinearLayout>
   </LinearLayout>
 </LinearLayout>

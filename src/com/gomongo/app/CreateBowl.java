@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gomongo.data.Bowl;
@@ -49,6 +51,8 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
     private ProgressDialog mUpdatingFoodsDialog;
     private Bowl mBowl;
     private HashMap<String,Integer> mIngredientCategoryCounts = new HashMap<String,Integer>();
+    
+    private Typeface mBurweedFont;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,11 +101,13 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             handleSQLException(ex);
         }
         
-        setupAndRegisterCategoryButton( R.id.button_meat_seafood, mCategoryMeats );
-        setupAndRegisterCategoryButton( R.id.button_veggies, mCategoryVeggies );
-        setupAndRegisterCategoryButton( R.id.button_sauces, mCategorySauces );
-        setupAndRegisterCategoryButton( R.id.button_spices, mCategorySpices );
-        setupAndRegisterCategoryButton( R.id.button_starches, mCategorySides );
+        mBurweedFont = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+        
+        setupAndRegisterCategoryButton( R.id.button_meat_seafood, R.id.count_meat_seafood, mCategoryMeats );
+        setupAndRegisterCategoryButton( R.id.button_veggies, R.id.count_veggies, mCategoryVeggies );
+        setupAndRegisterCategoryButton( R.id.button_sauces, R.id.count_sauces, mCategorySauces );
+        setupAndRegisterCategoryButton( R.id.button_spices, R.id.count_spices, mCategorySpices );
+        setupAndRegisterCategoryButton( R.id.button_starches, R.id.count_starches, mCategorySides );
         
         Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );
         final Context theContext = this;
@@ -182,11 +188,11 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             
             updateBackgroundBasedOnBowlComplete();
             
-            refreshButtonText( R.id.button_meat_seafood, mCategoryMeats);
-            refreshButtonText( R.id.button_veggies, mCategoryVeggies);
-            refreshButtonText( R.id.button_sauces, mCategorySauces);
-            refreshButtonText( R.id.button_spices, mCategorySpices);
-            refreshButtonText( R.id.button_starches, mCategorySides);
+            refreshButtonText( R.id.count_meat_seafood, mCategoryMeats );
+            refreshButtonText( R.id.count_veggies, mCategoryVeggies );
+            refreshButtonText( R.id.count_sauces, mCategorySauces );
+            refreshButtonText( R.id.count_spices, mCategorySpices );
+            refreshButtonText( R.id.count_starches, mCategorySides );
         }
 	    catch (SQLException ex) {
             handleSQLException(ex);
@@ -237,19 +243,21 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         }
 	}
 	
-	private void refreshButtonText( int buttonId, Category category ) {
-	    String titleFormat = "%s (%d)";
+	private void refreshButtonText( int textId, Category category ) {
+	    TextView button = (TextView)findViewById(textId);
 	    
-	    Button button = (Button)findViewById(buttonId);
-	    button.setText(String.format(titleFormat, category.getTitle(), mIngredientCategoryCounts.get(category.getId())));
+	    Integer count = mIngredientCategoryCounts.get(category.getId());
+	    
+	    button.setText( count == null ? "0" : count.toString() );
 	}
 	
-    private void setupAndRegisterCategoryButton( int buttonId, final Category category ) {
+    private void setupAndRegisterCategoryButton( int buttonId, int countId, final Category category ) {
         final Context context = this;
         
         Button createButton = (Button)findViewById(buttonId);
+        createButton.setTypeface(mBurweedFont);
         createButton.setOnClickListener( new OnClickListener() {
-
+            
             @Override
             public void onClick(View clickedView) {
                 Intent addFoodIntent = new Intent(context, AddFood.class);
@@ -261,7 +269,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             
         });
         
-        refreshButtonText( buttonId, category );
+        refreshButtonText( countId, category );
     }
 
     @Override
