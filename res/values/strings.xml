@@ -89,6 +89,7 @@
     <string name="loading_promotions_title">Loading Promotions</string>
     <string name="loading_promotions_message">Please wait while the latest BD\'s promotions are loaded.</string>
     <string name="button_promotion_find_us">Find your closest bd\'s</string>
+    <string name="button_close">Close</string>
     
     <!-- Errors -->
     <string name="error_couldnt_access_sdcard">There was a problem setting up your image. Please make sure your SD card is connected properly and try again.</string>

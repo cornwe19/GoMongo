@@ -85,8 +85,9 @@ public final class R {
         public static final int button_about=0x7f070036;
         public static final int button_add_annotation=0x7f070010;
         public static final int button_cancel=0x7f07000f;
+        public static final int button_close=0x7f070041;
         public static final int button_create=0x7f070030;
-        public static final int button_create_another_bowl=0x7f070045;
+        public static final int button_create_another_bowl=0x7f070046;
         public static final int button_delete_sticker=0x7f070011;
         public static final int button_find_us=0x7f07002f;
         public static final int button_food_item_add=0x7f07000b;
@@ -97,7 +98,7 @@ public final class R {
         public static final int button_location_more_details=0x7f070021;
         public static final int button_map_list_toggle=0x7f070022;
         public static final int button_meat_seafood=0x7f070016;
-        public static final int button_nutrition_info=0x7f070044;
+        public static final int button_nutrition_info=0x7f070045;
         public static final int button_photo=0x7f070031;
         public static final int button_promotion_find_us=0x7f070042;
         public static final int button_promotions=0x7f070032;
@@ -125,7 +126,7 @@ public final class R {
         public static final int gallery_image_annoation_pages=0x7f070002;
         public static final int home_main_menu=0x7f07002e;
         public static final int hours_body=0x7f070029;
-        public static final int imageview_mongo_promotion=0x7f070041;
+        public static final int imageview_mongo_promotion=0x7f070043;
         public static final int location_address=0x7f070028;
         public static final int location_distance=0x7f07002d;
         public static final int location_title=0x7f070027;
@@ -144,7 +145,7 @@ public final class R {
         public static final int serving_nut_info=0x7f07003a;
         public static final int tag_food_list_food_id=0x7f070000;
         public static final int tag_food_list_item_counter=0x7f070001;
-        public static final int textview_bowl_title=0x7f070043;
+        public static final int textview_bowl_title=0x7f070044;
         public static final int top_left=0x7f070023;
         public static final int top_right=0x7f070024;
     }
@@ -178,6 +179,7 @@ public final class R {
         public static final int button_add_annotation=0x7f080037;
         public static final int button_cancel=0x7f08000c;
         public static final int button_cant_add_food_dismiss=0x7f080032;
+        public static final int button_close=0x7f080041;
         public static final int button_create=0x7f080003;
         public static final int button_create_another_bowl=0x7f080035;
         public static final int button_create_bowl=0x7f080007;
@@ -218,18 +220,18 @@ public final class R {
         public static final int category_veggies_title=0x7f08001c;
         public static final int default_bowl_title=0x7f080018;
         public static final int distance_away_format=0x7f080014;
-        public static final int error_bowl_needs_name=0x7f080047;
-        public static final int error_connecting_to_internet=0x7f080049;
+        public static final int error_bowl_needs_name=0x7f080048;
+        public static final int error_connecting_to_internet=0x7f08004a;
         /**  Errors 
          */
-        public static final int error_couldnt_access_sdcard=0x7f080041;
-        public static final int error_image_for_editing_missing=0x7f080042;
-        public static final int error_location_not_recognized=0x7f08004a;
-        public static final int error_preparing_bowl=0x7f080048;
-        public static final int error_problem_connecting_to_database=0x7f080046;
-        public static final int error_problem_getting_ingredients=0x7f080043;
-        public static final int error_problem_getting_locations=0x7f080044;
-        public static final int error_problem_getting_your_location=0x7f080045;
+        public static final int error_couldnt_access_sdcard=0x7f080042;
+        public static final int error_image_for_editing_missing=0x7f080043;
+        public static final int error_location_not_recognized=0x7f08004b;
+        public static final int error_preparing_bowl=0x7f080049;
+        public static final int error_problem_connecting_to_database=0x7f080047;
+        public static final int error_problem_getting_ingredients=0x7f080044;
+        public static final int error_problem_getting_locations=0x7f080045;
+        public static final int error_problem_getting_your_location=0x7f080046;
         public static final int fat_nut_info=0x7f08002b;
         public static final int fiber_nut_info=0x7f08002e;
         public static final int help_view_more_stickers=0x7f08003b;

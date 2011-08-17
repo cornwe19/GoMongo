@@ -4,16 +4,36 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
   <include layout="@layout/navigation_menu" />
+  <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-22dip"
+                android:background="@drawable/submenu_bar"
+                android:paddingTop="5dip">
+	  <Button android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:text="@string/button_close"
+	          android:id="@+id/button_close"
+	          android:layout_alignParentLeft="true"
+	          android:textColor="#FFF"
+	          android:background="@drawable/submenu_button" />
+	  <Button android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:text="@string/button_promotion_find_us"
+	          android:id="@+id/button_promotion_find_us"
+	          android:paddingLeft="7dip"
+	          android:paddingRight="7dip"
+	          android:layout_alignParentRight="true"
+	          android:textColor="#FFF"
+	          android:background="@drawable/submenu_button" />
+  </RelativeLayout>
   <ScrollView android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="1">
+              android:layout_weight="1"
+              android:layout_marginTop="-12dip">
    <ImageView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:scaleType="fitStart"	               
               android:id="@+id/imageview_mongo_promotion" />
   </ScrollView>
-  <Button android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/button_promotion_find_us"
-          android:id="@+id/button_promotion_find_us" />
+  
 </LinearLayout>

@@ -55,6 +55,9 @@ public class Promotions extends Activity implements OnClickListener {
         Button findUsButton = (Button)findViewById(R.id.button_promotion_find_us);
         findUsButton.setOnClickListener(this);
         
+        Button closeButton = (Button)findViewById(R.id.button_close);
+        closeButton.setOnClickListener(this);
+        
         final Context thisContext = this;
         
         Thread promotionsThread = new Thread( new Runnable() {
@@ -128,6 +131,9 @@ public class Promotions extends Activity implements OnClickListener {
         case R.id.button_promotion_find_us:
             Intent findUs = new Intent( this, FindUs.class );
             startActivity(findUs);
+            break;
+        case R.id.button_close:
+            finish();
             break;
         }
     }
