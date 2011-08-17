@@ -27,16 +27,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Gallery;
 import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.gomongo.app.ui.AnnotationEditorView;
 import com.gomongo.app.ui.MongoImage;
 
-public class AnnotateImage extends Activity implements OnClickListener, OnCheckedChangeListener {
+public class AnnotateImage extends Activity implements OnClickListener {
 	private final String TAG = "AnnotateImage";
 	
 	public static final String EXTRA_IS_TEMP = "com.gomongo.app.annotateimage.istemp";
@@ -70,8 +67,8 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		Button addStickerButton = (Button)findViewById(R.id.button_add_annotation);
 		addStickerButton.setOnClickListener(this);
 		
-		CheckBox deleteStickerToggle = (CheckBox)findViewById(R.id.button_delete_sticker);
-		deleteStickerToggle.setOnCheckedChangeListener(this);
+		Button removeButton = (Button)findViewById(R.id.button_delete_sticker);
+		removeButton.setOnClickListener(this);
 	}
 
 	private void setEditorBackgroundToTempImage() {
@@ -165,6 +162,16 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 			NavigationHelper.shareJpegAtUri(this, Uri.fromFile(imageToShare));
 			
 			break;
+		case R.id.button_delete_sticker:
+		    if( !mAnnotationEditorView.isDeleting() ) {
+                int redTintColor = 0xFFFF3333;
+                view.getBackground().setColorFilter(redTintColor, PorterDuff.Mode.MULTIPLY);
+                mAnnotationEditorView.startDeleting();
+            }
+            else {
+                exitDeleteStickerMode(view);
+            }
+		    break;
 		// Handle any dialog image click the same
 		case R.id.top_left:
 		case R.id.top_right:
@@ -180,9 +187,15 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		}
 	}
 
+    private void exitDeleteStickerMode(View view) {
+        int clearTintColor = 0xFFFFFFFF;
+        view.getBackground().setColorFilter(clearTintColor, PorterDuff.Mode.MULTIPLY);
+        mAnnotationEditorView.stopDeleting();
+    }
+
     private void forceExitDeleteMode() {
-        CheckBox deletingCheckbox = (CheckBox)findViewById(R.id.button_delete_sticker);
-        deletingCheckbox.setChecked(false);
+        View removeButton = (View)findViewById(R.id.button_delete_sticker);
+        exitDeleteStickerMode(removeButton);
     }
 
 	private File compressBitmapToImageFile(Bitmap compositeBitmap) {
@@ -222,20 +235,4 @@ public class AnnotateImage extends Activity implements OnClickListener, OnChecke
 		
 		return mDialog;
 	}
-
-    @Override
-    public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-        if( button.getId() == R.id.button_delete_sticker ) {
-            if( isChecked ) {
-                int redTintColor = 0xFFFF3333;
-                button.getBackground().setColorFilter(redTintColor, PorterDuff.Mode.MULTIPLY);
-                mAnnotationEditorView.startDeleting();
-            }
-            else {
-                int clearTintColor = 0xFFFFFFFF;
-                button.getBackground().setColorFilter(clearTintColor, PorterDuff.Mode.MULTIPLY);
-                mAnnotationEditorView.stopDeleting();
-            }
-        }
-    }
 }

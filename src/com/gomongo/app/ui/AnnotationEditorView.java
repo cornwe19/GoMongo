@@ -32,6 +32,10 @@ public class AnnotationEditorView extends View {
 		mEditStickersController = new EditStickersController(context, mImages);
 	}
 	
+	public boolean isDeleting() {
+	    return mEditStickersController instanceof DeleteStickersController;
+	}
+	
 	@Override
 	public void onDraw( Canvas canvas ) {
 		Paint imagePaint = mEditStickersController.getStickerDrawPaint();

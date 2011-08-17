@@ -76,7 +76,8 @@
     
     <!-- Image Annotations -->
     <string name="button_add_annotation">Add Sticker</string>
-    <string name="button_save_and_share">Save &amp; Share</string>
+    <string name="button_save_and_share">Save</string>
+    <string name="button_remove_sticker">Remove</string>
     <string name="title_share_chooser">Share via...</string>
     <string name="help_view_more_stickers">Swipe left or right for more stickers.</string>
     <string name="reshare_image">Share Image Again</string>
