@@ -5,4 +5,5 @@
     <dimen name="create_bowl_button_height">40dp</dimen>
     <dimen name="annotation_image_height">96dp</dimen>
     <dimen name="burweed_text_size">28dp</dimen>
+    <dimen name="navigation_fade_offset">-24dip</dimen>
 </resources>

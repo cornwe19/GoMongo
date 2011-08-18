@@ -21,14 +21,12 @@
     <item name="android:background">@drawable/more_details_button</item>
   </style>
   
-  <style name="MongoButton">
+  <style name="MongoButton" parent="@style/ShadowText">
     <item name="android:background">@drawable/mongo_button</item>
     <item name="android:textColor">@drawable/mongo_button_color</item>
     <item name="android:textSize">@dimen/burweed_text_size</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">@dimen/centered_button_width</item>
-    <item name="android:shadowColor">#000000</item>
-    <item name="android:shadowRadius">3</item>
     <item name="android:gravity">center</item>
   </style>
   

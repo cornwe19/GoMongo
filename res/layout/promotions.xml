@@ -6,7 +6,7 @@
   <include layout="@layout/navigation_menu" />
   <RelativeLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-22dip"
+                android:layout_marginTop="@dimen/navigation_fade_offset"
                 android:background="@drawable/submenu_bar"
                 android:paddingTop="5dip">
 	  <Button android:layout_width="wrap_content"

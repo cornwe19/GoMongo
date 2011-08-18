@@ -2,7 +2,6 @@ package com.gomongo.app;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,6 +103,9 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         
         mBurweedFont = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
         
+        TextView title = (TextView)findViewById(R.id.create_bowl_title);
+        title.setTypeface(mBurweedFont);
+        
         setupAndRegisterCategoryButton( R.id.button_meat_seafood, R.id.count_meat_seafood, mCategoryMeats );
         setupAndRegisterCategoryButton( R.id.button_veggies, R.id.count_veggies, mCategoryVeggies );
         setupAndRegisterCategoryButton( R.id.button_sauces, R.id.count_sauces, mCategorySauces );
@@ -125,18 +128,6 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
                 else {
                     Toast.makeText(theContext, R.string.error_bowl_needs_name, Toast.LENGTH_LONG).show();
                 }
-            }
-
-            private boolean bowlIsEmpty() {
-                boolean bowlHasIngredients = true;
-                for ( Integer count : mIngredientCategoryCounts.values() ) {
-                    if( count > 0 ) {
-                        bowlHasIngredients = false;
-                        break;
-                    }
-                }
-                
-                return bowlHasIngredients;
             }
 
             private void saveAndStartShareBowl(final Context theContext, String title) {
@@ -164,6 +155,18 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         });
 	}
 
+	private boolean bowlIsEmpty() {
+        boolean bowlIsEmpty = true;
+        for ( Integer count : mIngredientCategoryCounts.values() ) {
+            if( count > 0 ) {
+                bowlIsEmpty = false;
+                break;
+            }
+        }
+        
+        return bowlIsEmpty;
+    }
+	
     private void handleSQLException(SQLException ex) {
         Log.w(TAG, "Couldn't open the database for writing", ex );
         
@@ -200,22 +203,13 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
 	}
 
     private void updateBackgroundBasedOnBowlComplete() {
-        View mainLayout = (View)findViewById(R.id.create_bowl_root);
-        
-        if( sum( mIngredientCategoryCounts.values() ) > 0 ) {
-            mainLayout.setBackgroundResource(R.drawable.create_bowl_background_end);
+        ImageView bowlImage = (ImageView)findViewById(R.id.image_bowl);
+        if( !bowlIsEmpty() ) {
+            bowlImage.setImageResource(R.drawable.bowl_full);
         }
         else {
-            mainLayout.setBackgroundResource(R.drawable.create_bowl_background_begin);
+            bowlImage.setImageResource(R.drawable.bowl);
         }
-    }
-
-    private int sum(Collection<Integer> values) {
-        int sum = 0;
-        for( int value : values ) {
-            sum += value;
-        }
-        return sum;
     }
 
     private void resetCategoryCounts() {
