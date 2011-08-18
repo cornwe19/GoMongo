@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Bundle;
@@ -112,13 +113,21 @@ public class ShareBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implement
             finish();
         }
         
+        Typeface burweedTypeface = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+        
+        TextView shareBowlTitle = (TextView)findViewById(R.id.share_bowl_title);
+        shareBowlTitle.setTypeface(burweedTypeface);
+        
         Button shareBowlButton = (Button)findViewById( R.id.button_share_bowl );
+        shareBowlButton.setTypeface(burweedTypeface);
         shareBowlButton.setOnClickListener(this);
         
         Button startOver = (Button)findViewById(R.id.button_create_another_bowl);
+        startOver.setTypeface(burweedTypeface);
         startOver.setOnClickListener(this);
         
         Button nutritionInfo = (Button)findViewById(R.id.button_nutrition_info);
+        nutritionInfo.setTypeface(burweedTypeface);
         nutritionInfo.setOnClickListener(this);
     }
 

@@ -92,12 +92,13 @@ public final class R {
         public static final int add_food_minimized_ui=0x7f070006;
         public static final int bottom_left=0x7f07002c;
         public static final int bottom_right=0x7f07002d;
+        public static final int bowl_glow_image=0x7f07004c;
         public static final int button_about=0x7f07003d;
         public static final int button_add_annotation=0x7f070011;
         public static final int button_cancel=0x7f070010;
         public static final int button_close=0x7f070048;
         public static final int button_create=0x7f070037;
-        public static final int button_create_another_bowl=0x7f07004e;
+        public static final int button_create_another_bowl=0x7f07004f;
         public static final int button_delete_sticker=0x7f070012;
         public static final int button_find_us=0x7f070036;
         public static final int button_food_item_add=0x7f07000c;
@@ -108,7 +109,7 @@ public final class R {
         public static final int button_location_more_details=0x7f070028;
         public static final int button_map_list_toggle=0x7f070029;
         public static final int button_meat_seafood=0x7f070018;
-        public static final int button_nutrition_info=0x7f07004d;
+        public static final int button_nutrition_info=0x7f07004e;
         public static final int button_photo=0x7f070038;
         public static final int button_promotion_find_us=0x7f070049;
         public static final int button_promotions=0x7f070039;
@@ -129,7 +130,6 @@ public final class R {
         public static final int count_spices=0x7f07001f;
         public static final int count_starches=0x7f070021;
         public static final int count_veggies=0x7f07001b;
-        public static final int create_bowl_root=0x7f07004b;
         public static final int create_bowl_title=0x7f070014;
         public static final int edittext_bowl_title=0x7f070017;
         public static final int fat_nut_info=0x7f070043;
@@ -161,9 +161,10 @@ public final class R {
         public static final int satfat_nut_info=0x7f070044;
         public static final int search_locations_text=0x7f070025;
         public static final int serving_nut_info=0x7f070041;
+        public static final int share_bowl_title=0x7f07004b;
         public static final int tag_food_list_food_id=0x7f070000;
         public static final int tag_food_list_item_counter=0x7f070001;
-        public static final int textview_bowl_title=0x7f07004c;
+        public static final int textview_bowl_title=0x7f07004d;
         public static final int top_left=0x7f07002a;
         public static final int top_right=0x7f07002b;
     }
