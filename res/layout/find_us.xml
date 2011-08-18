@@ -20,11 +20,16 @@
                 android:visibility="invisible"
                 android:orientation="vertical">
 	   <RelativeLayout android:layout_height="wrap_content"
-	                   android:layout_width="match_parent">
+	                   android:layout_width="match_parent"
+	                   android:layout_marginLeft="20dp"
+                     android:layout_marginRight="20dp"
+                     android:layout_marginBottom="10dp">
 	    <EditText android:layout_width="match_parent"
 	              android:layout_height="wrap_content"
 	              android:maxLines="1"
 	              android:singleLine="true"
+	              android:padding="5dip"
+	              android:background="@drawable/inset_light_background"
 	              android:hint="@string/location_search_hint"
 	              android:id="@+id/search_locations_text" />
 	    <ImageButton android:src="@drawable/ic_btn_search"

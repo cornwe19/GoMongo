@@ -2,6 +2,7 @@ package com.gomongo.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
@@ -38,10 +39,14 @@ public class LocationDetails extends Activity implements OnClickListener {
 		
 		Linkify.addLinks(phone, Linkify.PHONE_NUMBERS);
 		
+		Typeface burweedTypeface = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+		
 		Button getDirectionsButton = (Button)findViewById(R.id.button_get_directions);
+		getDirectionsButton.setTypeface(burweedTypeface);
 		getDirectionsButton.setOnClickListener(this);
 		
 		Button shareLocationButton = (Button)findViewById(R.id.button_share_location);
+		shareLocationButton.setTypeface(burweedTypeface);
 		shareLocationButton.setOnClickListener(this);
 	}
 
