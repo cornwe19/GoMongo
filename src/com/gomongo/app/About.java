@@ -24,6 +24,7 @@ public class About extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         ImageButton aboutButton = (ImageButton) navigationMenu.findViewById(R.id.button_about);
+        aboutButton.setBackgroundResource(R.drawable.navigation_tab);
         aboutButton.setSelected(true);
         
         Typeface burweedTypeface = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");

@@ -72,19 +72,20 @@ public final class R {
         public static final int navigation_button_search=0x7f02002c;
         public static final int navigation_button_search_active=0x7f02002d;
         public static final int navigation_button_search_inactive=0x7f02002e;
-        public static final int nutrition_info_expander=0x7f02002f;
-        public static final int orange_circle=0x7f020030;
-        public static final int plus_food_button=0x7f020031;
-        public static final int red_button=0x7f020032;
-        public static final int red_button_pressed=0x7f020033;
-        public static final int red_circle=0x7f020034;
-        public static final int sticker_box=0x7f020035;
-        public static final int submenu_bar=0x7f020036;
-        public static final int submenu_button=0x7f020037;
-        public static final int submenu_button_default=0x7f020038;
-        public static final int submenu_button_pressed=0x7f020039;
-        public static final int swords=0x7f02003a;
-        public static final int trash=0x7f02003b;
+        public static final int navigation_tab=0x7f02002f;
+        public static final int nutrition_info_expander=0x7f020030;
+        public static final int orange_circle=0x7f020031;
+        public static final int plus_food_button=0x7f020032;
+        public static final int red_button=0x7f020033;
+        public static final int red_button_pressed=0x7f020034;
+        public static final int red_circle=0x7f020035;
+        public static final int sticker_box=0x7f020036;
+        public static final int submenu_bar=0x7f020037;
+        public static final int submenu_button=0x7f020038;
+        public static final int submenu_button_default=0x7f020039;
+        public static final int submenu_button_pressed=0x7f02003a;
+        public static final int swords=0x7f02003b;
+        public static final int trash=0x7f02003c;
     }
     public static final class id {
         public static final int add_food_category=0x7f070004;

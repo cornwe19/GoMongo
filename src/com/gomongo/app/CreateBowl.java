@@ -65,6 +65,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_home, Home.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
         ImageButton createButton = (ImageButton)navigationMenu.findViewById(R.id.button_create);
+        createButton.setBackgroundResource(R.drawable.navigation_tab);
         createButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_photo, MongoPhoto.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);

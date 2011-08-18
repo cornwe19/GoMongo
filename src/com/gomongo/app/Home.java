@@ -28,6 +28,7 @@ public class Home extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         View navigationMenu = findViewById(R.id.nav_menu);
         
         ImageButton homeButton = (ImageButton)navigationMenu.findViewById(R.id.button_home);
+        homeButton.setBackgroundResource(R.drawable.navigation_tab);
         homeButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);

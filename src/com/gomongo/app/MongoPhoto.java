@@ -54,6 +54,7 @@ public class MongoPhoto extends Activity {
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_find_us, FindUs.class);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_create, CreateBowl.class);
         ImageButton photoButton = (ImageButton)navigationMenu.findViewById(R.id.button_photo);
+        photoButton.setBackgroundResource(R.drawable.navigation_tab);
         photoButton.setSelected(true);
         NavigationHelper.setupButtonToLaunchActivity(this, navigationMenu, R.id.button_about, About.class);
         
