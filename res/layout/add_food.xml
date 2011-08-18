@@ -4,15 +4,13 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="@drawable/background">
-  <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+  <TextView style="@style/ActivityTitle"
             android:id="@+id/add_food_category" />
   <LinearLayout style="@style/InsetLightFrame"
                 android:layout_weight="1"
                 android:padding="4dip">
 	  <ListView android:cacheColorHint="#FFF"
-	            android:descendantFocusability="beforeDescendants"
+	            android:descendantFocusability="afterDescendants"
 	            android:choiceMode="singleChoice"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"

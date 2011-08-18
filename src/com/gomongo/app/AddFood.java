@@ -3,6 +3,7 @@ package com.gomongo.app;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -35,7 +36,10 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         Bundle intentExtras = getIntent().getExtras();
         Category categoryInfo = intentExtras.getParcelable(CreateBowl.EXTRA_CATEGORY);
         
+        Typeface burweedTypeface = Typeface.createFromAsset(getAssets(), "fonts/burweed_icg.ttf");
+        
         TextView categoryTitle = (TextView)findViewById(R.id.add_food_category);
+        categoryTitle.setTypeface(burweedTypeface);
         categoryTitle.setText( categoryInfo.getTitle() );
         
         try {
