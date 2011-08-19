@@ -3,6 +3,7 @@ package com.gomongo.data;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.gomongo.app.R;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -24,6 +25,12 @@ public class Food {
         Food food = new Food();
         food.mId = id;
         return food;
+    }
+    
+    @DatabaseField
+    private int mDrawableId;
+    public int getDrawableId() {
+        return mDrawableId;
     }
     
     private static String TITLE_XPATH = "title";
@@ -165,6 +172,85 @@ public class Food {
         builder.append( String.format( " %s=\"%s\"", attribute, value.toString() ) );
     }
     
+    private static int lookupDrawableByCategory( Food food ) {
+        int id;
+        String category = food.getCategory();
+        
+        if ( category.equals("Meats") ) {
+            id = R.drawable.chicken;
+        }
+        else if ( category.equals("Vegetables") ) {
+            id = R.drawable.scallops;
+        } 
+        else if ( category.equals("Sauces") ) {
+            id = R.drawable.rice_noodles;
+        }
+        else if ( category.equals("Spices") ) {
+            id = R.drawable.calamari;
+        }
+        else {
+            id = R.drawable.pasta;
+        }
+        
+        return id;
+    }
+    
+    private static int lookupDrawableIdByTitle( Food food ) {
+        int id;
+        String title = food.getTitle();
+        
+        if( title.equals("Chicken") ) {
+            id = R.drawable.chicken;
+        }
+        else if ( title.equals("Lamb") ) {
+            id = R.drawable.lamb;
+        }
+        else if ( title.equals("Strip Steak") ) {
+            id = R.drawable.steak;
+        }
+        else if ( title.equals("Pork") ) {
+            id = R.drawable.lamb;
+        }
+        else if ( title.equals("Ribeye") ) {
+            id = R.drawable.steak;
+        }
+        else if ( title.equals("Sausage") ) {
+            id = R.drawable.sausage;
+        }
+        else if ( title.equals("Krab (Surimi)") ) {
+            id = R.drawable.krab;
+        }
+        else if ( title.equals("Scallops") ) {
+            id = R.drawable.scallops;
+        }
+        else if ( title.equals("Shrimp") ) {
+            id = R.drawable.shrimp;
+        }
+        else if ( title.equals("Pasta") ) {
+            id = R.drawable.pasta;
+        }
+        else if ( title.equals("Calamari") ) {
+            id = R.drawable.calamari;
+        }
+        else if ( title.equals("Rice Noodles") ) {
+            id = R.drawable.rice_noodles;
+        }
+        else if ( title.equals("Mahi mahi") ) {
+            id = R.drawable.mahi_mahi;
+        }
+        else if ( title.equals("Meatballs") ) {
+            id = R.drawable.meatballs;
+        }
+        else if ( title.equals("Ham") ) {
+            id = R.drawable.lamb;
+        }
+        else {
+            id = lookupDrawableByCategory( food );
+        }
+        
+        return id;
+    }
+    // 10002312420 - 272-078-268
     private static void loadFoodFieldsFromAttributes(Food loadedFood, NamedNodeMap attributes) {
         loadedFood.mId = Integer.parseInt(attributes.getNamedItem(ID_XPATH).getNodeValue());
         
@@ -180,5 +266,7 @@ public class Food {
         loadedFood.mCarbs = Float.parseFloat(attributes.getNamedItem(CARBS_XPATH).getNodeValue());
         loadedFood.mDietaryFiber = Float.parseFloat(attributes.getNamedItem(DIETFIBER_XPATH).getNodeValue());
         loadedFood.mProtein = Float.parseFloat(attributes.getNamedItem(PROTEIN_XPATH).getNodeValue());
+        
+        loadedFood.mDrawableId = lookupDrawableIdByTitle(loadedFood);
     }
 }

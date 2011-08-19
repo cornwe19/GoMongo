@@ -13,8 +13,7 @@
 	  <ImageView android:layout_width="wrap_content"
 	             android:layout_height="64dp"
 	             android:adjustViewBounds="true"
-	             android:id="@+id/food_item_icon"
-	             android:src="@drawable/mongo_logo" />
+	             android:id="@+id/food_item_icon" />
 	  <LinearLayout android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="1"

@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -105,6 +106,9 @@ public class AddFoodListAdapter extends ArrayAdapter<Food> implements OnClickLis
             TextView ingredientCountText = (TextView)listItem.findViewById(R.id.food_item_count);
             ingredientCountText.setText( count.toString() );
         }
+        
+        ImageView foodIcon = (ImageView)listItem.findViewById(R.id.food_item_icon);
+        foodIcon.setImageResource(ingredient.getDrawableId());
         
         return listItem;
     }
