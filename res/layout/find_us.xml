@@ -13,8 +13,29 @@
 			                             android:apiKey="0qfMzmQotFFuOXI5fjOIKA0Rtkdps8msXLKouxQ" />
 	<include layout="@layout/navigation_menu"
            android:id="@+id/nav_menu"/>
+  <!-- Submenu -->
   <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/search_submenu"
                 android:layout_below="@id/nav_menu"
+                android:layout_marginTop="@dimen/navigation_fade_offset"
+                android:background="@drawable/submenu_bar">
+    <TextView style="@style/ActivityTitle"
+              android:layout_weight="1"
+              android:layout_marginTop="5dip"
+              android:id="@+id/location_search_title"
+              android:text="@string/title_loc_search" />
+    <Button android:background="@drawable/search_list_button"
+            android:layout_marginRight="5dip"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/button_map_list_toggle" />
+  </LinearLayout>
+  
+  <!-- Location list and search box -->
+  <LinearLayout android:layout_width="match_parent"
+                android:layout_below="@id/search_submenu"
                 android:layout_height="match_parent"
                 android:id="@+id/locations_list_pane"
                 android:visibility="invisible"
@@ -51,6 +72,8 @@
 	              android:layout_height="match_parent"
 	              android:id="@+id/locations_list" />
    </LinearLayout>
+   
+   <!-- Button over the map markers -->
 	 <Button android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         style="@style/MapMarkerButton"
@@ -58,11 +81,4 @@
 	         android:visibility="invisible"
 	         android:drawableRight="@drawable/expander_ic_minimized"
 	         android:drawablePadding="4dp" />
-	 <ImageButton android:layout_alignParentRight="true"
-	              android:layout_alignParentBottom="true"
-		            android:layout_height="64dp"
-		            android:layout_width="64dp"
-		            android:scaleType="fitCenter"
-		            android:src="@drawable/ic_btn_search"
-		            android:id="@+id/button_map_list_toggle" />	
 </RelativeLayout>

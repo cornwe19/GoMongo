@@ -250,7 +250,7 @@ public class Food {
         
         return id;
     }
-    // 10002312420 - 272-078-268
+
     private static void loadFoodFieldsFromAttributes(Food loadedFood, NamedNodeMap attributes) {
         loadedFood.mId = Integer.parseInt(attributes.getNamedItem(ID_XPATH).getNodeValue());
         

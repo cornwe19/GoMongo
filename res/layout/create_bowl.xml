@@ -17,6 +17,7 @@
 	            android:text="@string/title_create_bowl_activity" />
 	  <Button android:background="@drawable/submenu_button"
 	          android:textColor="#FFF"
+	          android:layout_marginRight="5dip"
 	          android:layout_height="wrap_content"
 	          android:layout_width="wrap_content"
 	          android:id="@+id/button_share_bowl"

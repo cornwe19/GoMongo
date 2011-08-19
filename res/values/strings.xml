@@ -17,6 +17,7 @@
     <string name="button_cancel">Cancel</string>
     
     <!-- Find Us -->
+    <string name="title_loc_search">Location Search</string>
     <string name="title_loading_locations">Searching</string>
     <string name="body_loading_locations">Please wait while we find the BD\'s locations nearest you.</string>
     
