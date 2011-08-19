@@ -37,7 +37,8 @@
 	               android:layout_height="wrap_content"
 	               android:layout_width="fill_parent" />
 	    <EditText android:hint="@string/hint_name_your_bowl"
-	              android:maxLength="24"
+	              android:maxLength="26"
+	              android:maxLines="1"
 	              android:layout_centerHorizontal="true"
 	              android:layout_alignBottom="@id/image_bowl"
 	              android:layout_marginBottom="42dip"
