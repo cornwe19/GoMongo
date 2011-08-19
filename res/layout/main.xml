@@ -13,15 +13,19 @@
                 android:id="@+id/home_main_menu">
     <Button android:text="@string/button_loc_search"
             android:id="@+id/button_find_us"
-            style="@style/MongoButton" />
+            style="@style/MongoButton"
+            android:drawableLeft="@drawable/icon_search" />
     <Button style="@style/MongoButton"
             android:text="@string/button_create_bowl"
-            android:id="@+id/button_create" />
+            android:id="@+id/button_create"
+            android:drawableLeft="@drawable/icon_bowl" />
     <Button style="@style/MongoButton"
             android:text="@string/button_mongo_photo"
-            android:id="@+id/button_photo" />
+            android:id="@+id/button_photo"
+            android:drawableLeft="@drawable/icon_photo" />
     <Button style="@style/MongoButton"
             android:text="@string/button_now_at"
-            android:id="@+id/button_promotions" />
+            android:id="@+id/button_promotions"
+            android:drawableLeft="@drawable/icon_promo" />
   </LinearLayout>
 </LinearLayout>

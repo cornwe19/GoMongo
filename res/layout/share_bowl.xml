@@ -40,13 +40,16 @@
                     android:gravity="center">
 	      <Button style="@style/MongoButton"
                 android:text="@string/button_nutrition_info"
-	              android:id="@+id/button_nutrition_info" />
+	              android:id="@+id/button_nutrition_info"
+	              android:drawableLeft="@drawable/icon_info" />
 	      <Button style="@style/MongoButton"
 	              android:text="@string/button_share_bowl"
-	              android:id="@+id/button_share_bowl" />
+	              android:id="@+id/button_share_bowl"
+	              android:drawableLeft="@drawable/icon_share" />
 	      <Button style="@style/MongoButton"
 	              android:text="@string/button_create_another_bowl"
-	              android:id="@+id/button_create_another_bowl" />
+	              android:id="@+id/button_create_another_bowl"
+	              android:drawableLeft="@drawable/icon_bowl" />
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>

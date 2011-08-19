@@ -16,10 +16,12 @@
                 android:layout_weight="1" />    
      <Button style="@style/MongoButton"
              android:id="@+id/button_take_photo"
-             android:text="@string/button_take_photo" />
+             android:text="@string/button_take_photo"
+             android:drawableLeft="@drawable/icon_take_photo" />
      <Button style="@style/MongoButton"
              android:id="@+id/button_view_gallery"
              android:text="@string/button_view_gallery"
+             android:drawableLeft="@drawable/icon_photo_lib"
              android:layout_marginBottom="32dip" />
   </LinearLayout>
 </LinearLayout>

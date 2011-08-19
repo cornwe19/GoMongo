@@ -92,10 +92,12 @@
                 android:gravity="center">
     <Button style="@style/MongoButton"
             android:id="@+id/button_get_directions"
-            android:text="@string/button_get_directions" />
+            android:text="@string/button_get_directions"
+            android:drawableLeft="@drawable/icon_directions" />
     <Button style="@style/MongoButton"
             android:text="@string/button_share_location"
-            android:id="@+id/button_share_location" />
+            android:id="@+id/button_share_location"
+            android:drawableLeft="@drawable/icon_share_location" />
   </LinearLayout>
   <!-- /Actions -->
   

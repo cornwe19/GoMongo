@@ -50,9 +50,10 @@
     <!-- Meats -->
     <RelativeLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-       <Button style="@style/MongoButton"
+      <Button style="@style/MongoButton"
               android:text="@string/category_meats_title"
-              android:id="@+id/button_meat_seafood" />
+              android:id="@+id/button_meat_seafood"
+              android:drawableLeft="@drawable/icon_meats" />
       <TextView style="@style/FoodCounter"
                 android:id="@+id/count_meat_seafood"
                 android:layout_alignRight="@id/button_meat_seafood"
@@ -64,7 +65,8 @@
                      android:layout_height="wrap_content">
        <Button style="@style/MongoButton"
                android:text="@string/category_veggies_title"
-              android:id="@+id/button_veggies" />
+               android:id="@+id/button_veggies"
+               android:drawableLeft="@drawable/icon_veggies" />
        <TextView style="@style/FoodCounter"
                  android:id="@+id/count_veggies"
                  android:layout_alignRight="@id/button_veggies"
@@ -76,7 +78,8 @@
                      android:layout_height="wrap_content">
        <Button style="@style/MongoButton"
                android:text="@string/category_sauces_title"
-               android:id="@+id/button_sauces" />
+               android:id="@+id/button_sauces"
+               android:drawableLeft="@drawable/icon_sauces" />
        <TextView style="@style/FoodCounter"
                  android:id="@+id/count_sauces"
                  android:layout_alignRight="@id/button_sauces"
@@ -88,7 +91,8 @@
                      android:layout_height="wrap_content">
        <Button style="@style/MongoButton"
                android:text="@string/category_spices_title"
-               android:id="@+id/button_spices" />
+               android:id="@+id/button_spices"
+               android:drawableLeft="@drawable/icon_spices" />
        <TextView style="@style/FoodCounter"
                  android:id="@+id/count_spices"
                  android:layout_alignRight="@id/button_spices"
@@ -100,7 +104,8 @@
                      android:layout_height="wrap_content">
        <Button style="@style/MongoButton"
                android:text="@string/category_starches_title"
-               android:id="@+id/button_starches" />
+               android:id="@+id/button_starches"
+               android:drawableLeft="@drawable/icon_sides" />
        <TextView style="@style/FoodCounter"
                  android:id="@+id/count_starches"
                  android:layout_alignRight="@id/button_starches"
