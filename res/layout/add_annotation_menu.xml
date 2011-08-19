@@ -2,13 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
-  <Gallery android:id="@+id/gallery_image_annoation_pages"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" />
-  <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="italic"
-            android:text="@string/help_view_more_stickers" />
+              android:orientation="vertical"
+              android:gravity="center"
+              android:background="@drawable/sticker_box">
+  <LinearLayout android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+	  <Gallery android:id="@+id/gallery_image_annoation_pages"
+	           android:layout_width="match_parent"
+	           android:layout_height="match_parent" />
+	  <TextView android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:textStyle="italic"
+	            android:text="@string/help_view_more_stickers" />
+  </LinearLayout>
 </LinearLayout>

@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -225,6 +226,7 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		if ( dialogId == ANNOTATIONS_DIALOG ) {
 			mDialog = new Dialog(this);
 			mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 			mDialog.setContentView(R.layout.add_annotation_menu);
 			
 			Map<Integer, List<Integer>> imageIdMap = StaticAnnotationsDefinition.getAnnotations();
