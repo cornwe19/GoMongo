@@ -23,95 +23,97 @@
 	          android:id="@+id/button_share_bowl"
 	          android:text="@string/share_bowl_title" />
   </LinearLayout>
-  <LinearLayout android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center|bottom">
+  <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content">
     <RelativeLayout android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_weight="1">
 	    <ImageView android:src="@drawable/bowl"
-	               android:scaleType="centerCrop"
+	               android:scaleType="fitXY"
 	               android:id="@+id/image_bowl"
 	               android:layout_height="wrap_content"
-	               android:layout_width="fill_parent" />
+	               android:layout_width="match_parent" />
 	    <EditText android:hint="@string/hint_name_your_bowl"
-	              android:maxLength="26"
+	              android:maxLength="23"
 	              android:maxLines="1"
-	              android:layout_centerHorizontal="true"
-	              android:layout_alignBottom="@id/image_bowl"
-	              android:layout_marginBottom="42dip"
+	              android:layout_centerInParent="true"
 	              android:textColorHint="#FFF"
 	              android:cursorVisible="false"
 	              android:id="@+id/edittext_bowl_title"
 	              style="@style/BowlTitleStyle" />
     </RelativeLayout>
     
-    <!-- Meats -->
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-      <Button style="@style/MongoButton"
-              android:text="@string/category_meats_title"
-              android:id="@+id/button_meat_seafood"
-              android:drawableLeft="@drawable/icon_meats" />
-      <TextView style="@style/FoodCounter"
-                android:id="@+id/count_meat_seafood"
-                android:layout_alignRight="@id/button_meat_seafood"
-                android:background="@drawable/blue_circle" />
-    </RelativeLayout>
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:layout_centerHorizontal="true"
+                  android:orientation="vertical">
     
-    <!-- Veggies -->
-    <RelativeLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-       <Button style="@style/MongoButton"
-               android:text="@string/category_veggies_title"
-               android:id="@+id/button_veggies"
-               android:drawableLeft="@drawable/icon_veggies" />
-       <TextView style="@style/FoodCounter"
-                 android:id="@+id/count_veggies"
-                 android:layout_alignRight="@id/button_veggies"
-                 android:background="@drawable/green_circle" />
-     </RelativeLayout>
-     
-     <!-- Sauces -->
-     <RelativeLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-       <Button style="@style/MongoButton"
-               android:text="@string/category_sauces_title"
-               android:id="@+id/button_sauces"
-               android:drawableLeft="@drawable/icon_sauces" />
-       <TextView style="@style/FoodCounter"
-                 android:id="@+id/count_sauces"
-                 android:layout_alignRight="@id/button_sauces"
-                 android:background="@drawable/orange_circle" />
-     </RelativeLayout>
-     
-     <!-- Spices -->
-     <RelativeLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-       <Button style="@style/MongoButton"
-               android:text="@string/category_spices_title"
-               android:id="@+id/button_spices"
-               android:drawableLeft="@drawable/icon_spices" />
-       <TextView style="@style/FoodCounter"
-                 android:id="@+id/count_spices"
-                 android:layout_alignRight="@id/button_spices"
-                 android:background="@drawable/red_circle" />
-     </RelativeLayout>
-     
-     <!-- Sides -->
-     <RelativeLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-       <Button style="@style/MongoButton"
-               android:text="@string/category_starches_title"
-               android:id="@+id/button_starches"
-               android:drawableLeft="@drawable/icon_sides" />
-       <TextView style="@style/FoodCounter"
-                 android:id="@+id/count_starches"
-                 android:layout_alignRight="@id/button_starches"
-                 android:background="@drawable/gray_circle" />
-     </RelativeLayout>
-    
-  </LinearLayout>
+	    <!-- Meats -->
+	    <RelativeLayout android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content">
+	      <Button style="@style/MongoButton"
+	              android:text="@string/category_meats_title"
+	              android:id="@+id/button_meat_seafood"
+	              android:drawableLeft="@drawable/icon_meats" />
+	      <TextView style="@style/FoodCounter"
+	                android:id="@+id/count_meat_seafood"
+	                android:layout_alignRight="@id/button_meat_seafood"
+	                android:background="@drawable/blue_circle" />
+	    </RelativeLayout>
+	    
+	    <!-- Veggies -->
+	    <RelativeLayout android:layout_width="wrap_content"
+	                     android:layout_height="wrap_content">
+	       <Button style="@style/MongoButton"
+	               android:text="@string/category_veggies_title"
+	               android:id="@+id/button_veggies"
+	               android:drawableLeft="@drawable/icon_veggies" />
+	       <TextView style="@style/FoodCounter"
+	                 android:id="@+id/count_veggies"
+	                 android:layout_alignRight="@id/button_veggies"
+	                 android:background="@drawable/green_circle" />
+	     </RelativeLayout>
+	     
+	     <!-- Sauces -->
+	     <RelativeLayout android:layout_width="wrap_content"
+	                     android:layout_height="wrap_content">
+	       <Button style="@style/MongoButton"
+	               android:text="@string/category_sauces_title"
+	               android:id="@+id/button_sauces"
+	               android:drawableLeft="@drawable/icon_sauces" />
+	       <TextView style="@style/FoodCounter"
+	                 android:id="@+id/count_sauces"
+	                 android:layout_alignRight="@id/button_sauces"
+	                 android:background="@drawable/orange_circle" />
+	     </RelativeLayout>
+	     
+	     <!-- Spices -->
+	     <RelativeLayout android:layout_width="wrap_content"
+	                     android:layout_height="wrap_content">
+	       <Button style="@style/MongoButton"
+	               android:text="@string/category_spices_title"
+	               android:id="@+id/button_spices"
+	               android:drawableLeft="@drawable/icon_spices" />
+	       <TextView style="@style/FoodCounter"
+	                 android:id="@+id/count_spices"
+	                 android:layout_alignRight="@id/button_spices"
+	                 android:background="@drawable/red_circle" />
+	     </RelativeLayout>
+	     
+	     <!-- Sides -->
+	     <RelativeLayout android:layout_width="wrap_content"
+	                     android:layout_height="wrap_content">
+	       <Button style="@style/MongoButton"
+	               android:text="@string/category_starches_title"
+	               android:id="@+id/button_starches"
+	               android:drawableLeft="@drawable/icon_sides" />
+	       <TextView style="@style/FoodCounter"
+	                 android:id="@+id/count_starches"
+	                 android:layout_alignRight="@id/button_starches"
+	                 android:background="@drawable/gray_circle" />
+	     </RelativeLayout>
+    </LinearLayout>
+  </RelativeLayout>
 </LinearLayout>

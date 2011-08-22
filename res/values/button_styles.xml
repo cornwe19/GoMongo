@@ -25,8 +25,8 @@
     <item name="android:background">@drawable/mongo_button</item>
     <item name="android:textColor">@drawable/mongo_button_color</item>
     <item name="android:textSize">@dimen/burweed_text_size</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">@dimen/centered_button_width</item>
+    <item name="android:layout_height">@dimen/mongo_button_height</item>
+    <item name="android:layout_width">@dimen/mongo_button_width</item>
   </style>
   
   <style name="FoodCounter">
