@@ -35,7 +35,7 @@ public class DatabaseOpenHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        
+        // Implement this when we're planning to upgrade in a later version
     }
 
 }

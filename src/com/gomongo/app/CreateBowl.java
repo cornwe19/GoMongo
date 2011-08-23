@@ -107,6 +107,9 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
         TextView title = (TextView)findViewById(R.id.create_bowl_title);
         title.setTypeface(mBurweedFont);
         
+        final EditText titleTextBox = (EditText)findViewById(R.id.edittext_bowl_title);
+        titleTextBox.setOnEditorActionListener(new DismissKeyboardEditorActionInterpreter(this));
+        
         setupAndRegisterCategoryButton( R.id.button_meat_seafood, R.id.count_meat_seafood, mCategoryMeats );
         setupAndRegisterCategoryButton( R.id.button_veggies, R.id.count_veggies, mCategoryVeggies );
         setupAndRegisterCategoryButton( R.id.button_sauces, R.id.count_sauces, mCategorySauces );
@@ -148,8 +151,7 @@ public class CreateBowl extends OrmLiteBaseActivity<DatabaseOpenHelper> implemen
             }
 
             private String getTitleFromEditor() {
-                EditText bowlTitle = (EditText)findViewById(R.id.edittext_bowl_title);
-                String title = bowlTitle.getText().toString();
+                String title = titleTextBox.getText().toString();
                 return title;
             } 
             
