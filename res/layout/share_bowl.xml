@@ -14,30 +14,28 @@
   <LinearLayout android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:layout_weight="1"
-                  android:orientation="vertical"
-                  android:gravity="center|bottom">
+    <RelativeLayout android:layout_width="match_parent"
+	                  android:layout_height="match_parent">
       <RelativeLayout android:layout_height="wrap_content"
-                      android:layout_width="match_parent">
+                      android:layout_width="wrap_content"
+                      android:layout_centerHorizontal="true">
         <ImageView android:src="@drawable/bowl_glow"
-                   android:scaleType="centerCrop"
+                   android:scaleType="fitXY"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:id="@+id/bowl_glow_image"
                    android:layout_centerInParent="true" />
         <TextView style="@style/BowlTitleStyle"
                   android:id="@+id/textview_bowl_title"
-                  android:layout_centerHorizontal="true"
-                  android:layout_alignBottom="@id/bowl_glow_image"
-                  android:layout_marginBottom="60dip" />
+                  android:layout_centerInParent="true" />
       </RelativeLayout>
       
-      <LinearLayout android:layout_width="match_parent"
-                    android:layout_height="200dip"
+      <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true">
 	      <Button style="@style/MongoButton"
                 android:text="@string/button_nutrition_info"
 	              android:id="@+id/button_nutrition_info"
@@ -51,6 +49,6 @@
 	              android:id="@+id/button_create_another_bowl"
 	              android:drawableLeft="@drawable/icon_bowl" />
       </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
   </LinearLayout>
 </LinearLayout>
