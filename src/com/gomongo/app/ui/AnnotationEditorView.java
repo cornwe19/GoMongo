@@ -10,13 +10,13 @@ import android.graphics.Paint;
 import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
+import android.widget.ImageView;
 
 import com.gomongo.app.DeleteStickersController;
 import com.gomongo.app.EditStickersController;
 import com.gomongo.app.StickerController;
 
-public class AnnotationEditorView extends View {
+public class AnnotationEditorView extends ImageView {
 	
 	private StickerController mEditStickersController;
 	
@@ -38,7 +38,9 @@ public class AnnotationEditorView extends View {
 	
 	@Override
 	public void onDraw( Canvas canvas ) {
-		Paint imagePaint = mEditStickersController.getStickerDrawPaint();
+	    super.onDraw(canvas);
+	    
+	    Paint imagePaint = mEditStickersController.getStickerDrawPaint();
 		
 	    for( MongoImage image : mImages ) {
 			image.drawImage(canvas, imagePaint);

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +17,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,10 +71,8 @@ public class AnnotateImage extends Activity implements OnClickListener {
 	}
 
 	private void setEditorBackgroundToTempImage() {
-		BitmapDrawable drawable = decodeDrawableFromUri(mTempImageUri);
-		
 		mAnnotationEditorView = (AnnotationEditorView)findViewById(R.id.preview_image_view);
-		mAnnotationEditorView.setBackgroundDrawable( drawable );
+		mAnnotationEditorView.setImageURI(mTempImageUri);
 	}
 
 	@Override
@@ -114,32 +110,6 @@ public class AnnotateImage extends Activity implements OnClickListener {
 	private void setEditorToFullScreen() {
 		getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
-	}
-
-	private BitmapDrawable decodeDrawableFromUri(Uri imageUri) {
-		InputStream stream = null;
-		try {
-			stream = getContentResolver().openInputStream(imageUri);
-		} catch (FileNotFoundException e) {
-			Log.w(TAG, String.format( "Failed to find captured image file %s", imageUri.toString() ) );
-			
-			Toast.makeText(this, getResources().getText(R.string.error_image_for_editing_missing), Toast.LENGTH_LONG).show();
-		}
-		
-		Bitmap image = decodeBitmapAtHalfResolution(stream);
-		BitmapDrawable drawable = new BitmapDrawable(image);
-		return drawable;
-	}
-
-	// NOTE: This method is intended to help support phones with
-	// NOTE: high res cameras and low image memory.
-	private Bitmap decodeBitmapAtHalfResolution(InputStream stream) {
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		int samplePixelDecreaseFactor = 2;
-		options.inSampleSize = samplePixelDecreaseFactor;
-		
-		Bitmap image = BitmapFactory.decodeStream(stream,null,options);
-		return image;
 	}
 
 	public final int ANNOTATIONS_DIALOG = 0x01;
