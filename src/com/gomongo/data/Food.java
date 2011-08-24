@@ -180,16 +180,16 @@ public class Food {
             id = R.drawable.chicken;
         }
         else if ( category.equals("Vegetables") ) {
-            id = R.drawable.scallops;
+            id = R.drawable.broccoli;
         } 
         else if ( category.equals("Sauces") ) {
-            id = R.drawable.rice_noodles;
+            id = R.drawable.generic_sauce;
         }
         else if ( category.equals("Spices") ) {
-            id = R.drawable.calamari;
+            id = R.drawable.spicy;
         }
         else {
-            id = R.drawable.pasta;
+            id = R.drawable.rice;
         }
         
         return id;
@@ -243,6 +243,174 @@ public class Food {
         }
         else if ( title.equals("Ham") ) {
             id = R.drawable.lamb;
+        }
+        else if ( title.equals("Bean Sprouts") ) {
+            id = R.drawable.bean_sprouts;
+        }
+        else if ( title.equals("Broccoli") ) {
+            id = R.drawable.broccoli;
+        }
+        else if ( title.equals("Carrots") ) {
+            id = R.drawable.carrots;
+        }
+        else if ( title.equals("Cilantro") ) {
+            id = R.drawable.cilantro;
+        }
+        else if ( title.equals("Corn (Baby)") ) {
+            id = R.drawable.corn;
+        }
+        else if ( title.equals("Edamame") ) {
+            id = R.drawable.peas;
+        }
+        else if ( title.equals("Mushrooms") ) {
+            id = R.drawable.mushrooms;
+        }
+        else if ( title.equals("Onions (Yellow)") ) {
+            id = R.drawable.onions;
+        }
+        else if ( title.equals("Pea Pods") ) {
+            id = R.drawable.peas;
+        }
+        else if ( title.equals("Peppers") ) {
+            id = R.drawable.peppers;
+        }
+        else if ( title.equals("Pineapple") ) {
+            id = R.drawable.pine_apple;
+        }
+        else if ( title.equals("Red Skin Potatoes") ) {
+            id = R.drawable.potatoes;
+        }
+        else if ( title.equals("Green Onions") ) {
+            id = R.drawable.onions;
+        }
+        else if ( title.equals("Tomatoes") ) {
+            id = R.drawable.tomatoes;
+        }
+        else if ( title.equals("Water Chesnuts") ) {
+            id = R.drawable.water_chesnuts;
+        }
+        else if ( title.equals("Egg") ) {
+            id = R.drawable.egg;
+        }
+        else if ( title.equals("Tofu") ) {
+            id = R.drawable.tofu;
+        }
+        else if ( title.equals("Corn") ) {
+            id = R.drawable.corn;
+        }
+        else if ( title.equals("Black Beans") ) {
+            id = R.drawable.black_bean;
+        }
+        else if ( title.equals("Diced Chiles") ) {
+            id = R.drawable.spicy;
+        }
+        else if ( title.equals("Asian Black Bean Sauce") ) {
+            id = R.drawable.black_bean;
+        }
+        else if ( title.equals("Spicy Buffalo") ) {
+            id = R.drawable.chicken;
+        }
+        else if ( title.equals("Chili Garlic Sauce") ) {
+            id = R.drawable.chili_garlic;
+        }
+        else if ( title.equals("Fajita") ) {
+            id = R.drawable.fajita;
+        }
+        else if ( title.equals("Kung Pao") ) {
+            id = R.drawable.kung_pow;
+        }
+        else if ( title.equals("Lemon") ) {
+            id = R.drawable.lemon;
+        }
+        else if ( title.equals("Mongolian Ginger") ) {
+            id = R.drawable.mongolian_ginger;
+        }
+        else if ( title.equals("Peanut Sauce") ) {
+            id = R.drawable.peanut_sauce;
+        }
+        else if ( title.equals("Mongo Marinara") ) {
+            id = R.drawable.mongo_marinara;
+        }
+        else if ( title.equals("Shanghai BBQ") ) {
+            id = R.drawable.shanghai_bbq;
+        }
+        else if ( title.equals("Shitake Mushroom") ) {
+            id = R.drawable.shitake_mushroom;
+        }
+        else if ( title.equals("Light Soy") ) {
+            id = R.drawable.light_soy;
+        }
+        else if ( title.equals("Sweet n Sour") ) {
+            id = R.drawable.sweet_n_sour;
+        }
+        else if ( title.equals("Teriyaki") ) {
+            id = R.drawable.teriyaki;
+        }
+        else if ( title.equals("Pad Thai") ) {
+            id = R.drawable.pad_thai;
+        }
+        else if ( title.equals("Olive Oil") ) {
+            id = R.drawable.olive_oil;
+        }
+        else if ( title.equals("Tzatziki Sauce") ) {
+            id = R.drawable.tzatzki_sauce;
+        }
+        else if ( title.equals("Chopped Garlic") ) {
+            id = R.drawable.chili_garlic;
+        }
+        else if ( title.equals("Cajun") ) {
+            id = R.drawable.spicy;
+        }
+        else if ( title.equals("Cayenne Pepper") ) {
+            id = R.drawable.cayenne_pepper;
+        }
+        else if ( title.equals("Chili Powder") ) {
+            id = R.drawable.spicy;
+        }
+        else if ( title.equals("Cracked Black Pepper") ) {
+            id = R.drawable.cracked_black_pepper;
+        }
+        else if ( title.equals("Curry") ) {
+            id = R.drawable.curry;
+        }
+        else if ( title.equals("Granulated Garlic") ) {
+            id = R.drawable.chili_garlic;
+        }
+        else if ( title.equals("Ginger") ) {
+            id = R.drawable.mongolian_ginger;
+        }
+        else if ( title.equals("Lemon Pepper") ) {
+            id = R.drawable.lemon;
+        }
+        else if ( title.equals("Mixed Herbs") ) {
+            id = R.drawable.mixed_herbs;
+        }
+        else if ( title.equals("Peanuts") ) {
+            id = R.drawable.peanut_sauce;
+        }
+        else if ( title.equals("Seasoning Salt") ) {
+            id = R.drawable.cracked_black_pepper;
+        }
+        else if ( title.equals("Sesame Seeds") ) {
+            id = R.drawable.sesame_seeds;
+        }
+        else if ( title.equals("Crushed Red Chili Pepper") ) {
+            id = R.drawable.cayenne_pepper;
+        }
+        else if ( title.trim().equals("Caribbean Jerk") ) {
+            id = R.drawable.caribbean_jerk;
+        }
+        else if ( title.equals("Rice") ) {
+            id = R.drawable.rice;
+        }
+        else if ( title.equals("Tortillas") ) {
+            id = R.drawable.fajita;
+        }
+        else if ( title.equals("Brown Rice") ) {
+            id = R.drawable.rice;
+        }
+        else if ( title.equals("Lettuce") ) {
+            id = R.drawable.lettuce;
         }
         else {
             id = lookupDrawableByCategory( food );
