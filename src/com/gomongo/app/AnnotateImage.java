@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -72,8 +73,26 @@ public class AnnotateImage extends Activity implements OnClickListener {
 
 	private void setEditorBackgroundToTempImage() {
 		mAnnotationEditorView = (AnnotationEditorView)findViewById(R.id.preview_image_view);
-		mAnnotationEditorView.setImageURI(mTempImageUri);
+		
+		try {
+		    InputStream imageStream = getContentResolver().openInputStream(mTempImageUri);
+		    
+		    BitmapFactory.Options options = getDownsampledBitmapOptions();
+		    
+            Bitmap backgroundImage = BitmapFactory.decodeStream(imageStream, null, options);
+            mAnnotationEditorView.setImageBitmap(backgroundImage);
+            
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this, R.string.error_image_for_editing_missing, Toast.LENGTH_LONG).show();
+        }		
 	}
+
+    private BitmapFactory.Options getDownsampledBitmapOptions() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPurgeable = true;
+        options.inSampleSize = 4;
+        return options;
+    }
 
 	@Override
 	public void onStop() {
