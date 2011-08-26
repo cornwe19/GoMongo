@@ -84,7 +84,7 @@ public class AnnotateImage extends Activity implements OnClickListener {
             
         } catch (FileNotFoundException e) {
             Toast.makeText(this, R.string.error_image_for_editing_missing, Toast.LENGTH_LONG).show();
-        }		
+        }
 	}
 
     private BitmapFactory.Options getDownsampledBitmapOptions() {

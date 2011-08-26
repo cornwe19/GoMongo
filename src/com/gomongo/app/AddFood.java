@@ -6,7 +6,10 @@ import java.util.List;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,13 +22,12 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
+public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> implements OnClickListener {
     
     private static String TAG = "AddFood";
     
     Bowl mBowl;
     AddFoodListAdapter mListAdapter;
-    boolean mSaveOnStop = true;
     
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -58,11 +60,16 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
             ListView foodsList = (ListView)findViewById(R.id.add_food_list);
             foodsList.setAdapter(mListAdapter);
             foodsList.setOnItemClickListener(mListAdapter);
+            
+            Button cancelButton = (Button)findViewById(R.id.button_cancel);
+            cancelButton.setOnClickListener(this);
+            
+            Button doneButton = (Button)findViewById(R.id.button_done);
+            doneButton.setOnClickListener(this);
         }
         catch ( SQLException sqlException ) {
             handleSqlException(sqlException);
             
-            mSaveOnStop = false;
             finish();
         }
     }
@@ -73,17 +80,23 @@ public class AddFood extends OrmLiteBaseActivity<DatabaseOpenHelper> {
         String dataError = getResources().getString(R.string.error_problem_connecting_to_database);
         Toast.makeText(this, dataError, Toast.LENGTH_LONG).show();
     }
-    
+
     @Override
-    protected void onPause() {
-        super.onPause();
-        
-        if( mSaveOnStop ) {
+    public void onClick(View clickedView) {
+        switch (clickedView.getId()) {
+        case R.id.button_cancel:
+            finish();
+            break;
+        case R.id.button_done:
             try {
                 mListAdapter.save();
-            } catch (SQLException ex ) {
-                handleSqlException( ex );
+                
+                finish();
             }
+            catch (SQLException ex ){
+                handleSqlException(ex);
+            }
+            break;
         }
     }
 }

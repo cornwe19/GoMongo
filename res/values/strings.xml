@@ -34,6 +34,9 @@
     <string name="hint_name_your_bowl">Tap To Name Your Bowl</string>
     <string name="button_more_info">More Info</string>
     <string name="default_bowl_title">Untitled</string>
+    <string name="button_done">Done</string>
+    <string name="add_food_title">Select Ingredients</string>
+    <string name="ingredients_disclaimer">Ingredients may vary by location.</string>
     
     <string name="category_meats_title">Meat &amp; Seafood</string>
     <string name="category_meats_limit_title">That\'s a lot of meat!</string>
