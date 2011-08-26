@@ -89,7 +89,7 @@ public class MongoPhoto extends Activity {
         });
 	}
 
-	private static final String TEMP_IMAGE_PREFIX = "goMongoPhotoTmp";
+	private static final String TEMP_IMAGE_NAME = "temp.jpg";
 	public static final String IMAGE_PREFIX = "GoMongo";
 	public static final String IMAGE_FORMAT = ".jpg";
 	
@@ -97,8 +97,8 @@ public class MongoPhoto extends Activity {
 		Uri newImageUri = null;
 		
 		try {
-			
-			File tempFile = File.createTempFile( TEMP_IMAGE_PREFIX, null, PICTURE_TEMP_DIR );
+			File tempFile = new File(PICTURE_TEMP_DIR, TEMP_IMAGE_NAME);
+			tempFile.createNewFile(); // Ignore if file exists
 			
 			Log.d( TAG, String.format( "Created temp file at %s", tempFile.getAbsolutePath() ) );
 			
