@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +14,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.PorterDuff;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.ColorDrawable;
@@ -36,11 +35,9 @@ import com.gomongo.app.ui.MongoImage;
 public class AnnotateImage extends Activity implements OnClickListener {
 	private final String TAG = "AnnotateImage";
 	
-	public static final String EXTRA_IS_TEMP = "com.gomongo.app.annotateimage.istemp";
-	
 	private Uri mTempImageUri;
 	private AnnotationEditorView mAnnotationEditorView;
-	private boolean mIsTempImage;
+	private boolean mNeedsLandscapeRotation = false;
 	
 	@Override
 	public void onCreate( Bundle savedInstanceState ){
@@ -50,7 +47,6 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		setContentView(R.layout.annotate_image);
 		
 		mTempImageUri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
-	    mIsTempImage = getIntent().getBooleanExtra(EXTRA_IS_TEMP, false);
 		
 		setEditorBackgroundToTempImage();
 		
@@ -76,10 +72,14 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		
 		try {
 		    InputStream imageStream = getContentResolver().openInputStream(mTempImageUri);
-		    
+
 		    BitmapFactory.Options options = getDownsampledBitmapOptions();
 		    
             Bitmap backgroundImage = BitmapFactory.decodeStream(imageStream, null, options);
+            
+            mAnnotationEditorView.setImageBitmap(backgroundImage);
+            backgroundImage = rotateIfLandscapeBitmap(backgroundImage);
+            
             mAnnotationEditorView.setImageBitmap(backgroundImage);
             
         } catch (FileNotFoundException e) {
@@ -87,45 +87,29 @@ public class AnnotateImage extends Activity implements OnClickListener {
         }
 	}
 
+    private Bitmap rotateIfLandscapeBitmap(Bitmap bitmap) {
+        Bitmap rotatedBitmap = bitmap;
+        
+        if( bitmap.getHeight() < bitmap.getWidth() ) {
+            Matrix rotateOnSideMatrix = new Matrix();
+            rotateOnSideMatrix.postRotate(90, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            
+            rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), rotateOnSideMatrix, true);
+            
+            mNeedsLandscapeRotation = true;
+        }
+        
+        return rotatedBitmap;
+    }
+
     private BitmapFactory.Options getDownsampledBitmapOptions() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPurgeable = true;
         options.inSampleSize = 4;
+        
         return options;
     }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		
-		if( mIsTempImage ) {
-		    cleanUpTempImage();
-		}
-	}
-
-	private void cleanUpTempImage() {
-		File tempImageFile = new File( convertAndroidUriToJavaUri( mTempImageUri ) );
-		tempImageFile.delete();
-	}
-
-	private URI convertAndroidUriToJavaUri( Uri uri ){
-		URI javaUri = null;
-		
-		try {
-			String path = uri.getPath();
-			if( !path.startsWith("file:/") ) {
-			    path = "file://" + path;
-			}
-		    
-		    javaUri = new URI( path );
-		}
-		catch ( URISyntaxException ex ) {
-			Log.e( TAG, String.format( "Caught a poorly formatted URI: %s.", mTempImageUri.toString() ) );
-		}
-		
-		return javaUri;
-	}
-	
 	private void setEditorToFullScreen() {
 		getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
@@ -147,6 +131,13 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		    
 		    Bitmap compositeBitmap = mAnnotationEditorView.prepareBitmap();
 			
+		    if( mNeedsLandscapeRotation ) {
+		        Matrix rotateBackToLandscapeTransform = new Matrix();
+		        rotateBackToLandscapeTransform.postRotate(270, compositeBitmap.getWidth() / 2, compositeBitmap.getHeight() / 2);
+		        
+		        compositeBitmap = Bitmap.createBitmap(compositeBitmap, 0, 0, compositeBitmap.getWidth(), compositeBitmap.getHeight(), rotateBackToLandscapeTransform, true );
+		    }
+		    
 			File imageToShare = compressBitmapToImageFile(compositeBitmap);
 			
 			NavigationHelper.shareJpegAtUri(this, Uri.fromFile(imageToShare));
