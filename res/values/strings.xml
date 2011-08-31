@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GoMongo</string>
+    <string name="app_name">Go Mongo!</string>
     
     <!-- Navigation -->
     <string name="button_home">Home</string>

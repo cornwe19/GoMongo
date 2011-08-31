@@ -159,7 +159,8 @@ public class AnnotateImage extends Activity implements OnClickListener {
 		case R.id.bottom_left:
 		case R.id.bottom_right:
 			MongoImage image = new MongoImage( BitmapFactory.decodeResource(getResources(), (Integer)view.getTag()) );
-			image.setCurrentPoint(100, 100);
+			// init image in top left corner
+			image.setCurrentPoint(200, 200);
 			mAnnotationEditorView.addAnnotation( image );
 			
 			mDialog.dismiss();
