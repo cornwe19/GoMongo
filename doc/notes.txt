@@ -1,5 +1,5 @@
 Gmail account: gomongodroid
-normal password.
+password: g0mongo1
 
 Release Key
 alias: go_mongo
